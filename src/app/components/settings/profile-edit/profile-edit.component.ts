@@ -9,10 +9,11 @@ import {selectLogin} from "../../../store/auth/auth.selectors";
 import {AuthActions} from "../../../store/auth/auth.actions";
 
 @Component({
-  providers: [DialogService],
-  selector: 'app-profile-edit',
-  templateUrl: './profile-edit.component.html',
-  styleUrls: ['./profile-edit.component.scss']
+    providers: [DialogService],
+    selector: 'app-profile-edit',
+    templateUrl: './profile-edit.component.html',
+    styleUrls: ['./profile-edit.component.scss'],
+    standalone: false
 })
 export class ProfileEditComponent {
   profileForm: FormGroup;

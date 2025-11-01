@@ -5,9 +5,10 @@ import {selectAllArtikelArchiv} from "../../store/archiv/archiv.selectors";
 import {ArtikelArchiv} from "../../entities/artikelarchiv";
 
 @Component({
-  selector: 'app-archiv',
-  templateUrl: './archiv.component.html',
-  styleUrls: ['./archiv.component.scss']
+    selector: 'app-archiv',
+    templateUrl: './archiv.component.html',
+    styleUrls: ['./archiv.component.scss'],
+    standalone: false
 })
 export class ArchivComponent implements OnInit {
   artikels!: ArtikelArchiv[];

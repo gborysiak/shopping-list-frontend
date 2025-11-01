@@ -7,9 +7,10 @@ import {Router} from "@angular/router";
 import {AuthActions} from "../../../store/auth/auth.actions";
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
+    selector: 'app-register',
+    templateUrl: './register.component.html',
+    styleUrls: ['./register.component.scss'],
+    standalone: false
 })
 export class RegisterComponent implements OnInit {
   user?: User;

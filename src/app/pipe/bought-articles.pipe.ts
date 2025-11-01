@@ -2,7 +2,8 @@ import {Pipe, PipeTransform} from '@angular/core';
 import {Artikel} from "../entities/artikel";
 
 @Pipe({
-  name: 'boughtArticles'
+    name: 'boughtArticles',
+    standalone: false
 })
 export class BoughtArticlesPipe implements PipeTransform {
 

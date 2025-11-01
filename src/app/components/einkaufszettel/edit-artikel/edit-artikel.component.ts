@@ -8,9 +8,10 @@ import {EinkaufszettelActions} from "../../../store/einkaufszettel/einkaufszette
 import {ConfirmationService} from "primeng/api";
 
 @Component({
-  selector: 'app-edit-artikel',
-  templateUrl: './edit-artikel.component.html',
-  styleUrls: ['./edit-artikel.component.scss']
+    selector: 'app-edit-artikel',
+    templateUrl: './edit-artikel.component.html',
+    styleUrls: ['./edit-artikel.component.scss'],
+    standalone: false
 })
 export class EditArtikelComponent implements OnInit {
   artikelForm: FormGroup = this.formBuilder.group({

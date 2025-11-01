@@ -8,10 +8,11 @@ import {selectLogin} from "../../../store/auth/auth.selectors";
 import {User} from "../../../entities/user";
 
 @Component({
-  selector: 'app-navigation-links',
-  templateUrl: './navigation-links.component.html',
-  styleUrls: ['./navigation-links.component.scss'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-navigation-links',
+    templateUrl: './navigation-links.component.html',
+    styleUrls: ['./navigation-links.component.scss'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class NavigationLinksComponent implements OnInit {
 

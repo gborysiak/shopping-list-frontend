@@ -11,9 +11,10 @@ import {UserActions} from "../../../store/user/user.actions";
 import {selectAllUsersFriends} from "../../../store/user/user.selectors";
 
 @Component({
-  selector: 'app-einkaufszettel',
-  templateUrl: './edit-einkaufszettel.component.html',
-  styleUrls: ['./edit-einkaufszettel.component.scss']
+    selector: 'app-einkaufszettel',
+    templateUrl: './edit-einkaufszettel.component.html',
+    styleUrls: ['./edit-einkaufszettel.component.scss'],
+    standalone: false
 })
 export class EditEinkaufszettelComponent implements OnInit {
   einkaufszettelForm: FormGroup = this.formBuilder.group({

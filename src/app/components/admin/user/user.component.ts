@@ -10,9 +10,10 @@ import {UserActions} from "../../../store/user/user.actions";
 import {selectAllRoles, selectAllUsers} from "../../../store/user/user.selectors";
 
 @Component({
-  selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+    selector: 'app-user',
+    templateUrl: './user.component.html',
+    styleUrls: ['./user.component.scss'],
+    standalone: false
 })
 export class UserComponent {
   allUsers: User[] = [];

@@ -6,12 +6,11 @@ import {ButtonModule} from "primeng/button";
 import {MessageService} from "primeng/api";
 
 @Component({
-  providers: [DialogService, MessageService],
-  standalone: true,
-  imports: [ButtonModule],
-  selector: 'app-image-cropper',
-  templateUrl: './image-cropper.component.html',
-  styleUrls: ['./image-cropper.component.scss']
+    providers: [DialogService, MessageService],
+    imports: [ButtonModule],
+    selector: 'app-image-cropper',
+    templateUrl: './image-cropper.component.html',
+    styleUrls: ['./image-cropper.component.scss']
 })
 export class ImageCropperComponent implements OnInit, AfterViewInit {
   cropper!: Cropper;

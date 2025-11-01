@@ -3,9 +3,10 @@ import {Action} from "../../../util/action";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-split-button',
-  templateUrl: './split-button.component.html',
-  styleUrls: ['./split-button.component.scss']
+    selector: 'app-split-button',
+    templateUrl: './split-button.component.html',
+    styleUrls: ['./split-button.component.scss'],
+    standalone: false
 })
 export class SplitButtonComponent {
   @Input() actions: Action[] = [];

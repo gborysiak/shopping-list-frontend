@@ -7,9 +7,10 @@ import {Router} from "@angular/router";
 import {AuthActions} from "../../../store/auth/auth.actions";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.scss'],
+    standalone: false
 })
 export class LoginComponent implements OnInit {
   user?: User;

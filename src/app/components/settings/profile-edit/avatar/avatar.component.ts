@@ -7,16 +7,17 @@ import {DialogService, DynamicDialogRef} from "primeng/dynamicdialog";
 import {environment} from "../../../../../environments/environment";
 
 @Component({
-  selector: 'app-avatar',
-  templateUrl: './avatar.component.html',
-  styleUrls: ['./avatar.component.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      multi: true,
-      useExisting: AvatarComponent
-    }
-  ]
+    selector: 'app-avatar',
+    templateUrl: './avatar.component.html',
+    styleUrls: ['./avatar.component.scss'],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            multi: true,
+            useExisting: AvatarComponent
+        }
+    ],
+    standalone: false
 })
 export class AvatarComponent implements OnInit, ControlValueAccessor {
   @Input() image!: Uint8Array | string | undefined;

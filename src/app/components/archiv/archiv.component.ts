@@ -3,6 +3,7 @@ import {Store} from "@ngrx/store";
 import {ArchivActions} from "../../store/archiv/archiv.actions";
 import {selectAllArtikelArchiv} from "../../store/archiv/archiv.selectors";
 import {ArtikelArchiv} from "../../entities/artikelarchiv";
+import {TableModule} from "primeng/table";
 
 @Component({
     selector: 'app-archiv',

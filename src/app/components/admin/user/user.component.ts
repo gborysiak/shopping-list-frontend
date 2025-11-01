@@ -8,6 +8,7 @@ import {Role} from "../../../entities/role";
 import {ROLE_NAME} from "../../../entities/enum/rolename";
 import {UserActions} from "../../../store/user/user.actions";
 import {selectAllRoles, selectAllUsers} from "../../../store/user/user.selectors";
+import { TableModule } from 'primeng/table';
 
 @Component({
     selector: 'app-user',

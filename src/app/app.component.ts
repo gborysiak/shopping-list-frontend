@@ -5,6 +5,7 @@ import {ConfirmationService} from "primeng/api";
 import {AuthActions} from "./store/auth/auth.actions";
 import {selectLogin} from "./store/auth/auth.selectors";
 import {User} from "./entities/user";
+import {ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
     selector: 'app-root',

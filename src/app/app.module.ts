@@ -9,7 +9,7 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {EffectsModule} from '@ngrx/effects';
 import {EinkaufszettelEffects} from "./store/einkaufszettel/einkaufszettel.effects";
 import {einkaufszettelFeature} from "./store/einkaufszettel/einkaufszettel.reducer";
-import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import {CardModule} from "primeng/card";
 import {CheckboxModule} from "primeng/checkbox";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -55,73 +55,66 @@ import {ImageCropperComponent} from './components/common/image-cropper/image-cro
 import {DialogModule} from "primeng/dialog";
 import { AvatarComponent } from './components/settings/profile-edit/avatar/avatar.component';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    EditArtikelComponent,
-    LoginComponent,
-    RegisterComponent,
-    ArchivComponent,
-    EditEinkaufszettelComponent,
-    UserComponent,
-    RegistrationConfirmationComponent,
-    NavigationLinksComponent,
-    SplitButtonComponent,
-    BoughtArticlesPipe,
-    ProfileEditComponent,
-    AvatarComponent
-  ],
-  imports: [
-    // standard angular
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    ReactiveFormsModule,
-
-    // ngrx
-    StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([]),
-    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: !isDevMode()}),
-    EffectsModule.forFeature([EinkaufszettelEffects]),
-    StoreModule.forFeature(einkaufszettelFeature),
-    EffectsModule.forFeature([AuthEffects]),
-    StoreModule.forFeature(authFeature),
-    EffectsModule.forFeature([UserEffects]),
-    StoreModule.forFeature(userFeature),
-    EffectsModule.forFeature([ArchivEffects]),
-    StoreModule.forFeature(archivFeature),
-
-    //primeng
-    ButtonModule,
-    CardModule,
-    CheckboxModule,
-    InputNumberModule,
-    PasswordModule,
-    InputTextModule,
-    PanelModule,
-    MessageModule,
-    MessagesModule,
-    ToastModule,
-    DividerModule,
-    MultiSelectModule,
-    ConfirmDialogModule,
-    TableModule,
-    TooltipModule,
-    FileUploadModule,
-    DialogModule
-  ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    },
-    MessageService, ConfirmationService
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        HomeComponent,
+        EditArtikelComponent,
+        LoginComponent,
+        RegisterComponent,
+        ArchivComponent,
+        EditEinkaufszettelComponent,
+        UserComponent,
+        RegistrationConfirmationComponent,
+        NavigationLinksComponent,
+        SplitButtonComponent,
+        BoughtArticlesPipe,
+        ProfileEditComponent,
+        AvatarComponent
+    ],
+    bootstrap: [AppComponent], imports: [
+        // standard angular
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        // ngrx
+        StoreModule.forRoot({}, {}),
+        EffectsModule.forRoot([]),
+        StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() , connectInZone: true}),
+        EffectsModule.forFeature([EinkaufszettelEffects]),
+        StoreModule.forFeature(einkaufszettelFeature),
+        EffectsModule.forFeature([AuthEffects]),
+        StoreModule.forFeature(authFeature),
+        EffectsModule.forFeature([UserEffects]),
+        StoreModule.forFeature(userFeature),
+        EffectsModule.forFeature([ArchivEffects]),
+        StoreModule.forFeature(archivFeature),
+        //primeng
+        ButtonModule,
+        CardModule,
+        CheckboxModule,
+        InputNumberModule,
+        PasswordModule,
+        InputTextModule,
+        PanelModule,
+        MessageModule,
+        MessagesModule,
+        ToastModule,
+        DividerModule,
+        MultiSelectModule,
+        ConfirmDialogModule,
+        TableModule,
+        TooltipModule,
+        FileUploadModule,
+        DialogModule], providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptor,
+            multi: true
+        },
+        MessageService, ConfirmationService,
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule {
 }

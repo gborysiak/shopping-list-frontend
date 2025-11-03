@@ -5,9 +5,17 @@
   "projects": {
     "shoppinglist": {
       "projectType": "application",
+        "i18n": {
+          "sourceLocale": "de",  // Use your desired locale code
+          "locales": {
+            "fr": {
+              "translation": "src/locale/messages.fr.xlf"
+            }
+          },      
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
+        }
         }
       },
       "root": "",
@@ -20,9 +28,11 @@
             "outputPath": {
               "base": "dist/shoppinglist"
             },
+            "localize": ["fr"],
             "index": "src/index.html",
             "polyfills": [
-              "zone.js"
+              "zone.js",
+              "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
@@ -62,7 +72,10 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
-            }
+            },
+            "fr": {
+                "localize": ["fr"]
+              }
           },
           "defaultConfiguration": "production"
         },
@@ -74,6 +87,9 @@
             },
             "development": {
               "buildTarget": "shoppinglist:build:development"
+            },
+            "fr": {
+              "buildTarget": "shoppinglist:build:development,fr"
             }
           },
           "defaultConfiguration": "development"
@@ -89,7 +105,8 @@
           "options": {
             "polyfills": [
               "zone.js",
-              "zone.js/testing"
+              "zone.js/testing",
+              "@angular/localize/init"
             ],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",

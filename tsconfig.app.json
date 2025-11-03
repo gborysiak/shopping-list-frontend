@@ -4,7 +4,9 @@
   "compilerOptions": {
     "strictPropertyInitialization": false,
     "outDir": "./out-tsc/app",
-    "types": []
+    "types": [
+      "@angular/localize"
+    ]
   },
   "files": [
     "src/main.ts"

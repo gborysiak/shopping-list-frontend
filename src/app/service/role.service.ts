@@ -3,7 +3,7 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import {Observable, retry, throwError} from "rxjs";
 import {environment} from "../../environments/environment";
 import {User} from "../entities/user";
-import {Einkaufszettel} from "../entities/einkaufszettel";
+//import {Einkaufszettel} from "../entities/ShoppingList";
 import {catchError} from "rxjs/operators";
 import {Role} from "../entities/role";
 

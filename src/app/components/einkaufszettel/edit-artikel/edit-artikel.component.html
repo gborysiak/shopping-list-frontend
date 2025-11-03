@@ -5,11 +5,11 @@
     <input class="w-full" id="name" type="text" pInputText formControlName="name"/>
   </div>
 
-  <!-- Anzahl -->
+  <!-- Anzahl / quantity -->
   <div class="mt-2 mb-6">
-    <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="anzahl"> Anzahl* </label>
+    <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="quantity"> Anzahl* </label>
     <div class="w-full">
-      <p-inputNumber id="anzahl" formControlName="anzahl"
+      <p-inputNumber id="quantity" formControlName="quantity"
                      [style]="{'width': '100%'}" [inputStyle]="{'width': '100%'}"
                      [ngStyle]="{'width': '100%'}"></p-inputNumber>
     </div>
@@ -19,11 +19,11 @@
   <div class="flex md:items-center mt-2">
     <button *ngIf="edit" type="button" (click)="delete($event)"
             class="text-gray-600 font-bold underline rounded-lg mr-5 py-2 text-center">
-      Löschen
+      Supprimer
     </button>
     <button type="submit" [disabled]="artikelForm.invalid"
             class="bg-lime-400 rounded-lg px-2 py-2 text-center">
-      Speichern
+      Enregistrer
     </button>
   </div>
 </form>

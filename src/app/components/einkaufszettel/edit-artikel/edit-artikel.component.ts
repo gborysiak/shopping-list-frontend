@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
 import {Store} from "@ngrx/store";
-import {selectArtikelById} from "../../../store/einkaufszettel/einkaufszettel.selectors";
-import {Artikel} from "../../../entities/artikel";
-import {EinkaufszettelActions} from "../../../store/einkaufszettel/einkaufszettel.actions";
+import {selectPartById} from "../../../store/shoppinglist/shoppinglist.selectors";
+import {Part} from "../../../entities/Part";
+import {ShoppingListActions} from "../../../store/shoppinglist/shoppinglist.actions";
 import {ConfirmationService} from "primeng/api";
 
 @Component({
@@ -18,11 +18,11 @@ export class EditArtikelComponent implements OnInit {
     id: [{value: '', disabled: true}, Validators.required],
     name: [{value: ''}, Validators.compose([Validators.required, Validators.minLength(1)])],
     // kategorie: ['', Validators.compose([Validators.required, Validators.minLength(1)])], TODO
-    anzahl: ['', Validators.compose([Validators.required, Validators.min(1), Validators.max(100)])],
-    gekauft: ['', Validators.required]
+    quantity: ['', Validators.compose([Validators.required, Validators.min(1), Validators.max(100)])],
+    purchased: ['', Validators.required]
   });
 
-  einkaufszettelId: number = 0;
+  shoppingId: number = 0; // einkaufszettelId
   edit: boolean = false;
   header: string = '';
 
@@ -30,44 +30,44 @@ export class EditArtikelComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.einkaufszettelId = Number(this.activatedRoute.snapshot.paramMap.get('einkaufszettelId'));
-    const artikelId = Number(this.activatedRoute.snapshot.paramMap.get('artikelId'));
-    if (artikelId > 0) {
-      this.initEdit(artikelId);
+    this.shoppingId = Number(this.activatedRoute.snapshot.paramMap.get('shoppingId'));
+    const partId = Number(this.activatedRoute.snapshot.paramMap.get('partId')); // artikelId
+    if (partId > 0) {
+      this.initEdit(partId);
     } else {
       this.initNew();
     }
   }
 
-  private initEdit(artikelId: number) {
+  private initEdit(partId: number) {
     this.edit = true;
     this.header = 'Artikel bearbeiten';
 
-    this.store.select(selectArtikelById(this.einkaufszettelId, artikelId)).subscribe(artikel => this.artikelForm.patchValue(artikel));
+    this.store.select(selectPartById(this.shoppingId, partId)).subscribe(part => this.artikelForm.patchValue(part));
   }
 
   private initNew() {
-    const emptyArtikel: Artikel = {
+    const emptyPart: Part = {
       id: -1,
       name: '',
-      anzahl: 1,
-      gekauft: false
+      quantity: 1,
+      purchased: false
     };
-    this.artikelForm.patchValue(emptyArtikel);
+    this.artikelForm.patchValue(emptyPart);
   }
 
   save() {
     const formValue = this.artikelForm.getRawValue();
-    const artikel: Artikel = {...formValue};
+    const artikel: Part = {...formValue};
 
     if (this.edit) {
-      this.store.dispatch(EinkaufszettelActions.updateArtikel({
-        einkaufszettelId: this.einkaufszettelId,
+      this.store.dispatch(ShoppingListActions.updatePart({
+        shoppingId: this.shoppingId,
         data: artikel
       }));
     } else {
-      this.store.dispatch(EinkaufszettelActions.createArtikel({
-        einkaufszettelId: this.einkaufszettelId,
+      this.store.dispatch(ShoppingListActions.createPart({
+        shoppingId: this.shoppingId,
         data: artikel
       }));
     }
@@ -75,7 +75,7 @@ export class EditArtikelComponent implements OnInit {
 
   delete(event: Event) {
     const formValue = this.artikelForm.getRawValue();
-    const artikel: Artikel = {...formValue};
+    const part: Part = {...formValue}; // artikel
 
     this.confirmationService.confirm({
       target: event.target as EventTarget,
@@ -88,11 +88,11 @@ export class EditArtikelComponent implements OnInit {
       rejectIcon: "none",
       rejectButtonStyleClass: "p-button-text",
       accept: () => {
-        this.store.dispatch(EinkaufszettelActions.deleteArtikel({
-          einkaufszettelId: this.einkaufszettelId,
-          data: artikel
+        this.store.dispatch(ShoppingListActions.deletePart({
+          shoppingId: this.shoppingId,
+          data: part
         }));
-        this.store.dispatch(EinkaufszettelActions.loadEinkaufszettels());
+        this.store.dispatch(ShoppingListActions.loadShoppingLists());
       }
     });
   }

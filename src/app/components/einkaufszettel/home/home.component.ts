@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
-import {EinkaufszettelActions} from "../../../store/einkaufszettel/einkaufszettel.actions";
-import {selectAllEinkaufszettel} from "../../../store/einkaufszettel/einkaufszettel.selectors";
-import {Artikel} from "../../../entities/artikel";
-import {Einkaufszettel} from "../../../entities/einkaufszettel";
+import {ShoppingListActions} from "../../../store/shoppinglist/shoppinglist.actions";
+import {selectAllShoppingList} from "../../../store/shoppinglist/shoppinglist.selectors";
+import {Part} from "../../../entities/Part";
+import {ShoppingList} from "../../../entities/ShoppingList";
 
 @Component({
     selector: 'app-home',
@@ -12,43 +12,43 @@ import {Einkaufszettel} from "../../../entities/einkaufszettel";
     standalone: false
 })
 export class HomeComponent implements OnInit {
-  einkaufszettel!: Einkaufszettel[];
+  shoppinglists!: ShoppingList[];
 
   constructor(private store: Store) {
   }
 
-  archiviereGekaufteArtikel(einkaufszettel: Einkaufszettel) {
-    this.store.dispatch(EinkaufszettelActions.archiviereArtikel({einkaufszettelId: einkaufszettel.id}));
+  archiviereGekaufteArtikel(shoppinglist: ShoppingList) {
+    this.store.dispatch(ShoppingListActions.archivePart({shoppingId: shoppinglist.id}));
   }
 
   ngOnInit(): void {
-    this.store.dispatch(EinkaufszettelActions.loadEinkaufszettels());
+    this.store.dispatch(ShoppingListActions.loadShoppingLists());
 
-    this.store.select(selectAllEinkaufszettel).subscribe(einkaufszettel => {
-      this.einkaufszettel = JSON.parse(JSON.stringify(einkaufszettel)); // deep copy of store, so that changes are possible
-      this.einkaufszettel.forEach(einkaufszettel => einkaufszettel.einkaufszettelActions = [
-        {label: 'Einstellungen', routerLink: ['/einkaufszettel', einkaufszettel.id], icon: 'fas fa-gear'},
+    this.store.select(selectAllShoppingList).subscribe(einkaufszettel => {
+      this.shoppinglists = JSON.parse(JSON.stringify(einkaufszettel)); // deep copy of store, so that changes are possible
+      this.shoppinglists.forEach(shoppinglist => shoppinglist.shoppingListActions = [
+        {label: 'Parameters', routerLink: ['/einkaufszettel', shoppinglist.id], icon: 'fas fa-gear'},
         {
-          label: 'Gekaufte Artikel archivieren',
-          callback: () => this.archiviereGekaufteArtikel(einkaufszettel),
+          label: 'Archive purchased parts',
+          callback: () => this.archiviereGekaufteArtikel(shoppinglist),
           icon: 'fas fa-box-archive'
         },
       ]);
     });
   }
 
-  changeArtikel(einkaufszettel: Einkaufszettel, artikel: Artikel) {
-    this.store.dispatch(EinkaufszettelActions.updateArtikel({
-      einkaufszettelId: einkaufszettel.id,
-      data: artikel
+  changeArtikel(shoppinglist: ShoppingList, part: Part) {
+    this.store.dispatch(ShoppingListActions.updatePart({
+      shoppingId: shoppinglist.id,
+      data: part
     }));
   }
 
-  changeArtikelGekauft(einkaufszettel: Einkaufszettel, artikel: Artikel) {
-    artikel.gekauft = !artikel.gekauft;
-    this.store.dispatch(EinkaufszettelActions.updateArtikel({
-      einkaufszettelId: einkaufszettel.id,
-      data: artikel
+  changeArtikelGekauft(shoppinglist: ShoppingList, part: Part) {
+    part.purchased = !part.purchased;
+    this.store.dispatch(ShoppingListActions.updatePart({
+      shoppingId: shoppinglist.id,
+      data: part
     }));
   }
 }

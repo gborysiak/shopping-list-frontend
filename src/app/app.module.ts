@@ -7,8 +7,8 @@ import {HomeComponent} from './components/einkaufszettel/home/home.component';
 import {StoreModule} from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {EffectsModule} from '@ngrx/effects';
-import {EinkaufszettelEffects} from "./store/einkaufszettel/einkaufszettel.effects";
-import {einkaufszettelFeature} from "./store/einkaufszettel/einkaufszettel.reducer";
+import {ShoppingListEffects} from "./store/shoppinglist/shoppinglist.effects";
+import {shoppingListReducer} from "./store/shoppinglist/shoppinglist.reducer";
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
 import {CardModule} from "primeng/card";
 import {CheckboxModule} from "primeng/checkbox";
@@ -40,8 +40,9 @@ import {AuthEffects} from "./store/auth/auth.effects";
 import {authFeature} from "./store/auth/auth.reducer";
 import {UserEffects} from "./store/user/user.effects";
 import {userFeature} from "./store/user/user.reducer";
-import {ArchivEffects} from "./store/archiv/archiv.effects";
-import {archivFeature} from "./store/archiv/archiv.reducer";
+import {ArchiveEffects} from "./store/archive/archive.effects";
+import {archiveFeature} from "./store/archive/archive.reducer";
+import { shoppingListFeature } from './store/shoppinglist/shoppinglist.reducer';
 import {NavigationLinksComponent} from './components/common/navigation-links/navigation-links.component';
 import {SplitButtonComponent} from './components/common/split-button/split-button.component';
 import {BoughtArticlesPipe} from './pipe/bought-articles.pipe';
@@ -49,8 +50,10 @@ import {ProfileEditComponent} from './components/settings/profile-edit/profile-e
 import {FileUploadModule} from "primeng/fileupload";
 import {ImageCropperComponent} from './components/common/image-cropper/image-cropper.component';
 import {DialogModule} from "primeng/dialog";
-import {DynamicDialogModule} from 'primeng/dynamicdialog';
-import { AvatarComponent } from './components/settings/profile-edit/avatar/avatar.component';
+import {DialogService, DynamicDialogModule} from 'primeng/dynamicdialog';
+//import { AvatarComponent } from './components/settings/profile-edit/avatar/avatar.component';
+import { providePrimeNG } from 'primeng/config';
+import Aura from '@primeuix/themes/aura';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -65,21 +68,37 @@ import { AvatarComponent } from './components/settings/profile-edit/avatar/avata
         NavigationLinksComponent,
         SplitButtonComponent,
         BoughtArticlesPipe,
-        ProfileEditComponent,
-        AvatarComponent
+        ProfileEditComponent
+        //AvatarComponent
     ],
     bootstrap: [AppComponent], 
     imports: [
-              FormsModule,
+        BrowserModule,
+        StoreModule,
+        //BrowserAnimationsModule,
+        FormsModule,
         ReactiveFormsModule,
         AppRoutingModule,
         CommonModule,
+        // ngrx
+        StoreModule.forRoot({}, {}),
+        EffectsModule.forRoot([]),
+        StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() , connectInZone: true}),
+        EffectsModule.forFeature([ShoppingListEffects]),
+        StoreModule.forFeature(shoppingListFeature),
+        EffectsModule.forFeature([AuthEffects]),
+        StoreModule.forFeature(authFeature),
+        EffectsModule.forFeature([UserEffects]),
+        StoreModule.forFeature(userFeature),
+        EffectsModule.forFeature([ArchiveEffects]),
+        StoreModule.forFeature(archiveFeature),
+
         FileUploadModule,
         PasswordModule,
         TableModule,
         MultiSelectModule,
         CheckboxModule,
-        InputNumberModule, 
+        InputNumberModule,
         DynamicDialogModule,
         ToastModule,
         ConfirmDialogModule 
@@ -90,8 +109,16 @@ import { AvatarComponent } from './components/settings/profile-edit/avatar/avata
             useClass: TokenInterceptor,
             multi: true
         },
-        MessageService, ConfirmationService,
+        MessageService, 
+        ConfirmationService,
+        DialogService,
+        providePrimeNG({
+            theme: {
+                preset: Aura
+            }
+        }),
         provideHttpClient(withInterceptorsFromDi())
     ] })
+    
 export class AppModule {
 }

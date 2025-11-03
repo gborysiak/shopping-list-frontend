@@ -6,7 +6,7 @@ import { UserActions } from './user.actions';
 import {MessageService} from "primeng/api";
 import {Router} from "@angular/router";
 import {AuthService} from "../../service/auth.service";
-import {EinkaufszettelService} from "../../service/einkaufszettel.service";
+import {ShoppingListService} from "../../service/ShoppingList.service";
 import {UserService} from "../../service/user.service";
 import {RoleService} from "../../service/role.service";
 
@@ -101,5 +101,5 @@ export class UserEffects {
   }
 
 
-  constructor(private actions$: Actions, private messageService: MessageService, private router: Router, private loginService: AuthService, private einkaufszettelService: EinkaufszettelService, private userService: UserService, private roleService: RoleService) {}
+  constructor(private actions$: Actions, private messageService: MessageService, private router: Router, private loginService: AuthService, private ShoppingListService: ShoppingListService, private userService: UserService, private roleService: RoleService) {}
 }

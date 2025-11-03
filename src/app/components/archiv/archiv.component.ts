@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
-import {ArchivActions} from "../../store/archiv/archiv.actions";
-import {selectAllArtikelArchiv} from "../../store/archiv/archiv.selectors";
-import {ArtikelArchiv} from "../../entities/artikelarchiv";
+import {ArchiveActions} from "../../store/archive/archive.actions";
+import {selectAllPartArchive} from "../../store/archive/archive.selectors";
+import {PartArchive} from "../../entities/PartArchive";
 import {TableModule} from "primeng/table";
 
 @Component({
@@ -12,14 +12,14 @@ import {TableModule} from "primeng/table";
     standalone: false
 })
 export class ArchivComponent implements OnInit {
-  artikels!: ArtikelArchiv[];
+  partsels!: PartArchive[];
 
   constructor(private store: Store) {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(ArchivActions.loadArchiv());
+    this.store.dispatch(ArchiveActions.loadArchive() );
 
-    this.store.select(selectAllArtikelArchiv).subscribe(artikels => this.artikels = [...artikels]);
+    this.store.select(selectAllPartArchive).subscribe(parts => this.partsels = [...parts]);
   }
 }

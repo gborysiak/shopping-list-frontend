@@ -1,5 +1,5 @@
 <div class="w-full">
-  <div *ngFor="let einkaufszettel of einkaufszettel"
+  <div *ngFor="let einkaufszettel of shoppinglists"
        class="flex-grow-1 bg-gray-50 rounded-lg shadow-lg border-2 m-5">
     <div class="p-3 bg-white">
       <h2 class="flex text-2xl items-baseline">
@@ -8,17 +8,17 @@
                 pTooltip="Neuen Artikel anlegen"
                 class="fas fa-plus ml-2 text-gray-500"></button>
         <div class="grow"></div>
-        <app-split-button [width]="'64'" *ngIf="einkaufszettel.einkaufszettelActions"
-                          [actions]="einkaufszettel.einkaufszettelActions"></app-split-button>
+        <app-split-button [width]="'64'" *ngIf="einkaufszettel.shoppingListActions"
+                          [actions]="einkaufszettel.shoppingListActions"></app-split-button>
       </h2>
 
-      <div class="flex my-1 items-start" *ngFor="let artikel of einkaufszettel.artikels | boughtArticles:false">
+      <div class="flex my-1 items-start" *ngFor="let artikel of einkaufszettel.parts| boughtArticles:false">
         <p-checkbox class="mr-2 mt-1 rounded-full"
-                    [(ngModel)]="artikel.gekauft"
+                    [(ngModel)]="artikel.purchaseDate"
                     [binary]="true"
                     (onChange)="changeArtikel(einkaufszettel, artikel)"></p-checkbox>
 
-        <span class="text-primary font-semibold text-xl text-lime-600 mr-2">{{ artikel.anzahl }}</span>
+        <span class="text-primary font-semibold text-xl text-lime-600 mr-2">{{ artikel.quantity }}</span>
         <span class="text-primary font-semibold text-xl cursor-pointer hover:underline break-all"
               pTooltip="Artikel bearbeiten"
               [routerLink]="['/artikel', einkaufszettel.id, artikel.id]">{{ artikel.name }}</span>
@@ -26,7 +26,7 @@
 
     </div>
 
-    <div *ngIf="(einkaufszettel.artikels | boughtArticles:true) as boughtArticles"
+    <div *ngIf="(einkaufszettel.parts | boughtArticles:true) as boughtArticles"
          class="border-t-2 px-3 bg-gray-50 text-gray-500">
 
       <div class="">
@@ -34,7 +34,7 @@
         <span class="fas fa-check text-primary font-semibold text-xl text-lime-600 mr-3"
               pTooltip="Artikel zurücksetzen"
               (click)="changeArtikelGekauft(einkaufszettel, artikel)"></span>
-          <span class="text-primary font-semibold text-xl text-lime-600 mr-2">{{ artikel.anzahl }}</span>
+          <span class="text-primary font-semibold text-xl text-lime-600 mr-2">{{ artikel.quantity }}</span>
           <span class="text-primary font-semibold text-xl cursor-pointer hover:underline break-all"
                 pTooltip="Artikel bearbeiten"
                 [routerLink]="['/artikel', einkaufszettel.id, artikel.id]">{{ artikel.name }}</span>
@@ -44,7 +44,7 @@
 
   </div>
 
-  <div *ngIf="einkaufszettel.length === 0" class="font-medium">
+  <div *ngIf="shoppinglists.length === 0" class="font-medium">
     <div class="text-gray-500">
       Sie haben noch keinen Einkaufszettel angelegt?
     </div>

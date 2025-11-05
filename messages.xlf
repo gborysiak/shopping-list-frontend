@@ -86,6 +86,10 @@
           <context context-type="sourcefile">src/app/components/auth/login/login.component.html</context>
           <context context-type="linenumber">23,24</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/auth/register/register.component.html</context>
+          <context context-type="linenumber">40,41</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="1908285951500318953" datatype="html">
         <source> Login </source>
@@ -106,6 +110,76 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/components/auth/login/login.component.html</context>
           <context context-type="linenumber">34,35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5208020128963302152" datatype="html">
+        <source>Benutzername *</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/auth/register/register.component.html</context>
+          <context context-type="linenumber">4,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7314136762701769725" datatype="html">
+        <source>Passwort *</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/auth/register/register.component.html</context>
+          <context context-type="linenumber">10,11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1078967409768869900" datatype="html">
+        <source> Name * </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/auth/register/register.component.html</context>
+          <context context-type="linenumber">23,24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6962005117491254521" datatype="html">
+        <source> E-Mail * </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/auth/register/register.component.html</context>
+          <context context-type="linenumber">31,32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2721806142807617942" datatype="html">
+        <source> Registrieren </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/auth/register/register.component.html</context>
+          <context context-type="linenumber">45,46</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="back" datatype="html">
+        <source> Zurück zum </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/auth/register/register.component.html</context>
+          <context context-type="linenumber">50,51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="login" datatype="html">
+        <source>Login</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/components/auth/register/register.component.html</context>
+          <context context-type="linenumber">51,55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4987318593615176260" datatype="html">
+        <source>Fehler beim Speichern! </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/service/auth.service.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3028170965794980964" datatype="html">
+        <source>Die Registrierung war erfolgreich! Der Bestätigungslink wurde per E-Mail versandt.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/store/auth/auth.effects.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7975421958082695011" datatype="html">
+        <source>Der Benutzername oder das Passwort sind falsch! Bitte überprüfen Sie Ihre Eingaben.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/store/auth/auth.effects.ts</context>
+          <context context-type="linenumber">84</context>
         </context-group>
       </trans-unit>
     </body>

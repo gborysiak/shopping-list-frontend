@@ -1,4 +1,4 @@
 export const environment = {
-  production: false,
+  production: true,
   webserviceurl: "https://localhost:7279/api"
 };

@@ -1,4 +1,4 @@
-import {isDevMode, NgModule} from '@angular/core';
+import {isDevMode, NgModule, ErrorHandler} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import {AppRoutingModule} from './app-routing.module';
@@ -14,13 +14,11 @@ import {CardModule} from "primeng/card";
 import {CheckboxModule} from "primeng/checkbox";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {PanelModule} from "primeng/panel";
-//import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {EditArtikelComponent} from './components/einkaufszettel/edit-artikel/edit-artikel.component';
 import {InputNumberModule} from "primeng/inputnumber";
 import {ButtonModule} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
-import {MessageModule} from "primeng/message";
-//import {MessagesModule} from "primeng/messages";
+import {Message, MessageModule} from "primeng/message";
 import {LoginComponent} from './components/auth/login/login.component';
 import {TokenInterceptor} from "./interceptor/token-interceptor.service";
 import {PasswordModule} from "primeng/password";
@@ -54,6 +52,9 @@ import {DialogService, DynamicDialogModule} from 'primeng/dynamicdialog';
 //import { AvatarComponent } from './components/settings/profile-edit/avatar/avatar.component';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
+///import { ErrorInterceptor } from './interceptor/ErrorInterceptor.service';
+//import { GlobalErrorHandler } from './core/globalErrorHandler';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 @NgModule({ declarations: [
         AppComponent,
@@ -75,6 +76,7 @@ import Aura from '@primeuix/themes/aura';
     imports: [
         BrowserModule,
         StoreModule,
+       
         //BrowserAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
@@ -101,14 +103,26 @@ import Aura from '@primeuix/themes/aura';
         InputNumberModule,
         DynamicDialogModule,
         ToastModule,
-        ConfirmDialogModule 
+        ConfirmDialogModule,
+        MessageModule
           ], 
         providers: [
+             provideAnimations(),
         {
             provide: HTTP_INTERCEPTORS,
             useClass: TokenInterceptor,
             multi: true
         },
+        /* 
+        { 
+            provide: ErrorHandler, 
+            useClass: GlobalErrorHandler 
+        },
+        { 
+            provide: HTTP_INTERCEPTORS, 
+            useClass: ErrorInterceptor, 
+            multi: true 
+        }, */
         MessageService, 
         ConfirmationService,
         DialogService,
@@ -118,7 +132,7 @@ import Aura from '@primeuix/themes/aura';
             }
         }),
         provideHttpClient(withInterceptorsFromDi())
-    ] })
+        ]})
     
 export class AppModule {
 }

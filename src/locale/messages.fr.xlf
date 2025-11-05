@@ -1,122 +1,234 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-  <file source-language="en-US" datatype="plaintext" original="ng2.template">
-    <body>
-      <trans-unit id="7451920805487441410" datatype="html">
-        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;fas fa-gear&quot;&gt;"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> Einstellungen </source>
+	<file source-language="en-US" datatype="plaintext" original="ng2.template">
+		<body>
+			<trans-unit id="7451920805487441410" datatype="html">
+				<source>
+					<x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span class=&quot;fas fa-gear&quot;&gt;"/>
+					<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> Einstellungen </source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/app.component.html</context>
+					<context context-type="linenumber">46,47</context>
+				</context-group>
+				<target>Paramètres</target>
+			</trans-unit>
+			<trans-unit id="4374058935061253037" datatype="html">
+				<source>
+					<x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span                 class=&quot;fas fa-arrow-right-from-bracket&quot;&gt;"/>
+					<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> Ausloggen </source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/app.component.html</context>
+					<context context-type="linenumber">49,50</context>
+				</context-group>
+				<target>Se déconnecter</target>
+			</trans-unit>
+			<trans-unit id="7469495728523907203" datatype="html">
+				<source> Bild </source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/admin/user/user.component.html</context>
+					<context context-type="linenumber">13</context>
+				</context-group>
+				<target>Image</target>
+			</trans-unit>
+			<trans-unit id="1361403379356865969" datatype="html">
+				<source> Username <x id="START_TAG_P_SORTICON" ctype="x-p_sorticon" equiv-text="&lt;p-sortIcon field=&quot;username&quot;/&gt;"/>
+					<x id="CLOSE_TAG_P_SORTICON" ctype="x-p_sorticon" equiv-text="&lt;p-sortIcon field=&quot;username&quot;/&gt;"/>
+				</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/admin/user/user.component.html</context>
+					<context context-type="linenumber">16,19</context>
+				</context-group>
+				<target>Utilisateur</target>
+			</trans-unit>
+			<trans-unit id="4400683222290877455" datatype="html">
+				<source> Name <x id="START_TAG_P_SORTICON" ctype="x-p_sorticon" equiv-text="&lt;p-sortIcon field=&quot;name&quot;/&gt;"/>
+					<x id="CLOSE_TAG_P_SORTICON" ctype="x-p_sorticon" equiv-text="&lt;p-sortIcon field=&quot;name&quot;/&gt;"/>
+				</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/admin/user/user.component.html</context>
+					<context context-type="linenumber">20,23</context>
+				</context-group>
+				<target>Nom</target>
+			</trans-unit>
+			<trans-unit id="6222107713972885025" datatype="html">
+				<source> E-Mail <x id="START_TAG_P_SORTICON" ctype="x-p_sorticon" equiv-text="&lt;p-sortIcon field=&quot;email&quot;/&gt;"/>
+					<x id="CLOSE_TAG_P_SORTICON" ctype="x-p_sorticon" equiv-text="&lt;p-sortIcon field=&quot;email&quot;/&gt;"/>
+				</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/admin/user/user.component.html</context>
+					<context context-type="linenumber">24,27</context>
+				</context-group>
+				<target>Email</target>
+			</trans-unit>
+			<trans-unit id="3066469348249884527" datatype="html">
+				<source> Rollen <x id="START_TAG_P_SORTICON" ctype="x-p_sorticon" equiv-text="&lt;p-sortIcon field=&quot;roles&quot;/&gt;"/>
+					<x id="CLOSE_TAG_P_SORTICON" ctype="x-p_sorticon" equiv-text="&lt;p-sortIcon field=&quot;roles&quot;/&gt;"/>
+				</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/admin/user/user.component.html</context>
+					<context context-type="linenumber">28,31</context>
+				</context-group>
+				<target>Rôles</target>
+			</trans-unit>
+			<trans-unit id="3850381922376558442" datatype="html">
+				<source> Erstellt am <x id="START_TAG_P_SORTICON" ctype="x-p_sorticon" equiv-text="&lt;p-sortIcon field=&quot;createdAt&quot;/&gt;"/>
+					<x id="CLOSE_TAG_P_SORTICON" ctype="x-p_sorticon" equiv-text="&lt;p-sortIcon field=&quot;createdAt&quot;/&gt;"/>
+				</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/admin/user/user.component.html</context>
+					<context context-type="linenumber">32,35</context>
+				</context-group>
+				<target>Date de création</target>
+			</trans-unit>
+			<trans-unit id="2684713365751547442" datatype="html">
+				<source> Zuletzt eingeloggt am <x id="START_TAG_P_SORTICON" ctype="x-p_sorticon" equiv-text="&lt;p-sortIcon field=&quot;lastLoggedIn&quot;/&gt;"/>
+					<x id="CLOSE_TAG_P_SORTICON" ctype="x-p_sorticon" equiv-text="&lt;p-sortIcon field=&quot;lastLoggedIn&quot;/&gt;"/>
+				</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/admin/user/user.component.html</context>
+					<context context-type="linenumber">36,39</context>
+				</context-group>
+				<target>Dernière connexion</target>
+			</trans-unit>
+			<trans-unit id="4541257274120119499" datatype="html">
+				<source>Benutzername</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/auth/login/login.component.html</context>
+					<context context-type="linenumber">4,5</context>
+				</context-group>
+				<target>Utilisateur</target>
+			</trans-unit>
+			<trans-unit id="6057821346666596338" datatype="html">
+				<source>Passwort</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/auth/login/login.component.html</context>
+					<context context-type="linenumber">10,11</context>
+				</context-group>
+				<target>Mot de passe</target>
+			</trans-unit>
+			<trans-unit id="6247218994542548794" datatype="html">
+				<source> Zurücksetzen </source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/auth/login/login.component.html</context>
+					<context context-type="linenumber">23,24</context>
+				</context-group>
+				<target>Réinitialiser</target>
+			</trans-unit>
+			<trans-unit id="1908285951500318953" datatype="html">
+				<source> Login </source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/auth/login/login.component.html</context>
+					<context context-type="linenumber">28,29</context>
+				</context-group>
+				<target>Se connecter</target>
+			</trans-unit>
+			<trans-unit id="1437330757400549702" datatype="html">
+				<source>Haben Sie noch keinen Account?</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/auth/login/login.component.html</context>
+					<context context-type="linenumber">33,34</context>
+				</context-group>
+				<target>Pas encore de compte ?</target>
+			</trans-unit>
+			<trans-unit id="6142745228522688571" datatype="html">
+				<source>Registrieren!</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/auth/login/login.component.html</context>
+					<context context-type="linenumber">34,35</context>
+				</context-group>
+				<target>Enregistrez-vous!</target>
+			</trans-unit>
+			<trans-unit id="5208020128963302152" datatype="html">
+				<source>Benutzername *</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/auth/register/register.component.html</context>
+					<context context-type="linenumber">4,5</context>
+				</context-group>
+				<target>Utilisateur *</target>
+			</trans-unit>
+			<trans-unit id="7314136762701769725" datatype="html">
+				<source>Passwort *</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/auth/register/register.component.html</context>
+					<context context-type="linenumber">10,11</context>
+				</context-group>
+				<target>Mot de passe *</target>
+			</trans-unit>
+			<trans-unit id="1078967409768869900" datatype="html">
+				<source> Name * </source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/auth/register/register.component.html</context>
+					<context context-type="linenumber">23,24</context>
+				</context-group>
+				<target> Nom * </target>
+			</trans-unit>
+			<trans-unit id="6962005117491254521" datatype="html">
+				<source> E-Mail * </source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/auth/register/register.component.html</context>
+					<context context-type="linenumber">31,32</context>
+				</context-group>
+				<target>  Email * </target>
+			</trans-unit>
+			<trans-unit id="2721806142807617942" datatype="html">
+				<source> Registrieren </source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/auth/register/register.component.html</context>
+					<context context-type="linenumber">45,46</context>
+				</context-group>
+				<target> Enregistrement </target>
+			</trans-unit>
+			<trans-unit id="2454050363478003966" datatype="html">
+				<source>Login</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/auth/register/register.component.html</context>
+					<context context-type="linenumber">51,52</context>
+				</context-group>
+				<target>Connexion</target>
+			</trans-unit>
+			<trans-unit id="back" datatype="html">
+				<source> Zurück zum </source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/auth/register/register.component.html</context>
+					<context context-type="linenumber">50,51</context>
+				</context-group>
+				<target> Retourner à la page de </target>
+			</trans-unit>
+			<trans-unit id="login" datatype="html">
+				<source>Login</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/auth/register/register.component.html</context>
+					<context context-type="linenumber">51,54</context>
+				</context-group>
+				<target>Connexion</target>
+			</trans-unit>
+      <trans-unit id="4987318593615176260" datatype="html">
+        <source>Fehler beim Speichern! </source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">46,47</context>
+          <context context-type="sourcefile">src/app/service/auth.service.ts</context>
+          <context context-type="linenumber">26</context>
         </context-group>
-      <target>Paramètres</target></trans-unit>
-      <trans-unit id="4374058935061253037" datatype="html">
-        <source><x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span                 class=&quot;fas fa-arrow-right-from-bracket&quot;&gt;"/><x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> Ausloggen </source>
+				<target>Erreur lors de l'enregistrement ! </target>
+			</trans-unit>
+      <trans-unit id="3028170965794980964" datatype="html">
+        <source>Die Registrierung war erfolgreich! Der Bestätigungslink wurde per E-Mail versandt.</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/app.component.html</context>
-          <context context-type="linenumber">49,50</context>
+          <context context-type="sourcefile">src/app/store/auth/auth.effects.ts</context>
+          <context context-type="linenumber">32</context>
         </context-group>
-      <target>Se déconnecter</target></trans-unit>
-      <trans-unit id="7469495728523907203" datatype="html">
-        <source> Bild </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/admin/user/user.component.html</context>
-          <context context-type="linenumber">13</context>
-        </context-group>
-      <target>Image</target></trans-unit>
-      <trans-unit id="1361403379356865969" datatype="html">
-        <source> Username <x id="START_TAG_P_SORTICON" ctype="x-p_sorticon" equiv-text="&lt;p-sortIcon field=&quot;username&quot;/&gt;"/><x id="CLOSE_TAG_P_SORTICON" ctype="x-p_sorticon" equiv-text="&lt;p-sortIcon field=&quot;username&quot;/&gt;"/></source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/admin/user/user.component.html</context>
-          <context context-type="linenumber">16,19</context>
-        </context-group>
-      <target>Utilisateur</target></trans-unit>
-      <trans-unit id="4400683222290877455" datatype="html">
-        <source> Name <x id="START_TAG_P_SORTICON" ctype="x-p_sorticon" equiv-text="&lt;p-sortIcon field=&quot;name&quot;/&gt;"/><x id="CLOSE_TAG_P_SORTICON" ctype="x-p_sorticon" equiv-text="&lt;p-sortIcon field=&quot;name&quot;/&gt;"/></source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/admin/user/user.component.html</context>
-          <context context-type="linenumber">20,23</context>
-        </context-group>
-      <target>Nom</target></trans-unit>
-      <trans-unit id="6222107713972885025" datatype="html">
-        <source> E-Mail <x id="START_TAG_P_SORTICON" ctype="x-p_sorticon" equiv-text="&lt;p-sortIcon field=&quot;email&quot;/&gt;"/><x id="CLOSE_TAG_P_SORTICON" ctype="x-p_sorticon" equiv-text="&lt;p-sortIcon field=&quot;email&quot;/&gt;"/></source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/admin/user/user.component.html</context>
-          <context context-type="linenumber">24,27</context>
-        </context-group>
-      <target>Email</target></trans-unit>
-      <trans-unit id="3066469348249884527" datatype="html">
-        <source> Rollen <x id="START_TAG_P_SORTICON" ctype="x-p_sorticon" equiv-text="&lt;p-sortIcon field=&quot;roles&quot;/&gt;"/><x id="CLOSE_TAG_P_SORTICON" ctype="x-p_sorticon" equiv-text="&lt;p-sortIcon field=&quot;roles&quot;/&gt;"/></source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/admin/user/user.component.html</context>
-          <context context-type="linenumber">28,31</context>
-        </context-group>
-      <target>Rôles</target></trans-unit>
-      <trans-unit id="3850381922376558442" datatype="html">
-        <source> Erstellt am <x id="START_TAG_P_SORTICON" ctype="x-p_sorticon" equiv-text="&lt;p-sortIcon field=&quot;createdAt&quot;/&gt;"/><x id="CLOSE_TAG_P_SORTICON" ctype="x-p_sorticon" equiv-text="&lt;p-sortIcon field=&quot;createdAt&quot;/&gt;"/></source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/admin/user/user.component.html</context>
-          <context context-type="linenumber">32,35</context>
-        </context-group>
-      <target>Date de création</target>
-	  </trans-unit>
-      <trans-unit id="2684713365751547442" datatype="html">
-        <source> Zuletzt eingeloggt am <x id="START_TAG_P_SORTICON" ctype="x-p_sorticon" equiv-text="&lt;p-sortIcon field=&quot;lastLoggedIn&quot;/&gt;"/><x id="CLOSE_TAG_P_SORTICON" ctype="x-p_sorticon" equiv-text="&lt;p-sortIcon field=&quot;lastLoggedIn&quot;/&gt;"/></source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/admin/user/user.component.html</context>
-          <context context-type="linenumber">36,39</context>
-        </context-group>
-      <target>Dernière connexion</target>
-	       </trans-unit>
-     <trans-unit id="4541257274120119499" datatype="html">
-        <source>Benutzername</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/auth/login/login.component.html</context>
-          <context context-type="linenumber">4,5</context>
-        </context-group>
-		<target>Utilisateur</target>
+		<target>L'inscription a été effectuée avec succès ! Le lien de confirmation vous a été envoyé par e-mail.</target>
       </trans-unit>
-      <trans-unit id="6057821346666596338" datatype="html">
-        <source>Passwort</source>
+      <trans-unit id="7975421958082695011" datatype="html">
+        <source>Der Benutzername oder das Passwort sind falsch! Bitte überprüfen Sie Ihre Eingaben.</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/auth/login/login.component.html</context>
-          <context context-type="linenumber">10,11</context>
+          <context context-type="sourcefile">src/app/store/auth/auth.effects.ts</context>
+          <context context-type="linenumber">84</context>
         </context-group>
-		<target>Mot de passe</target>
+		<target>Le nom d'utilisateur ou le mot de passe est incorrect ! Veuillez vérifier vos saisies.</target>
       </trans-unit>
-      <trans-unit id="6247218994542548794" datatype="html">
-        <source> Zurücksetzen </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/auth/login/login.component.html</context>
-          <context context-type="linenumber">23,24</context>
-        </context-group>
-		<target>Réinitialiser</target>
-      </trans-unit>
-      <trans-unit id="1908285951500318953" datatype="html">
-        <source> Login </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/auth/login/login.component.html</context>
-          <context context-type="linenumber">28,29</context>
-        </context-group>
-		<target>Se connecter</target>
-      </trans-unit>
-      <trans-unit id="1437330757400549702" datatype="html">
-        <source>Haben Sie noch keinen Account?</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/auth/login/login.component.html</context>
-          <context context-type="linenumber">33,34</context>
-        </context-group>
-		<target>Pas encore de compte ?</target>
-      </trans-unit>
-      <trans-unit id="6142745228522688571" datatype="html">
-        <source>Registrieren!</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/components/auth/login/login.component.html</context>
-          <context context-type="linenumber">34,35</context>
-        </context-group>
-		<target>Enregistrez-vous!</target>
-      </trans-unit>
-    </body>
-  </file>
+		</body>
+	</file>
 </xliff>
+
 
 	

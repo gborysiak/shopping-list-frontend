@@ -4,12 +4,12 @@ import { CommonModule } from '@angular/common';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {HomeComponent} from './components/einkaufszettel/home/home.component';
-import {StoreModule} from '@ngrx/store';
+import {StoreModule, provideStore } from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {EffectsModule} from '@ngrx/effects';
 import {ShoppingListEffects} from "./store/shoppinglist/shoppinglist.effects";
 import {shoppingListReducer} from "./store/shoppinglist/shoppinglist.reducer";
-import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi,HttpClient  } from "@angular/common/http";
 import {CardModule} from "primeng/card";
 import {CheckboxModule} from "primeng/checkbox";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -55,6 +55,17 @@ import Aura from '@primeuix/themes/aura';
 ///import { ErrorInterceptor } from './interceptor/ErrorInterceptor.service';
 //import { GlobalErrorHandler } from './core/globalErrorHandler';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { TranslateModule, TranslateLoader, provideTranslateCompiler } from '@ngx-translate/core';
+import { provideTranslateHttpLoader, } from '@ngx-translate/http-loader';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { JsonFileLoader } from './util/JsonLoader';
+import { CustomHttpLoader } from './util/CustomHttpLoader';
+import { provideStoreDevtools  } from '@ngrx/store-devtools';
+
+export function HttpLoaderFactory(http: HttpClient) {
+        return new JsonFileLoader();
+        //return new CustomHttpLoader(http);
+}
 
 @NgModule({ declarations: [
         AppComponent,
@@ -76,6 +87,13 @@ import { provideAnimations } from '@angular/platform-browser/animations';
     imports: [
         BrowserModule,
         StoreModule,
+        TranslateModule.forRoot({
+            loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [HttpClient]
+            }
+            }),
        
         //BrowserAnimationsModule,
         FormsModule,
@@ -94,7 +112,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
         StoreModule.forFeature(userFeature),
         EffectsModule.forFeature([ArchiveEffects]),
         StoreModule.forFeature(archiveFeature),
-
+   
         FileUploadModule,
         PasswordModule,
         TableModule,
@@ -105,6 +123,15 @@ import { provideAnimations } from '@angular/platform-browser/animations';
         ToastModule,
         ConfirmDialogModule,
         MessageModule
+        //TranslateModule, /*<--- Don't forget to import this too*/
+        /*
+        TranslateModule.forRoot({
+           loader: provideTranslateHttpLoader({
+            prefix: '/assets/i18n/',
+            suffix: '.json'}),
+           fallbackLang: 'fr',
+           lang: 'fr'
+        })*/
           ], 
         providers: [
              provideAnimations(),
@@ -131,7 +158,9 @@ import { provideAnimations } from '@angular/platform-browser/animations';
                 preset: Aura
             }
         }),
-        provideHttpClient(withInterceptorsFromDi())
+        provideHttpClient(withInterceptorsFromDi()),
+        provideStore(),
+        provideStoreDevtools()
         ]})
     
 export class AppModule {

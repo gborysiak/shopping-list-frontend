@@ -25,7 +25,7 @@ export class TokenInterceptor implements HttpInterceptor {
     if (!this.router.isActive('/login', options) && !this.router.isActive('/register', options) && !this.router.isActive('/registration-confirmation', options)) {
       if (!this.auth.isLoginStateValid()) {
         this.router.navigateByUrl('/login')
-        return throwError(() => new Error($localize `Token nicht mehr valide!`));
+        return throwError(() => new Error('Token nicht mehr valide!'));
       }
 
       if (!request.url.endsWith('refresh-token')) {

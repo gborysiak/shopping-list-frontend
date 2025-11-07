@@ -29,7 +29,7 @@ export class AuthEffects {
         this.messageService.clear();
         this.messageService.add({
           severity: 'success',
-          summary: $localize `Die Registrierung war erfolgreich! Der Bestätigungslink wurde per E-Mail versandt.`
+          summary: 'Die Registrierung war erfolgreich! Der Bestätigungslink wurde per E-Mail versandt.'
         });
         this.router.navigateByUrl("/login");
       }),
@@ -85,7 +85,7 @@ export class AuthEffects {
         this.messageService.clear();
         this.messageService.add({
           severity: 'error',
-          summary: $localize `Der Benutzername oder das Passwort sind falsch! Bitte überprüfen Sie Ihre Eingaben.`
+          summary:  'Der Benutzername oder das Passwort sind falsch! Bitte überprüfen Sie Ihre Eingaben.'
         });
       }),
     ), {dispatch: false});

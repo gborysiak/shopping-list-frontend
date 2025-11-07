@@ -6,7 +6,7 @@ export interface ShoppingList {
   id: number;
   name: string;
   parts?: Part[]; //artikels
-  owners: User[];
-  sharedWith: User[];
-  shoppingListActions?: Action[]; //einkaufszettelActions
+  //owners: User[];
+  //sharedWith: User[];
+  //shoppingListActions?: Action[]; //einkaufszettelActions
 }

@@ -1,0 +1,47 @@
+{
+    "app": {
+        "hello": "hellofr",
+        "title": "Translation Demo"
+    },
+    "login": {
+        "user": "Benutzername",
+        "password": "Passwort",
+        "reset": "Zurücksetzen",
+        "login": "Login",
+        "text1": "Haben Sie noch keinen Account?",
+        "text2": "Registrierung"
+    },
+    "register": {
+        "user": "Benutzername *",
+        "password": "Passwort *",
+        "name" : "Name *",
+        "email" : "E-Mail *",
+        "reset": "Zurücksetzen",
+        "submit" : "Registrieren",
+        "back": "Zurück zum",
+        "login": "Login"
+    },
+    "navigation-link": {
+        "home" : " Übersicht ",
+        "shoppinglist" : " Einkaufszettel ",
+        "archive" : " Archiv ",
+        "user" : " Userverwaltung "
+    },
+    "home" : {
+      "text1" : "Sie haben noch keinen Einkaufszettel angelegt?",
+      "text2" : "Neuen Einkaufszettel anlegen"
+    },
+    "shoppinglist" : {
+      "name": "Name *",
+      "friends" : "Besitzer",
+      "share" : "Personen mit Zugriff",
+      "delete" : " Löschen ",
+      "submit" : " Speichern " 
+    },
+    "authservice": {
+      "error" : "Fehler beim Speichern!"
+    },
+    "shoppinglistservice" : {
+      "error" : "Fehler beim Speichern!"
+    }
+  }

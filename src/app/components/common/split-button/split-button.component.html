@@ -10,20 +10,21 @@
     </button>
   </div>
 
-  <div
-    *ngIf="isOpen"
-    [ngClass]="'absolute right-0 mt-2 rounded-lg shadow-lg border-2 bg-white z-30'">
-    <div class="py-1">
-      <ng-container *ngFor="let action of actions">
-        <button
-          routerLink
-          (click)="executeAction(action)"
-          [ngClass]="'w-' + width + ' block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left'"
-          role="menuitem">
-          <span [class]="action.icon"></span>
-          {{ action.label }}
-        </button>
-      </ng-container>
+  @if (isOpen) {
+    <div
+      [ngClass]="'absolute right-0 mt-2 rounded-lg shadow-lg border-2 bg-white z-30'">
+      <div class="py-1">
+        @for (action of actions; track action) {
+          <button
+            routerLink
+            (click)="executeAction(action)"
+            [ngClass]="'w-' + width + ' block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left'"
+            role="menuitem">
+            <span [class]="action.icon"></span>
+            {{ action.label }}
+          </button>
+        }
+      </div>
     </div>
-  </div>
+  }
 </div>

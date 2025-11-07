@@ -55,8 +55,8 @@ export class EditEinkaufszettelComponent implements OnInit {
     const einkaufszettel: ShoppingList = {
       id: -1,
       name: '',
-      owners: [],
-      sharedWith: []
+     // owners: [],
+     // sharedWith: []
     };
     this.einkaufszettelForm.patchValue(einkaufszettel);
   }
@@ -64,6 +64,7 @@ export class EditEinkaufszettelComponent implements OnInit {
   save() {
     const formValue = this.einkaufszettelForm.getRawValue();
     const einkaufszettel: ShoppingList = {...formValue};
+
 
     if (this.edit) {
       this.store.dispatch(ShoppingListActions.updateShoppingList({data: einkaufszettel}));

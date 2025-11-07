@@ -23,9 +23,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(ShoppingListActions.loadShoppingLists());
-
-    this.store.select(selectAllShoppingList).subscribe(einkaufszettel => {
-      this.shoppinglists = JSON.parse(JSON.stringify(einkaufszettel)); // deep copy of store, so that changes are possible
+    
+    this.store.select(selectAllShoppingList).subscribe(shoppinglist => {
+      console.log('nb ' + shoppinglist.length);
+      this.shoppinglists = JSON.parse(JSON.stringify(shoppinglist)); // deep copy of store, so that changes are possible
+      console.log('nb 2  ' + this.shoppinglists.length);
+      /* a revoir
       this.shoppinglists.forEach(shoppinglist => shoppinglist.shoppingListActions = [
         {label: 'Parameters', routerLink: ['/einkaufszettel', shoppinglist.id], icon: 'fas fa-gear'},
         {
@@ -34,6 +37,7 @@ export class HomeComponent implements OnInit {
           icon: 'fas fa-box-archive'
         },
       ]);
+      */
     });
   }
 

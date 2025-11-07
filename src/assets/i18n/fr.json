@@ -1,0 +1,47 @@
+{
+    "app": {
+      "hello": "hellofr",
+      "title": "Translation Demo"
+    },
+    "login": {
+      "user": "Utilisateur",
+      "password": "Mot de passe",
+      "reset": "Réinitialiser",
+      "login": "Se connecter",
+      "text1": "Vous n'avez pas encore de compte ?",
+      "text2": "Enregistrez-vous"
+    },
+    "register": {
+      "user": "Utilisateur *",
+      "password": "Mot de passe *",
+      "name" : "Nom *",
+      "email" : "Email *",
+      "reset": "Réinitialiser",
+      "submit" : "Enregistrer",
+      "back" : "Retour",
+      "login": "Se connecter"
+    },
+    "navigation-link": {
+      "home" : " Accueil ",
+      "shoppinglist" : " Liste de course ",
+      "archive" : " Archive ",
+      "user" : " Utilisateur "
+    },
+    "home" : {
+      "text1" : "Vous n'avez pas encore créé de liste d'achats ?",
+      "text2" : "Créez une nouvelle liste de courses"
+    },
+    "shoppinglist" : {
+      "name": "Nom *",
+      "friends" : "Propriétaire",
+      "share" : "Personnes ayant accès",
+      "delete" : " Supprimer ",
+      "submit" : " Enregistrer"
+    },
+    "authservice": {
+      "error" : "Erreur lors de l'enregistrement !"
+    },
+    "shoppinglistservice" : {
+      "error" : "Erreur lors de l'enregistrement !"
+    }
+}

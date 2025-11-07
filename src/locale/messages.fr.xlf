@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
-	<file source-language="en-US" datatype="plaintext" original="ng2.template">
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+	<file source-language="de" datatype="plaintext" original="ng2.template">
 		<body>
 			<trans-unit id="7451920805487441410" datatype="html">
 				<source>
@@ -8,17 +8,18 @@
 					<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> Einstellungen </source>
 				<context-group purpose="location">
 					<context context-type="sourcefile">src/app/app.component.html</context>
-					<context context-type="linenumber">46,47</context>
+					<context context-type="linenumber">50,51</context>
 				</context-group>
 				<target>Paramètres</target>
 			</trans-unit>
 			<trans-unit id="4374058935061253037" datatype="html">
 				<source>
-					<x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span                 class=&quot;fas fa-arrow-right-from-bracket&quot;&gt;"/>
+					<x id="START_TAG_SPAN" ctype="x-span" equiv-text="&lt;span
+                class=&quot;fas fa-arrow-right-from-bracket&quot;&gt;"/>
 					<x id="CLOSE_TAG_SPAN" ctype="x-span" equiv-text="&lt;/span&gt;"/> Ausloggen </source>
 				<context-group purpose="location">
 					<context context-type="sourcefile">src/app/app.component.html</context>
-					<context context-type="linenumber">49,50</context>
+					<context context-type="linenumber">53,54</context>
 				</context-group>
 				<target>Se déconnecter</target>
 			</trans-unit>
@@ -26,7 +27,7 @@
 				<source> Bild </source>
 				<context-group purpose="location">
 					<context context-type="sourcefile">src/app/components/admin/user/user.component.html</context>
-					<context context-type="linenumber">13</context>
+					<context context-type="linenumber">13,14</context>
 				</context-group>
 				<target>Image</target>
 			</trans-unit>
@@ -112,6 +113,10 @@
 					<context context-type="sourcefile">src/app/components/auth/login/login.component.html</context>
 					<context context-type="linenumber">23,24</context>
 				</context-group>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/auth/register/register.component.html</context>
+					<context context-type="linenumber">40,41</context>
+				</context-group>
 				<target>Réinitialiser</target>
 			</trans-unit>
 			<trans-unit id="1908285951500318953" datatype="html">
@@ -178,14 +183,6 @@
 				</context-group>
 				<target> Enregistrement </target>
 			</trans-unit>
-			<trans-unit id="2454050363478003966" datatype="html">
-				<source>Login</source>
-				<context-group purpose="location">
-					<context context-type="sourcefile">src/app/components/auth/register/register.component.html</context>
-					<context context-type="linenumber">51,52</context>
-				</context-group>
-				<target>Connexion</target>
-			</trans-unit>
 			<trans-unit id="back" datatype="html">
 				<source> Zurück zum </source>
 				<context-group purpose="location">
@@ -198,37 +195,144 @@
 				<source>Login</source>
 				<context-group purpose="location">
 					<context context-type="sourcefile">src/app/components/auth/register/register.component.html</context>
-					<context context-type="linenumber">51,54</context>
+					<context context-type="linenumber">51,55</context>
 				</context-group>
 				<target>Connexion</target>
 			</trans-unit>
-      <trans-unit id="4987318593615176260" datatype="html">
-        <source>Fehler beim Speichern! </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/service/auth.service.ts</context>
-          <context context-type="linenumber">26</context>
-        </context-group>
-				<target>Erreur lors de l'enregistrement ! </target>
+			<trans-unit id="3741296726570704707" datatype="html">
+				<source> Übersicht </source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/common/navigation-links/navigation-links.component.html</context>
+					<context context-type="linenumber">6</context>
+				</context-group>
+				<target> Aperçu </target>
 			</trans-unit>
-      <trans-unit id="3028170965794980964" datatype="html">
-        <source>Die Registrierung war erfolgreich! Der Bestätigungslink wurde per E-Mail versandt.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/store/auth/auth.effects.ts</context>
-          <context context-type="linenumber">32</context>
-        </context-group>
-		<target>L'inscription a été effectuée avec succès ! Le lien de confirmation vous a été envoyé par e-mail.</target>
-      </trans-unit>
-      <trans-unit id="7975421958082695011" datatype="html">
-        <source>Der Benutzername oder das Passwort sind falsch! Bitte überprüfen Sie Ihre Eingaben.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/store/auth/auth.effects.ts</context>
-          <context context-type="linenumber">84</context>
-        </context-group>
-		<target>Le nom d'utilisateur ou le mot de passe est incorrect ! Veuillez vérifier vos saisies.</target>
-      </trans-unit>
+			<trans-unit id="5624952178657062409" datatype="html">
+				<source> Einkaufszettel </source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/common/navigation-links/navigation-links.component.html</context>
+					<context context-type="linenumber">12</context>
+				</context-group>
+				<target> Listes de course </target>
+			</trans-unit>
+			<trans-unit id="6815115973600225016" datatype="html">
+				<source> Archiv </source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/common/navigation-links/navigation-links.component.html</context>
+					<context context-type="linenumber">18</context>
+				</context-group>
+				<target> Archives </target>
+			</trans-unit>
+			<trans-unit id="4721737760234003149" datatype="html">
+				<source> Userverwaltung </source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/common/navigation-links/navigation-links.component.html</context>
+					<context context-type="linenumber">26</context>
+				</context-group>
+				<target> Gestion des utilisateurs </target>
+			</trans-unit>
+			<trans-unit id="7609748400763849959" datatype="html">
+				<source>Name*</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/einkaufszettel/edit-einkaufszettel/edit-einkaufszettel.component.html</context>
+					<context context-type="linenumber">4,5</context>
+				</context-group>
+				<target>Nom *</target>
+			</trans-unit>
+			<trans-unit id="4626002947369124112" datatype="html">
+				<source>Besitzer</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/einkaufszettel/edit-einkaufszettel/edit-einkaufszettel.component.html</context>
+					<context context-type="linenumber">11,12</context>
+				</context-group>
+				<target>Propriétaire</target>
+			</trans-unit>
+			<trans-unit id="3814919595981615064" datatype="html">
+				<source>Personen mit Zugriff</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/einkaufszettel/edit-einkaufszettel/edit-einkaufszettel.component.html</context>
+					<context context-type="linenumber">25,26</context>
+				</context-group>
+				<source>Personnes ayant accès</source>
+			</trans-unit>
+			<trans-unit id="deleteShopping" datatype="html">
+				<source> Löschen </source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/einkaufszettel/edit-einkaufszettel/edit-einkaufszettel.component.html</context>
+					<context context-type="linenumber">41,42</context>
+				</context-group>
+				<source> Supprimer </source>
+			</trans-unit>
+			<trans-unit id="submitShopping" datatype="html">
+				<source> Speichern </source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/einkaufszettel/edit-einkaufszettel/edit-einkaufszettel.component.html</context>
+					<context context-type="linenumber">46,47</context>
+				</context-group>
+				<source> Enregistrer </source>
+			</trans-unit>
+			<trans-unit id="187187500641108332" datatype="html">
+				<source>
+					<x id="INTERPOLATION" equiv-text="{{ artikel.name }}"/>
+				</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/einkaufszettel/home/home.component.html</context>
+					<context context-type="linenumber">42,43</context>
+				</context-group>
+				<source> {{ artikel.name }} </source>
+			</trans-unit>
+			<trans-unit id="noshoppinglist" datatype="html">
+				<source> Sie haben noch keinen Einkaufszettel angelegt? </source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/einkaufszettel/home/home.component.html</context>
+					<context context-type="linenumber">54,56</context>
+				</context-group>
+				<source> Vous n'avez pas encore créé de liste d'achats ? </source>
+			</trans-unit>
+			<trans-unit id="createshoppinglist" datatype="html">
+				<source>Neuen Einkaufszettel anlegen</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/components/einkaufszettel/home/home.component.html</context>
+					<context context-type="linenumber">57,58</context>
+				</context-group>
+				<source>Créer une nouvelle liste de courses</source>
+			</trans-unit>
+			<trans-unit id="3728737016990812300" datatype="html">
+				<source>Token nicht mehr valide!</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/interceptor/token-interceptor.service.ts</context>
+					<context context-type="linenumber">28</context>
+				</context-group>
+				<source>Jeton non valide !</source>
+			</trans-unit>
+			<trans-unit id="4987318593615176260" datatype="html">
+				<source>Fehler beim Speichern! </source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/service/ShoppingList.service.ts</context>
+					<context context-type="linenumber">51</context>
+				</context-group>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/service/auth.service.ts</context>
+					<context context-type="linenumber">26</context>
+				</context-group>
+				<source>Erreur lors de l'enregistrement ! </source>
+			</trans-unit>
+			<trans-unit id="3028170965794980964" datatype="html">
+				<source>Die Registrierung war erfolgreich! Der Bestätigungslink wurde per E-Mail versandt.</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/store/auth/auth.effects.ts</context>
+					<context context-type="linenumber">32</context>
+				</context-group>
+				<target>L'inscription a été effectuée avec succès ! Le lien de confirmation vous a été envoyé par e-mail.</target>
+			</trans-unit>
+			<trans-unit id="7975421958082695011" datatype="html">
+				<source>Der Benutzername oder das Passwort sind falsch! Bitte überprüfen Sie Ihre Eingaben.</source>
+				<context-group purpose="location">
+					<context context-type="sourcefile">src/app/store/auth/auth.effects.ts</context>
+					<context context-type="linenumber">88</context>
+				</context-group>
+				<target>Le nom d'utilisateur ou le mot de passe est incorrect ! Veuillez vérifier vos saisies.</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
-
-
-	

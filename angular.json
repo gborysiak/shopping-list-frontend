@@ -5,17 +5,9 @@
   "projects": {
     "shoppinglist": {
       "projectType": "application",
-        "i18n": {
-          "sourceLocale": "de",  // Use your desired locale code
-          "locales": {
-            "fr": {
-              "translation": "src/locale/messages.fr.xlf"
-            }
-          },      
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
-        }
         }
       },
       "root": "",
@@ -28,17 +20,16 @@
             "outputPath": {
               "base": "dist/shoppinglist"
             },
-            "localize": ["fr"],
             "index": "src/index.html",
             "polyfills": [
-              "zone.js",
-              "@angular/localize/init"
+              "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/assets/i18n"
             ],
             "styles": [
               "node_modules/primeicons/primeicons.css",
@@ -72,10 +63,7 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
-            },
-            "fr": {
-                "localize": ["fr"]
-              }
+            }
           },
           "defaultConfiguration": "development"
         },
@@ -87,32 +75,23 @@
             },
             "development": {
               "buildTarget": "shoppinglist:build:development"
-            },
-            "fr": {
-              "buildTarget": "shoppinglist:build:development,fr"
             }
           },
           "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular/build:extract-i18n",
-          "options": {
-            "buildTarget": "shoppinglist:build"
-          }
         },
         "test": {
           "builder": "@angular/build:karma",
           "options": {
             "polyfills": [
               "zone.js",
-              "zone.js/testing",
-              "@angular/localize/init"
+              "zone.js/testing"
             ],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/assets/i18n"
             ],
             "styles": [
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",

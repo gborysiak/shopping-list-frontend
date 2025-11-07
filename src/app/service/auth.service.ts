@@ -10,6 +10,7 @@ import {environment} from "../../environments/environment";
 import {ROLE_NAME, RoleName} from "../entities/enum/rolename";
 import {AuthActions} from "../store/auth/auth.actions";
 import {selectLogin} from "../store/auth/auth.selectors";
+import {TranslateService, _} from "@ngx-translate/core";
 
 @Injectable({
   providedIn: 'root'
@@ -17,13 +18,22 @@ import {selectLogin} from "../store/auth/auth.selectors";
 export class AuthService {
   private api = `${environment.webserviceurl}`;
   private userRoles: RoleName[] = [];
+  private errorMessage: string = '';
+  private translate: TranslateService;
 
-  constructor(private httpClient: HttpClient, private store: Store, private messageService: MessageService) {
+  constructor(private httpClient: HttpClient, private store: Store, private messageService: MessageService,
+    translate: TranslateService ) {
+    this.translate = translate;
+    
+  }
+
+  getTranslation(key: string): string {
+    return this.translate.instant(key); 
   }
 
   private errorHandler(error: HttpErrorResponse): Observable<never> {
     console.error('Fehler aufgetreten!' + JSON.stringify(error));
-    var summary = $localize`Fehler beim Speichern! ` + error.error;
+    var summary = this.getTranslation('authservice.error') + error.error;
     this.messageService.add({severity: 'error', summary: summary});
     return throwError(() => error);
   } 

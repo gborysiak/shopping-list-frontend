@@ -17,7 +17,7 @@ export const shoppingListReducer = createReducer(
 
   // loadEinkaufszettels
   on(ShoppingListActions.loadShoppingListsSuccess, (state, action) => {
-    return {...state, einkaufszettel: action.data}
+    return {...state, shoppingList: action.data}
   })
 );
 

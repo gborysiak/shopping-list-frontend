@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable,  OnInit} from '@angular/core';
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import {Observable, retry, throwError} from "rxjs";
 import {Part} from "../entities/Part";
@@ -7,19 +7,57 @@ import {environment} from "../../environments/environment";
 import {ShoppingList} from "../entities/ShoppingList";
 import {PartArchive} from "../entities/PartArchive";
 import {MessageService} from "primeng/api";
+import {TranslateService, _} from "@ngx-translate/core";
 
 @Injectable({
   providedIn: 'root'
 })
-export class ShoppingListService {
+export class ShoppingListService  {
   private api = `${environment.webserviceurl}`;
+  private errorMessage: string = '';
+  private translate: TranslateService;
 
-  constructor(private httpClient: HttpClient, private messageService: MessageService) {
+  constructor(private httpClient: HttpClient, private messageService: MessageService, translate: TranslateService) {
+    this.translate = translate;
   }
 
-  private errorHandler(error: HttpErrorResponse): Observable<never> {
-    console.error('Fehler aufgetreten!' + error);
-    var summary = $localize`Fehler beim Speichern! ` + error.error;
+  getTranslation(key: string): string {
+    return this.translate.instant(key); 
+  }
+
+  private errorHandler(error: any): Observable<never> {
+ 
+    let err = error.error;
+    console.error('Fehler aufgetreten!' + err);
+    let handleErrResponse = {
+    status: err.status,
+    errorText: err.message || err.errorMessage || err.title,
+    response: err,
+    };
+
+    if (err.status == 400) {
+      
+
+      let errors = Object.entries(err.errors).reduce(
+        (acc, [key, value] ) => {
+            acc.push({  
+              field: key,
+              error: String(value)
+          });
+          return acc;
+        },
+        [] as { field: string; error: string }[]
+      );
+      
+      var strErrors = '';
+      for(var i = 0; i < errors.length; i++) {
+        strErrors = strErrors + errors[i].field + " " + errors[i].error;
+      }
+
+      handleErrResponse.response = strErrors;
+    }
+
+    var summary = this.getTranslation('shoppinglistservice.error') + handleErrResponse.response;
     this.messageService.add({severity: 'error', summary: summary});
     return throwError(() => error);
   }

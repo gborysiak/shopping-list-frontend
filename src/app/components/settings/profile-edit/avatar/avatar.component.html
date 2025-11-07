@@ -1,14 +1,15 @@
 <div class="avatar-container w-full flex items-center justify-center">
-  <div class="image-container rounded-full p-2 h-20 w-20" *ngIf="image; else placeholder"
-       [ngClass]="{'box-shadow-avatar': !!image}"
-       [ngStyle]="{backgroundImage: 'url(data:image/png;base64,' + image + ')'}"
-  ></div>
-
-  <ng-template #placeholder>
+  @if (image) {
+    <div class="image-container rounded-full p-2 h-20 w-20"
+      [ngClass]="{'box-shadow-avatar': !!image}"
+      [ngStyle]="{backgroundImage: 'url(data:image/png;base64,' + image + ')'}"
+    ></div>
+  } @else {
     <div class="image-container">
       <span class="fas fa-user"></span>
     </div>
-  </ng-template>
+  }
+
 
   <p-fileUpload
     #fileUpload

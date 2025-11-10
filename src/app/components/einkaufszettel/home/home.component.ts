@@ -4,6 +4,7 @@ import {ShoppingListActions} from "../../../store/shoppinglist/shoppinglist.acti
 import {selectAllShoppingList} from "../../../store/shoppinglist/shoppinglist.selectors";
 import {Part} from "../../../entities/Part";
 import {ShoppingList} from "../../../entities/ShoppingList";
+import { ShoppinglistItem } from 'src/app/entities/ShoppingListItem';
 
 @Component({
     selector: 'app-home',
@@ -41,18 +42,18 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  changeArtikel(shoppinglist: ShoppingList, part: Part) {
+  changeArtikel(shoppinglist: ShoppingList, item: ShoppinglistItem) {
     this.store.dispatch(ShoppingListActions.updatePart({
       shoppingId: shoppinglist.id,
-      data: part
+      data: item
     }));
   }
 
-  changeArtikelGekauft(shoppinglist: ShoppingList, part: Part) {
-    part.purchased = !part.purchased;
+  changeArtikelGekauft(shoppinglist: ShoppingList, item: ShoppinglistItem) {
+    item.purchased = !item.purchased;
     this.store.dispatch(ShoppingListActions.updatePart({
       shoppingId: shoppinglist.id,
-      data: part
+      data: item
     }));
   }
 }

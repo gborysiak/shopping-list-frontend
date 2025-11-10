@@ -1,11 +1,11 @@
 <div class="w-full">
-  @for (einkaufszettel of shoppinglists; track einkaufszettel) {
+  @for (shoppinglist of shoppinglists; track shoppinglist) {
     <div  
       class="flex-grow-1 bg-gray-50 rounded-lg shadow-lg border-2 m-5">
       <div class="p-3 bg-white">
         <h2 class="flex text-2xl items-baseline">
-          <span class="font-bold text-lime-600">{{ einkaufszettel.name }} </span>
-          <button type="button" [routerLink]="['/artikel/new', einkaufszettel.id]"
+          <span class="font-bold text-lime-600">{{ shoppinglist.name }} </span>
+          <button type="button" [routerLink]="['/artikel/new', shoppinglist.id]"
             pTooltip="Neuen Artikel anlegen"
           class="fas fa-plus ml-2 text-gray-500" ></button>
           <div class="grow"></div>
@@ -16,32 +16,32 @@
           }
             -->
         </h2>
-        @for (artikel of einkaufszettel.parts| boughtArticles:false; track artikel) {
+        @for (item of shoppinglist.shoppingListItem | boughtArticles:false; track item) {
           <div class="flex my-1 items-start">
             <p-checkbox class="mr-2 mt-1 rounded-full"
-              [(ngModel)]="artikel.purchaseDate"
+              [(ngModel)]="item.purchaseDate"
               [binary]="true"
-            (onChange)="changeArtikel(einkaufszettel, artikel)"></p-checkbox>
-            <span class="text-primary font-semibold text-xl text-lime-600 mr-2">{{ artikel.quantity }}</span>
+            (onChange)="changeArtikel(shoppinglist, item)"></p-checkbox>
+            <span class="text-primary font-semibold text-xl text-lime-600 mr-2">{{ item.quantity }}</span>
             <span class="text-primary font-semibold text-xl cursor-pointer hover:underline break-all"
               pTooltip="Artikel bearbeiten"
-            [routerLink]="['/artikel', einkaufszettel.id, artikel.id]">{{ artikel.name }}</span>
+            [routerLink]="['/artikel', shoppinglist.id, item.id]">{{ item.name }}</span>
           </div>
         }
       </div>
-      @if ((einkaufszettel.parts | boughtArticles:true); as boughtArticles) {
+      @if ((shoppinglist.shoppingListItem | boughtArticles:true); as boughtArticles) {
         <div
           class="border-t-2 px-3 bg-gray-50 text-gray-500">
           <div class="">
-            @for (artikel of boughtArticles; track artikel) {
+            @for (item of boughtArticles; track item) {
               <div class="flex my-1">
                 <span class="fas fa-check text-primary font-semibold text-xl text-lime-600 mr-3"
                   pTooltip="Artikel zurücksetzen"
-                (click)="changeArtikelGekauft(einkaufszettel, artikel)"></span>
-                <span class="text-primary font-semibold text-xl text-lime-600 mr-2">{{ artikel.quantity }}</span>
+                (click)="changeArtikelGekauft(shoppinglist, item)"></span>
+                <span class="text-primary font-semibold text-xl text-lime-600 mr-2">{{ item.quantity }}</span>
                 <span class="text-primary font-semibold text-xl cursor-pointer hover:underline break-all"
                   pTooltip="Artikel bearbeiten"
-                  [routerLink]="['/artikel', einkaufszettel.id, artikel.id]" >{{ artikel.name }}</span>
+                  [routerLink]="['/artikel', shoppinglist.id, item.id]" >{{ item.name }}</span>
                 </div>
               }
             </div>

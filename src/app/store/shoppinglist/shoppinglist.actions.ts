@@ -1,6 +1,7 @@
 import {createActionGroup, emptyProps, props} from '@ngrx/store';
 import { HttpErrorResponse } from "@angular/common/http";
-import {Part} from "../../entities/Part";
+//import {Part} from "../../entities/Part";
+import {ShoppinglistItem} from "../../entities/ShoppingListItem";
 import {ShoppingList} from "../../entities/ShoppingList";
 
 export const ShoppingListActions = createActionGroup({
@@ -24,23 +25,23 @@ export const ShoppingListActions = createActionGroup({
 
 
     'Load Parts': emptyProps(),
-    'Load Parts Success': props<{ data: Part[] }>(),
+    'Load Parts Success': props<{ data: ShoppinglistItem[] }>(),
     'Load Parts Failure': props<{ error: HttpErrorResponse }>(),
 
-    'Create Part': props<{ shoppingId: number, data: Part }>(), //shoppingId einkaufszettelId
-    'Create Part Success': props<{ data: Part }>(),
+    'Create Part': props<{ shoppingId: number, data: ShoppinglistItem }>(), //shoppingId einkaufszettelId
+    'Create Part Success': props<{ data: ShoppinglistItem }>(),
     'Create Part Failure': props<{ error: HttpErrorResponse }>(),
 
-    'Update Part': props<{ shoppingId: number, data: Part }>(),
-    'Update Part Success': props<{ data: Part }>(),
+    'Update Part': props<{ shoppingId: number, data: ShoppinglistItem }>(),
+    'Update Part Success': props<{ data: ShoppinglistItem }>(),
     'Update Part Failure': props<{ error: HttpErrorResponse }>(),
 
-    'Delete Part': props<{ shoppingId: number, data: Part }>(),
-    'Delete Part Success': props<{ data: Part }>(),
+    'Delete Part': props<{ shoppingId: number, data: ShoppinglistItem }>(),
+    'Delete Part Success': props<{ data: ShoppinglistItem }>(),
     'Delete Part Failure': props<{ error: HttpErrorResponse }>(),
 
     'Archive Part': props<{ shoppingId: number }>(),
-    'Archive Part Success': props<{ data: Part[] }>(),
+    'Archive Part Success': props<{ data: ShoppinglistItem[] }>(),
     'Archive Part Failure': props<{ error: HttpErrorResponse }>(),
   }
 });

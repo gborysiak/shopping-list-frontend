@@ -4,5 +4,5 @@ import {Part} from "./Part";
 export interface Category { 
   id: number;
   name: string;
-  parts?: Part[]; // artikels
+
 }

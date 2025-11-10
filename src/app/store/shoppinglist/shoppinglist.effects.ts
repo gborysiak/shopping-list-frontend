@@ -78,7 +78,7 @@ export class ShoppingListEffects {
     return this.actions$.pipe(
       ofType(ShoppingListActions.createPart),
       concatMap(inputData => this.ShoppingListService.createPart(inputData.shoppingId, inputData.data).pipe(
-        map(data => ShoppingListActions.createPartSuccess({data: data})),
+        map(item => ShoppingListActions.createPartSuccess({data: item})),
         catchError(error => of(ShoppingListActions.createPartFailure({error})))
       ))
     )

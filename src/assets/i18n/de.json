@@ -25,7 +25,8 @@
         "home" : " Übersicht ",
         "shoppinglist" : " Einkaufszettel ",
         "archive" : " Archiv ",
-        "user" : " Userverwaltung "
+        "user" : " Userverwaltung ",
+        "part" : "$Article"
     },
     "home" : {
       "text1" : "Sie haben noch keinen Einkaufszettel angelegt?",

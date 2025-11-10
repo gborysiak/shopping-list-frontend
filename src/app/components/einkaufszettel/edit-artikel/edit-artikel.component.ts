@@ -2,10 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
 import {Store} from "@ngrx/store";
-import {selectPartById} from "../../../store/shoppinglist/shoppinglist.selectors";
+import {selectItemById} from "../../../store/shoppinglist/shoppinglist.selectors";
 import {Part} from "../../../entities/Part";
 import {ShoppingListActions} from "../../../store/shoppinglist/shoppinglist.actions";
 import {ConfirmationService} from "primeng/api";
+import { ShoppinglistItem } from 'src/app/entities/ShoppingListItem';
 
 @Component({
     selector: 'app-edit-artikel',
@@ -43,12 +44,13 @@ export class EditArtikelComponent implements OnInit {
     this.edit = true;
     this.header = 'Artikel bearbeiten';
 
-    this.store.select(selectPartById(this.shoppingId, partId)).subscribe(part => this.artikelForm.patchValue(part));
+    this.store.select(selectItemById(this.shoppingId, partId)).subscribe(part => this.artikelForm.patchValue(part));
   }
 
   private initNew() {
-    const emptyPart: Part = {
+    const emptyPart: ShoppinglistItem = {
       id: -1,
+      partRefId: -1,
       name: '',
       quantity: 1,
       purchased: false
@@ -58,24 +60,24 @@ export class EditArtikelComponent implements OnInit {
 
   save() {
     const formValue = this.artikelForm.getRawValue();
-    const artikel: Part = {...formValue};
+    const item: ShoppinglistItem = {...formValue};
 
     if (this.edit) {
       this.store.dispatch(ShoppingListActions.updatePart({
         shoppingId: this.shoppingId,
-        data: artikel
+        data: item
       }));
     } else {
       this.store.dispatch(ShoppingListActions.createPart({
         shoppingId: this.shoppingId,
-        data: artikel
+        data: item
       }));
     }
   }
 
   delete(event: Event) {
     const formValue = this.artikelForm.getRawValue();
-    const part: Part = {...formValue}; // artikel
+    const item: ShoppinglistItem = {...formValue}; // artikel
 
     this.confirmationService.confirm({
       target: event.target as EventTarget,
@@ -90,7 +92,7 @@ export class EditArtikelComponent implements OnInit {
       accept: () => {
         this.store.dispatch(ShoppingListActions.deletePart({
           shoppingId: this.shoppingId,
-          data: part
+          data: item
         }));
         this.store.dispatch(ShoppingListActions.loadShoppingLists());
       }

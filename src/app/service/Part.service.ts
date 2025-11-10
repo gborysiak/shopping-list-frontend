@@ -1,19 +1,17 @@
 import {Injectable,  OnInit} from '@angular/core';
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import {Observable, retry, throwError} from "rxjs";
-//import {Part} from "../entities/Part";
+import {Part} from "../entities/Part";
 import {catchError} from "rxjs/operators";
 import {environment} from "../../environments/environment";
-import {ShoppingList} from "../entities/ShoppingList";
-import {PartArchive} from "../entities/PartArchive";
 import {MessageService} from "primeng/api";
 import {TranslateService, _} from "@ngx-translate/core";
-import { ShoppinglistItem } from '../entities/ShoppingListItem';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class ShoppingListService  {
+export class PartService  {
   private api = `${environment.webserviceurl}`;
   private errorMessage: string = '';
   private translate: TranslateService;
@@ -63,57 +61,28 @@ export class ShoppingListService  {
     return throwError(() => error);
   }
 
-  getAllShoppingList(): Observable<ShoppingList[]> {
-    return this.httpClient.get<ShoppingList[]>(`${this.api}/ShoppingList`).pipe(
+  getAllPart(): Observable<Part[]> {
+    return this.httpClient.get<Part[]>(`${this.api}/Part`).pipe(
       retry(3)
     );
   }
 
-  createShoppingList(shoppingList: ShoppingList) {
-    return this.httpClient.post<ShoppingList>(`${this.api}/ShoppingList`, shoppingList).pipe(
+  createPart(part: Part) {
+    return this.httpClient.post<Part>(`${this.api}/Part`, part).pipe(
       catchError(error => this.errorHandler(error))
     );
   }
 
-  updateShoppingList(shoppingList: ShoppingList) {
-    return this.httpClient.put<ShoppingList>(`${this.api}/ShoppingList/${shoppingList.id}`, shoppingList).pipe(
+  updatePart(part: Part) {
+    return this.httpClient.put<Part>(`${this.api}/Part/${part.id}`, part).pipe(
       catchError(error => this.errorHandler(error))
     );
   }
 
-  deleteShoppingList(shoppingList: ShoppingList) {
-    return this.httpClient.delete<ShoppingList>(`${this.api}/ShoppingList/${shoppingList.id}`).pipe(
+  deletePart(part: Part) {
+    return this.httpClient.delete<Part>(`${this.api}/Part/${part.id}`).pipe(
       catchError(error => this.errorHandler(error))
     );
   }
 
-  createPart(shoppingListId: number, item: ShoppinglistItem) {
-    return this.httpClient.post<ShoppinglistItem>(`${this.api}/ShoppingList/${shoppingListId}/part`, item).pipe(
-      catchError(error => this.errorHandler(error))
-    );
   }
-
-  updatePart(shoppingListId: number, item: ShoppinglistItem) {
-    return this.httpClient.put<ShoppinglistItem>(`${this.api}/ShoppingList/${shoppingListId}/part/${item.id}`, item).pipe(
-      catchError(error => this.errorHandler(error))
-    );
-  }
-
-  deletePart(shoppingListId: number, item: ShoppinglistItem) {
-    return this.httpClient.delete<ShoppinglistItem>(`${this.api}/ShoppingList/${shoppingListId}/part/${item.id}`).pipe(
-      catchError(error => this.errorHandler(error))
-    );
-  }
-
-  archivePart(shoppingListId: number) {
-    return this.httpClient.post<ShoppinglistItem[]>(`${this.api}/ShoppingList/${shoppingListId}/archivedPart`, null).pipe(
-      catchError(error => this.errorHandler(error))
-    );
-  }
-
-  loadAllPartArchive(): Observable<PartArchive[]> {
-    return this.httpClient.get<PartArchive[]>(`${this.api}/archiv`).pipe(
-      retry(3)
-    );
-  }
-}

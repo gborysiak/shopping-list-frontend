@@ -17,10 +17,10 @@ export const selectShoppingListById = (shoppingId: number) => createSelector(
   }
 )
 
-export const selectPartById = (shoppingId: number, partId: number) => createSelector(
+export const selectItemById = (shoppingId: number, itemId: number) => createSelector(
   selectShoppingListState,
   state => {
     // @ts-ignore
-    return state.shoppingList[state.shoppingList.findIndex(shoppingList => shoppingList.id === shoppingId)].artikels.filter(part => part.id === partId)[0];
+    return state.shoppingList[state.shoppingList.findIndex(shoppingList => shoppingList.id === shoppingId)].artikels.filter(item => item.id === itemId)[0];
   }
 )

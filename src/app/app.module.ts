@@ -61,6 +61,12 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { JsonFileLoader } from './util/JsonLoader';
 import { CustomHttpLoader } from './util/CustomHttpLoader';
 import { provideStoreDevtools  } from '@ngrx/store-devtools';
+import { partFeature, partReducer } from './store/part/part.reducer';
+import { PartEffects } from './store/part/part.effects';
+import { PartComponent } from './components/part/part/part.component';
+import { categoryFeature, categoryReducer } from './store/category/category.reducer';
+import { CategoryEffects } from './store/category/category.effects';
+//import { CategoryComponent } from './components/category/category/category.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
         return new JsonFileLoader();
@@ -80,7 +86,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         NavigationLinksComponent,
         SplitButtonComponent,
         BoughtArticlesPipe,
-        ProfileEditComponent
+        ProfileEditComponent,
+        PartComponent
         //AvatarComponent
     ],
     bootstrap: [AppComponent], 
@@ -112,7 +119,11 @@ export function HttpLoaderFactory(http: HttpClient) {
         StoreModule.forFeature(userFeature),
         EffectsModule.forFeature([ArchiveEffects]),
         StoreModule.forFeature(archiveFeature),
-   
+        EffectsModule.forFeature([PartEffects]),
+        StoreModule.forFeature(partFeature),
+        EffectsModule.forFeature([CategoryEffects]),
+        StoreModule.forFeature(categoryFeature),
+
         FileUploadModule,
         PasswordModule,
         TableModule,

@@ -26,7 +26,8 @@
       "shoppinglist" : " Liste de course ",
       "archive" : " Archive ",
       "user" : " Utilisateur ",
-      "part" : "Article"
+      "part" : "Article",
+      "category": "Catégorie"
     },
     "home" : {
       "text1" : "Vous n'avez pas encore créé de liste d'achats ?",

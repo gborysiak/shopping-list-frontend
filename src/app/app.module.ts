@@ -66,7 +66,7 @@ import { PartEffects } from './store/part/part.effects';
 import { PartComponent } from './components/part/part/part.component';
 import { categoryFeature, categoryReducer } from './store/category/category.reducer';
 import { CategoryEffects } from './store/category/category.effects';
-//import { CategoryComponent } from './components/category/category/category.component';
+import { CategoryComponent } from './components/category/category/category.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
         return new JsonFileLoader();
@@ -87,7 +87,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         SplitButtonComponent,
         BoughtArticlesPipe,
         ProfileEditComponent,
-        PartComponent
+        PartComponent,
+        CategoryComponent
         //AvatarComponent
     ],
     bootstrap: [AppComponent], 

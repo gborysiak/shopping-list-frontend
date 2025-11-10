@@ -15,6 +15,7 @@ import {
 } from "./components/auth/registration-confirmation/registration-confirmation.component";
 import {ProfileEditComponent} from "./components/settings/profile-edit/profile-edit.component";
 import { PartComponent } from './components/part/part/part.component';
+import { CategoryComponent } from './components/category/category/category.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -29,7 +30,8 @@ const routes: Routes = [
   {path: 'archiv', component: ArchivComponent, canActivate: [AuthGuard]},
   {path: 'profile-edit', component: ProfileEditComponent, canActivate: [AuthGuard]},
   {path: 'user', component: UserComponent, canActivate: [AuthGuard, RoleGuard], data: {expectedRole: ROLE_NAME.ROLE_ADMIN}},
-  {path: 'part', component: PartComponent, canActivate: [AuthGuard]} 
+  {path: 'part', component: PartComponent, canActivate: [AuthGuard]},
+  {path: 'category', component: CategoryComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

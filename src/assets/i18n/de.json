@@ -26,7 +26,8 @@
         "shoppinglist" : " Einkaufszettel ",
         "archive" : " Archiv ",
         "user" : " Userverwaltung ",
-        "part" : "$Article"
+        "part" : "$Article",
+        "category": "$Catégorie"
     },
     "home" : {
       "text1" : "Sie haben noch keinen Einkaufszettel angelegt?",

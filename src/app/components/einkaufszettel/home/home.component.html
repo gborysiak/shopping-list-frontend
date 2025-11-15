@@ -48,9 +48,9 @@
           </div>
         }
       </div>
-    }
+  }
 
-    @if(shoppinglists.length === 0) {
+  @if(shoppinglists.length === 0) {
     <div  class="font-medium">
       <div class="text-gray-500" >
         {{ 'home.text1' | translate }}
@@ -58,6 +58,35 @@
         <a routerLink="/einkaufszettel" class="text-lime-600"><span
           class="fas fa-cart-shopping text-lime-600 mr-2 text-xl"></span><ng-container >{{ 'home.text2' | translate }}</ng-container></a>
         </div>
-    }
+  }
 
+<p-accordion value="0">
+    <p-accordion-panel value="0">
+      <p-accordion-header>{{ 'home.category' | translate }}</p-accordion-header>
+      <p-accordion-content>
+        @for (category of categorylist; track category) {
+          <div class="flex-grow-1 bg-gray-50 rounded-lg shadow-lg border-2 m-5">
+            <div class="p-3 bg-white">
+              <h2 class="flex text-2xl items-baseline">
+                <span class="font-bold text-lime-600">{{ category.name }} </span>
+                <button type="button" [routerLink]="['/category', category.id]"
+                  pTooltip="Détails"
+                class="pi pi-pencil ml-2 text-gray-500" ></button>
+                <div class="grow"></div>
+              </h2>
+            
+          @for (part of category.parts; track part) {
+            <div class="flex my-1 items-start">
+            <span class="text-primary font-semibold text-xl cursor-pointer hover:underline break-all"
+              pTooltip="Artikel bearbeiten"
+            [routerLink]="['/part', part.id]">{{ part.name }}</span>
+            </div>
+          } 
+        </div>
+        </div>
+          }
+   
+    </p-accordion-content>
+  </p-accordion-panel>
+</p-accordion>
 

@@ -7,12 +7,12 @@ export const partFeatureKey = 'part';
 
 // Interface représentant l'état des utilisateurs
 export interface State {
-    partsList: Part[];  // liste des articles
+    part: Part[];  // liste des articles
     loading: boolean;   // Indicateur de chargement
 }
 
 const initialState: State = {
-    partsList: [],    // Liste initiale vide d'article
+    part: [],    // Liste initiale vide d'article
     loading: true     // Indicateur de chargement initialisé à true
 };
 

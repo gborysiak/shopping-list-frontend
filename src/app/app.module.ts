@@ -67,6 +67,10 @@ import { PartComponent } from './components/part/part/part.component';
 import { categoryFeature, categoryReducer } from './store/category/category.reducer';
 import { CategoryEffects } from './store/category/category.effects';
 import { CategoryComponent } from './components/category/category/category.component';
+import { AccordionModule } from 'primeng/accordion';
+import { SelectModule } from 'primeng/select';
+import { ListboxModule } from 'primeng/listbox';
+
 
 export function HttpLoaderFactory(http: HttpClient) {
         return new JsonFileLoader();
@@ -134,7 +138,10 @@ export function HttpLoaderFactory(http: HttpClient) {
         DynamicDialogModule,
         ToastModule,
         ConfirmDialogModule,
-        MessageModule
+        MessageModule,
+        AccordionModule,
+        SelectModule,
+        ListboxModule
         //TranslateModule, /*<--- Don't forget to import this too*/
         /*
         TranslateModule.forRoot({

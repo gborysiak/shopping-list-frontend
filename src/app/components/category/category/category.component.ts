@@ -5,8 +5,9 @@ import {Store} from "@ngrx/store";
 import {CategorysActions} from "../../../store/category/category.actions";
 import {selectAllCategory, selectCategoryById} from "src/app/store/category/category.selectors";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {ConfirmationService} from "primeng/api";
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -18,13 +19,13 @@ import {ConfirmationService} from "primeng/api";
 export class CategoryComponent implements OnInit {
   categoryForm: FormGroup = this.formBuilder.group({
     id: [{value: '', disabled: true}, Validators.required],
-	  name: [{value: '', disabled: true}, Validators.required],
+	  name: [{value: ''}, Validators.compose([Validators.required, Validators.minLength(1)])]
   });
-
   edit: boolean = false;
   header: string = '';
 
-  constructor(private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, private store: Store, private confirmationService: ConfirmationService) {
+  constructor(private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, private store: Store, 
+    private confirmationService: ConfirmationService, private translate: TranslateService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -39,6 +40,10 @@ export class CategoryComponent implements OnInit {
     }
   }
 
+  getTranslation(key: string): string {
+    return this.translate.instant(key); 
+  }
+
   private initEdit(categoryId: number) {
     this.edit = true;
     this.header = 'Category';
@@ -50,6 +55,7 @@ export class CategoryComponent implements OnInit {
     const category: Category = {
    	id: 0,
 		name: '',
+    //parts: []
 	  };
     this.categoryForm.patchValue(category);
   }
@@ -70,19 +76,25 @@ export class CategoryComponent implements OnInit {
     const formValue = this.categoryForm.getRawValue();
     const category: Category = {...formValue};
 
+    var text1 = this.getTranslation('category.text1');
+    var yes = this.getTranslation('global.yes');
+    var no = this.getTranslation('global.no');
+    var confirmation = this.getTranslation('global.confirmation');
+
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: 'Sind Sie sich sicher, dass Sie den Einkaufszettel löschen möchten?',
-      header: 'Confirmation',
+      message: text1,
+      header: confirmation,
       icon: 'pi pi-exclamation-triangle',
-      acceptLabel: 'Ja',
-      rejectLabel: 'Nein',
+      acceptLabel: yes,
+      rejectLabel: no,
       acceptIcon: "none",
       rejectIcon: "none",
       rejectButtonStyleClass: "p-button-text",
       accept: () => {
         this.store.dispatch(CategorysActions.deleteCategory({data: category}));
         this.store.dispatch(CategorysActions.loadCategorys());
+        this.router.navigate(['/home']);
       }
     });
   }

@@ -1,23 +1,30 @@
 <form [formGroup]="partForm" class="max-w-xl m-auto" (ngSubmit)="save()">
+  <!-- id -->
+  <input type="hidden" formControlName="id" id="id">
   <!-- Name -->
   <div class="mt-2 mb-6">
     <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="name" >{{ 'part.name' | translate }}</label>
     <input id="name" class="w-full" type="text" pInputText formControlName="name"/>
   </div>
+    <div class="flex flex-col gap-1">
+        <!--p-listbox [options]="categorylist" formControlName="category" optionLabel="name" class="w-full md:w-56"  /-->
 
-  
-
+    <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="category" >{{ 'part.category' | translate }}</label>
+    <p-select [options]="categorylist"  formControlName="category"  placeholder="Select a category" class="w-full md:w-56" 
+      optionLabel="name" optionValue="id"/>
+    </div>
+ 
         <!-- Buttons -->
         <div class="flex md:items-center mt-2">
           @if (edit) {
             <button type="button" (click)="delete($event)"
               class="text-gray-600 font-bold underline rounded-lg mr-5 py-2 text-center" >
-                <ng-container >{{ 'shoppinglist.delete' | translate }}</ng-container>
+                <ng-container >{{ 'global.delete' | translate }}</ng-container>
     </button>
             }
             <button type="submit" [disabled]="partForm.invalid"
               class="bg-lime-400 rounded-lg px-2 py-2 text-center" >
-                  <ng-container >{{ 'shoppinglist.submit' | translate }}</ng-container>
+                  <ng-container >{{ 'global.submit' | translate }}</ng-container>
     </button>
             </div>
           </form>

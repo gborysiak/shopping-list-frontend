@@ -31,7 +31,9 @@ const routes: Routes = [
   {path: 'profile-edit', component: ProfileEditComponent, canActivate: [AuthGuard]},
   {path: 'user', component: UserComponent, canActivate: [AuthGuard, RoleGuard], data: {expectedRole: ROLE_NAME.ROLE_ADMIN}},
   {path: 'part', component: PartComponent, canActivate: [AuthGuard]},
-  {path: 'category', component: CategoryComponent, canActivate: [AuthGuard]}
+   {path: 'part/:partId', component: PartComponent, canActivate: [AuthGuard]},
+  {path: 'category', component: CategoryComponent, canActivate: [AuthGuard]},
+  {path: 'category/:categoryId', component: CategoryComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

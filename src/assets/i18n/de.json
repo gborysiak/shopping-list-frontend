@@ -3,6 +3,13 @@
         "hello": "hellofr",
         "title": "Translation Demo"
     },
+    "global": {
+      "delete" : " Löschen ",
+      "submit" : " Speichern ",
+      "yes"    : "  Ya ",
+      "no"     : " Nein ",
+      "confirmation" :  "Confirmation"
+    },
     "login": {
         "user": "Benutzername",
         "password": "Passwort",
@@ -31,19 +38,28 @@
     },
     "home" : {
       "text1" : "Sie haben noch keinen Einkaufszettel angelegt?",
-      "text2" : "Neuen Einkaufszettel anlegen"
+      "text2" : "Neuen Einkaufszettel anlegen",
+      "category" : "$Catégorie"
     },
     "shoppinglist" : {
       "name": "Name *",
       "friends" : "Besitzer",
-      "share" : "Personen mit Zugriff",
-      "delete" : " Löschen ",
-      "submit" : " Speichern " 
+      "share" : "Personen mit Zugriff"
     },
     "authservice": {
       "error" : "Fehler beim Speichern!"
     },
     "shoppinglistservice" : {
       "error" : "Fehler beim Speichern!"
+    },
+    "category" : {
+      "name" : "$Nom de la catégorie",
+      "category": "$Catégorie",
+      "text1" : "$Êtes-vous sûr de vouloir supprimer la catégorie ?"
+    },
+    "part" : {
+      "name" : "$Nom de l'article",
+      "category": "$Catégorie",
+      "text1": "$Êtes-vous sûr de vouloir supprimer l'article ?"
     }
   }

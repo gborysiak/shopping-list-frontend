@@ -8,12 +8,12 @@ export const categoryFeatureKey = 'category';
 
 // Interface représentant l'état des utilisateurs
 export interface State {
-    categorysList: Category[];  // liste des articles
+    category: Category[];  // liste des articles
     loading: boolean;   // Indicateur de chargement
 }
 
 const initialState: State = {
-    categorysList: [],    // Liste initiale vide d'article
+    category: [],    // Liste initiale vide d'article
     loading: true     // Indicateur de chargement initialisé à true
 };
 

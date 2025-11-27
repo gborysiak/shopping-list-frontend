@@ -24,24 +24,24 @@ export const ShoppingListActions = createActionGroup({
     'Delete ShoppingList Failure': props<{ error: HttpErrorResponse }>(),
 
 
-    'Load Parts': emptyProps(),
-    'Load Parts Success': props<{ data: ShoppinglistItem[] }>(),
-    'Load Parts Failure': props<{ error: HttpErrorResponse }>(),
+    'Load Items': emptyProps(),
+    'Load Items Success': props<{ data: ShoppinglistItem[] }>(),
+    'Load Items Failure': props<{ error: HttpErrorResponse }>(),
 
-    'Create Part': props<{ shoppingId: number, data: ShoppinglistItem }>(), //shoppingId einkaufszettelId
-    'Create Part Success': props<{ data: ShoppinglistItem }>(),
-    'Create Part Failure': props<{ error: HttpErrorResponse }>(),
+    'Create Item': props<{ shoppingId: number, data: ShoppinglistItem }>(), //shoppingId einkaufszettelId
+    'Create Item Success': props<{ data: ShoppinglistItem }>(),
+    'Create Item Failure': props<{ error: HttpErrorResponse }>(),
 
-    'Update Part': props<{ shoppingId: number, data: ShoppinglistItem }>(),
-    'Update Part Success': props<{ data: ShoppinglistItem }>(),
-    'Update Part Failure': props<{ error: HttpErrorResponse }>(),
+    'Update Item': props<{ shoppingId: number, data: ShoppinglistItem }>(),
+    'Update Item Success': props<{ data: ShoppinglistItem }>(),
+    'Update Item Failure': props<{ error: HttpErrorResponse }>(),
 
-    'Delete Part': props<{ shoppingId: number, data: ShoppinglistItem }>(),
-    'Delete Part Success': props<{ data: ShoppinglistItem }>(),
-    'Delete Part Failure': props<{ error: HttpErrorResponse }>(),
+    'Delete Item': props<{ shoppingId: number, data: ShoppinglistItem }>(),
+    'Delete Item Success': props<{ data: ShoppinglistItem }>(),
+    'Delete Item Failure': props<{ error: HttpErrorResponse }>(),
 
-    'Archive Part': props<{ shoppingId: number }>(),
-    'Archive Part Success': props<{ data: ShoppinglistItem[] }>(),
-    'Archive Part Failure': props<{ error: HttpErrorResponse }>(),
+    'Archive Item': props<{ shoppingId: number }>(),
+    'Archive Item Success': props<{ data: ShoppinglistItem[] }>(),
+    'Archive Item Failure': props<{ error: HttpErrorResponse }>(),
   }
 });

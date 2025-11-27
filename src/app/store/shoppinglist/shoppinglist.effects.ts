@@ -76,17 +76,17 @@ export class ShoppingListEffects {
 
   createArtikel$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(ShoppingListActions.createPart),
-      concatMap(inputData => this.ShoppingListService.createPart(inputData.shoppingId, inputData.data).pipe(
-        map(item => ShoppingListActions.createPartSuccess({data: item})),
-        catchError(error => of(ShoppingListActions.createPartFailure({error})))
+      ofType(ShoppingListActions.createItem),
+      concatMap(inputData => this.ShoppingListService.createItem(inputData.shoppingId, inputData.data).pipe(
+        map(item => ShoppingListActions.createItemSuccess({data: item})),
+        catchError(error => of(ShoppingListActions.createItemFailure({error})))
       ))
     )
   });
 
   createArtikelSuccess$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(ShoppingListActions.createPartSuccess),
+      ofType(ShoppingListActions.createItemSuccess),
       this.navigateToHomeWithMessage('Artikel wurde gespeichert'),
       this.loadAllShoppingList()
     )
@@ -94,17 +94,17 @@ export class ShoppingListEffects {
 
   updateArtikel$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(ShoppingListActions.updatePart),
-      concatMap(inputData => this.ShoppingListService.updatePart(inputData.shoppingId, inputData.data).pipe(
-        map(data => ShoppingListActions.updatePartSuccess({data: data})),
-        catchError(error => of(ShoppingListActions.updatePartFailure({error})))
+      ofType(ShoppingListActions.updateItem),
+      concatMap(inputData => this.ShoppingListService.updateItem(inputData.shoppingId, inputData.data).pipe(
+        map(data => ShoppingListActions.updateItemSuccess({data: data})),
+        catchError(error => of(ShoppingListActions.updateItemFailure({error})))
       ))
     )
   });
 
   updateArtikelSuccess$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(ShoppingListActions.updatePartSuccess),
+      ofType(ShoppingListActions.updateItemSuccess),
       this.navigateToHomeWithMessage('Artikel wurde gespeichert'),
       this.loadAllShoppingList()
     )
@@ -112,17 +112,17 @@ export class ShoppingListEffects {
 
   deleteArtikel$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(ShoppingListActions.deletePart),
-      concatMap(inputData => this.ShoppingListService.deletePart(inputData.shoppingId, inputData.data).pipe(
-        map(data => ShoppingListActions.deletePartSuccess({data: data})),
-        catchError(error => of(ShoppingListActions.deletePartFailure({error})))
+      ofType(ShoppingListActions.deleteItem),
+      concatMap(inputData => this.ShoppingListService.deleteItem(inputData.shoppingId, inputData.data).pipe(
+        map(data => ShoppingListActions.deleteItemSuccess({data: data})),
+        catchError(error => of(ShoppingListActions.deleteItemFailure({error})))
       ))
     )
   });
 
   deleteArtikelSuccess$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(ShoppingListActions.deletePartSuccess),
+      ofType(ShoppingListActions.deleteItemSuccess),
       this.navigateToHomeWithMessage('Artikel wurde gelöscht'),
       this.loadAllShoppingList()
     )
@@ -130,17 +130,17 @@ export class ShoppingListEffects {
 
   archiviereArtikel$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(ShoppingListActions.archivePart),
+      ofType(ShoppingListActions.archiveItem),
       concatMap(inputData => this.ShoppingListService.archivePart(inputData.shoppingId).pipe(
-        map(data => ShoppingListActions.archivePartSuccess({data: data})),
-        catchError(error => of(ShoppingListActions.archivePartFailure({error})))
+        map(data => ShoppingListActions.archiveItemSuccess({data: data})),
+        catchError(error => of(ShoppingListActions.archiveItemFailure({error})))
       ))
     )
   });
 
   archiviereArtikelSuccess$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(ShoppingListActions.archivePartSuccess),
+      ofType(ShoppingListActions.archiveItemSuccess),
       this.navigateToHomeWithMessage('Artikel wurden archiviert'),
       this.loadAllShoppingList()
     )

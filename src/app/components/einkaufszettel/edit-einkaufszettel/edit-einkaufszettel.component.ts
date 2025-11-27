@@ -53,7 +53,7 @@ export class EditEinkaufszettelComponent implements OnInit {
 
   private initNew() {
     const einkaufszettel: ShoppingList = {
-      id: -1,
+      id: 0,
       name: '',
      // owners: [],
      // sharedWith: []

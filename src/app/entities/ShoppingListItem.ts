@@ -8,4 +8,5 @@ export interface ShoppinglistItem {
   quantity: number; // anzahl
   purchased: boolean; // gekauft
   purchaseDate?: Date; // kaufZeitpunkt
+  part?: Part;
 }

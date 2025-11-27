@@ -38,12 +38,12 @@
           @if (edit) {
             <button type="button" (click)="delete($event)"
               class="text-gray-600 font-bold underline rounded-lg mr-5 py-2 text-center" >
-                <ng-container >{{ 'shoppinglist.delete' | translate }}</ng-container>
+                <ng-container >{{ 'global.delete' | translate }}</ng-container>
     </button>
             }
             <button type="submit" [disabled]="einkaufszettelForm.invalid"
               class="bg-lime-400 rounded-lg px-2 py-2 text-center" >
-                  <ng-container >{{ 'shoppinglist.submit' | translate }}</ng-container>
+                  <ng-container >{{ 'global.submit' | translate }}</ng-container>
     </button>
             </div>
           </form>

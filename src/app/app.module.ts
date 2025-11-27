@@ -70,7 +70,9 @@ import { CategoryComponent } from './components/category/category/category.compo
 import { AccordionModule } from 'primeng/accordion';
 import { SelectModule } from 'primeng/select';
 import { ListboxModule } from 'primeng/listbox';
-
+import { SplitterModule } from 'primeng/splitter';
+//import { DragDropModule} from '@angular/cdk/drag-drop';
+import { DragDropModule } from 'primeng/dragdrop';
 
 export function HttpLoaderFactory(http: HttpClient) {
         return new JsonFileLoader();
@@ -141,7 +143,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         MessageModule,
         AccordionModule,
         SelectModule,
-        ListboxModule
+        ListboxModule,
+        SplitterModule,
+        DragDropModule
         //TranslateModule, /*<--- Don't forget to import this too*/
         /*
         TranslateModule.forRoot({

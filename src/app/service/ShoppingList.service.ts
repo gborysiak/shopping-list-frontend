@@ -76,7 +76,7 @@ export class ShoppingListService  {
   }
 
   updateShoppingList(shoppingList: ShoppingList) {
-    return this.httpClient.put<ShoppingList>(`${this.api}/ShoppingList/${shoppingList.id}`, shoppingList).pipe(
+    return this.httpClient.put<ShoppingList>(`${this.api}/ShoppingList`, shoppingList).pipe(
       catchError(error => this.errorHandler(error))
     );
   }
@@ -87,20 +87,20 @@ export class ShoppingListService  {
     );
   }
 
-  createPart(shoppingListId: number, item: ShoppinglistItem) {
-    return this.httpClient.post<ShoppinglistItem>(`${this.api}/ShoppingList/${shoppingListId}/part`, item).pipe(
+  createItem(shoppingListId: number, item: ShoppinglistItem) {
+    return this.httpClient.post<ShoppinglistItem>(`${this.api}/ShoppingList/${shoppingListId}/Item`, item).pipe(
       catchError(error => this.errorHandler(error))
     );
   }
 
-  updatePart(shoppingListId: number, item: ShoppinglistItem) {
-    return this.httpClient.put<ShoppinglistItem>(`${this.api}/ShoppingList/${shoppingListId}/part/${item.id}`, item).pipe(
+  updateItem(shoppingListId: number, item: ShoppinglistItem) {
+    return this.httpClient.put<ShoppinglistItem>(`${this.api}/ShoppingList/${shoppingListId}/Item/${item.id}`, item).pipe(
       catchError(error => this.errorHandler(error))
     );
   }
 
-  deletePart(shoppingListId: number, item: ShoppinglistItem) {
-    return this.httpClient.delete<ShoppinglistItem>(`${this.api}/ShoppingList/${shoppingListId}/part/${item.id}`).pipe(
+  deleteItem(shoppingListId: number, item: ShoppinglistItem) {
+    return this.httpClient.delete<ShoppinglistItem>(`${this.api}/ShoppingList/${shoppingListId}/Item/${item.id}`).pipe(
       catchError(error => this.errorHandler(error))
     );
   }

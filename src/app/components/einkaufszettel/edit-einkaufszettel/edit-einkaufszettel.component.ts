@@ -69,6 +69,7 @@ export class EditEinkaufszettelComponent implements OnInit {
     if (this.edit) {
       this.store.dispatch(ShoppingListActions.updateShoppingList({data: einkaufszettel}));
     } else {
+      einkaufszettel.shoppingListItem = Array();
       this.store.dispatch(ShoppingListActions.createShoppingList({data: einkaufszettel}));
     }
   }

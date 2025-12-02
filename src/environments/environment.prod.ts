@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  webserviceurl: "https://localhost:7279/api"
+  webserviceurl: "https://shopping.borysiak.com/api"
 };

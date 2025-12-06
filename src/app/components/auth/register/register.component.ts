@@ -5,6 +5,8 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Store} from "@ngrx/store";
 import {Router} from "@angular/router";
 import {AuthActions} from "../../../store/auth/auth.actions";
+//import { ErrorService } from 'src/app/service/error.service';
+import { MessageModule } from 'primeng/message';
 
 @Component({
     selector: 'app-register',
@@ -20,8 +22,10 @@ export class RegisterComponent implements OnInit {
     name: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]]
   });
+  errorMessage: string | null = null;
 
-  constructor(private formBuilder: FormBuilder, private store: Store, private router: Router, private messageService: MessageService) {
+  constructor(private formBuilder: FormBuilder, private store: Store, private router: Router, private messageService: MessageService ) {
+
   }
 
   ngOnInit(): void {

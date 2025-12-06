@@ -2,8 +2,10 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "strictPropertyInitialization": false,
     "outDir": "./out-tsc/app",
-    "types": []
+    "types": [
+    ]
   },
   "files": [
     "src/main.ts"

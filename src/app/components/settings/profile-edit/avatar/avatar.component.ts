@@ -37,10 +37,11 @@ export class AvatarComponent implements OnInit, ControlValueAccessor {
   disabled: boolean = false;
 
   constructor(private messageService: MessageService, private dialogService: DialogService) {
-
+    
   }
 
   ngOnInit(): void {
+
   }
 
   writeValue(_file: string): void {

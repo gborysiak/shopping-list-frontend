@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Einkaufszettel} from "../../../entities/einkaufszettel";
+import {ShoppingList} from "../../../entities/ShoppingList";
 import {Store} from "@ngrx/store";
-import {EinkaufszettelActions} from "../../../store/einkaufszettel/einkaufszettel.actions";
-import {selectEinkaufszettelById} from "../../../store/einkaufszettel/einkaufszettel.selectors";
+import {ShoppingListActions} from "../../../store/shoppinglist/shoppinglist.actions";
+import {selectAllShoppingList, selectShoppingListById} from "../../../store/shoppinglist/shoppinglist.selectors";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
 import {User} from "../../../entities/user";
@@ -32,7 +32,7 @@ export class EditEinkaufszettelComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(EinkaufszettelActions.loadEinkaufszettels());
+    this.store.dispatch(ShoppingListActions.loadShoppingLists());
     this.store.dispatch(UserActions.loadUsersFriends());
 
     const einkaufszettelId = Number(this.activatedRoute.snapshot.paramMap.get('einkaufszettelId'));
@@ -48,33 +48,35 @@ export class EditEinkaufszettelComponent implements OnInit {
     this.edit = true;
     this.header = 'Einkaufszettel bearbeiten';
 
-    this.store.select(selectEinkaufszettelById(einkaufszettelId)).subscribe(einkaufszettel => this.einkaufszettelForm.patchValue(einkaufszettel));
+    this.store.select(selectShoppingListById(einkaufszettelId)).subscribe(einkaufszettel => this.einkaufszettelForm.patchValue(einkaufszettel));
   }
 
   private initNew() {
-    const einkaufszettel: Einkaufszettel = {
-      id: -1,
+    const einkaufszettel: ShoppingList = {
+      id: 0,
       name: '',
-      owners: [],
-      sharedWith: []
+     // owners: [],
+     // sharedWith: []
     };
     this.einkaufszettelForm.patchValue(einkaufszettel);
   }
 
   save() {
     const formValue = this.einkaufszettelForm.getRawValue();
-    const einkaufszettel: Einkaufszettel = {...formValue};
+    const einkaufszettel: ShoppingList = {...formValue};
+
 
     if (this.edit) {
-      this.store.dispatch(EinkaufszettelActions.updateEinkaufszettel({data: einkaufszettel}));
+      this.store.dispatch(ShoppingListActions.updateShoppingList({data: einkaufszettel}));
     } else {
-      this.store.dispatch(EinkaufszettelActions.createEinkaufszettel({data: einkaufszettel}));
+      einkaufszettel.shoppingListItem = Array();
+      this.store.dispatch(ShoppingListActions.createShoppingList({data: einkaufszettel}));
     }
   }
 
   delete(event: Event) {
     const formValue = this.einkaufszettelForm.getRawValue();
-    const einkaufszettel: Einkaufszettel = {...formValue};
+    const einkaufszettel: ShoppingList = {...formValue};
 
     this.confirmationService.confirm({
       target: event.target as EventTarget,
@@ -87,8 +89,8 @@ export class EditEinkaufszettelComponent implements OnInit {
       rejectIcon: "none",
       rejectButtonStyleClass: "p-button-text",
       accept: () => {
-        this.store.dispatch(EinkaufszettelActions.deleteEinkaufszettel({data: einkaufszettel}));
-        this.store.dispatch(EinkaufszettelActions.loadEinkaufszettels());
+        this.store.dispatch(ShoppingListActions.deleteShoppingList({data: einkaufszettel}));
+        this.store.dispatch(ShoppingListActions.loadShoppingLists());
       }
     });
   }

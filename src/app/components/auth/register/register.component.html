@@ -1,13 +1,13 @@
 <form [formGroup]="loginForm" class="max-w-xl m-auto" (ngSubmit)="register()">
   <!-- Benutzername -->
-  <div class="mt-2 mb-6">
-    <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="benutzername">Benutzername *</label>
-    <input id="benutzername" class="w-full" type="text" pInputText formControlName="username"/>
+  <div class="mt-2 mb-6"> 
+    <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="benutzername" >{{ 'register.user' | translate }}</label>
+    <input id="benutzername" class="w-full" type="text" pInputText formControlName="username" />
   </div>
 
   <!-- Passwort -->
   <div class="mt-2 mb-6">
-    <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="passwort">Passwort *</label>
+    <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="passwort" >{{ 'register.password' | translate }}</label>
     <p-password id="passwort"
                 [style]="{'width': '100%'}"
                 [inputStyle]="{'width': '100%'}"
@@ -19,16 +19,16 @@
 
   <!-- Name -->
   <div class="mt-2 mb-6">
-    <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="name">
-      Name *
+    <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="name" >
+      {{ 'register.name' | translate }}
     </label>
     <input id="name" class="w-full" type="text" pInputText formControlName="name"/>
   </div>
 
   <!-- Email -->
   <div class="mt-2 mb-6">
-    <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="email">
-      E-Mail *
+    <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="email" >
+      {{ 'register.email' | translate }}
     </label>
     <input id="email" class="w-full" type="text" pInputText formControlName="email"/>
   </div>
@@ -36,19 +36,19 @@
   <!-- Speichern -->
   <div class="flex md:items-center mt-2">
     <button type="button" (click)="reset()"
-            class="text-gray-600 font-bold underline rounded-lg mr-5 py-2 text-center">
-      Zurücksetzen
+            class="text-gray-600 font-bold underline rounded-lg mr-5 py-2 text-center" >
+      {{ 'register.reset' | translate }}
     </button>
 
     <button type="submit" [disabled]="loginForm.invalid"
-            class="bg-lime-400 rounded-lg px-2 py-2 text-center">
-      Registrieren
+            class="bg-lime-400 rounded-lg px-2 py-2 text-center" >
+      {{ 'register.submit' | translate }}
     </button>
   </div>
 
   <div class="text-xs text-gray-500 font-bold my-2">
-    Zurück zum
-    <a routerLink="/login" class="text-lime-600">Login</a>
+     {{ 'register.back' | translate }}
+    <a routerLink="/login" class="text-lime-600" >{{ 'register.login' | translate }}</a>
   </div>
 
 

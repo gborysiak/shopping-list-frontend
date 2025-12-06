@@ -1,5 +1,6 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {Artikel} from "../entities/artikel";
+//import {Part} from "../entities/Part";
+import { ShoppinglistItem } from '../entities/ShoppingListItem';
 
 @Pipe({
     name: 'boughtArticles',
@@ -7,11 +8,11 @@ import {Artikel} from "../entities/artikel";
 })
 export class BoughtArticlesPipe implements PipeTransform {
 
-  transform(articles: Artikel[] | undefined, gekauft: boolean): Artikel[] {
-    if (!articles) {
+  transform(items: ShoppinglistItem[] | undefined, purchased: boolean): ShoppinglistItem[] {
+    if (!items) {
       return [];
     }
-    return articles.filter(article => article.gekauft === gekauft);
+    return items.filter(item => item.purchased === purchased);
   }
 
 }

@@ -40,3 +40,10 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+/locale/messages.fr.xliff.bak
+/locale/messages.fr.xlf
+/src/locale/messages.fr.xliff.bak
+/src/locale/messages.fr.xlf.bak
+/src/app/core/globalErrorHandler.ts
+/src/app/service/error.service.ts
+/src/app/interceptor/ErrorInterceptor.service.ts

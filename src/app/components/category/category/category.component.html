@@ -1,0 +1,20 @@
+
+<form [formGroup]="categoryForm" class="max-w-xl m-auto" (ngSubmit)="save()">
+		<!-- { value }} -->
+		<div class="mt-2 mb-6">
+			<label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="name">{{ 'category.name' | translate }}</label>
+			<input id="name" class="w-full" type="text" pInputText formControlName="name"/>
+		</div> 
+
+	<!-- Buttons -->
+	<div class="flex md:items-center mt-2">
+          @if (edit) {
+            <button type="button" (click)="delete($event)" class="text-gray-600 font-bold underline rounded-lg mr-5 py-2 text-center">
+			<ng-container>{{ 'global.delete' | translate }}</ng-container>
+		</button>
+            }
+            <button type="submit" [disabled]="categoryForm.invalid" class="bg-lime-400 rounded-lg px-2 py-2 text-center">
+			<ng-container>{{ 'global.submit' | translate }}</ng-container>
+		</button>
+	</div>
+</form>

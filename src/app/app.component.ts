@@ -1,11 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, inject } from '@angular/core';
 import {Store} from "@ngrx/store";
-import {EinkaufszettelActions} from "./store/einkaufszettel/einkaufszettel.actions";
+import {ShoppingListActions} from "./store/shoppinglist/shoppinglist.actions";
 import {ConfirmationService} from "primeng/api";
 import {AuthActions} from "./store/auth/auth.actions";
 import {selectLogin} from "./store/auth/auth.selectors";
 import {User} from "./entities/user";
 import {ConfirmDialogModule } from 'primeng/confirmdialog';
+// translation
+import {TranslateService, _, TranslatePipe, TranslateDirective } from "@ngx-translate/core";
+//import translationsFR from "../../public/i18n/fr.json";
 
 @Component({
     selector: 'app-root',
@@ -18,9 +21,25 @@ export class AppComponent implements OnInit {
   userLoggedIn: User | undefined;
   mobileMenuVisible = false;
   profileMenuVisible = false;
+ 
+  constructor(private store: Store, private confirmationService: ConfirmationService, translate: TranslateService  ) {
+    translate.addLangs(['en', 'de','fr']);
+    translate.setFallbackLang('fr');
+    translate.use('fr');
+    translate.get(_('app.hello'), {value: 'world'}).subscribe((res: string) => {
+      console.log(res);
+      //=> 'hello world'
+    });
 
-  constructor(private store: Store, private confirmationService: ConfirmationService) {
+    const currentLang = translate.currentLang;
+    console.log('Language from translate ' + currentLang);
+
+    translate.onFallbackLangChange.subscribe(event => {
+      console.log('Default language changed:', event.lang);
+});
   }
+
+
 
   ngOnInit(): void {
     this.store.select(selectLogin).subscribe(user => {
@@ -29,6 +48,7 @@ export class AppComponent implements OnInit {
       this.mobileMenuVisible = false;
       this.profileMenuVisible = false;
     });
+
   }
 
   logout(event: Event) {

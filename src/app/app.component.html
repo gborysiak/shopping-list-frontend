@@ -5,13 +5,13 @@
         <div class="sm:hidden">
           <!-- Mobile menu button-->
           <button type="button"
-                  class="fas fa-bars inline-flex items-center rounded-lg p-2 text-gray-600 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-                  [disabled]="!userIsLoggedIn"
-                  (click)="toggleMobileMenu()"
-                  aria-controls="mobile-menu" aria-expanded="false">
+            class="fas fa-bars inline-flex items-center rounded-lg p-2 text-gray-600 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+            [disabled]="!userIsLoggedIn"
+            (click)="toggleMobileMenu()"
+            aria-controls="mobile-menu" aria-expanded="false">
           </button>
         </div>
-
+        <!--div>{{ 'app.hello' | translate }}</div-->
         <div class="hidden sm:block"> <!-- webmenu -->
           <app-navigation-links></app-navigation-links>
         </div>
@@ -19,72 +19,79 @@
         <div class="sm:grow"></div>
 
         <div class="relative">
-          <div class="image-container rounded-full p-2 h-[38px] w-[38px]" *ngIf="userLoggedIn?.avatar"
-               [ngClass]="{'box-shadow-avatar': !!userLoggedIn?.avatar}"
-               [ngStyle]="{backgroundImage: 'url(data:image/png;base64,' + userLoggedIn?.avatar + ')'}"
-               (click)="toggleProfileMenu()"
-          ></div>
-          <button type="button"
-                  *ngIf="!userLoggedIn?.avatar"
-                  class="sm:inline fas fa-user inline-flex items-center rounded-full p-2 text-gray-500 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-                  (click)="toggleProfileMenu()"
-                  [disabled]="!userIsLoggedIn">
-          </button>
+          @if (userLoggedIn?.avatar) {
+            <div class="image-container rounded-full p-2 h-[38px] w-[38px]"
+              [ngClass]="{'box-shadow-avatar': !!userLoggedIn?.avatar}"
+              [ngStyle]="{backgroundImage: 'url(data:image/png;base64,' + userLoggedIn?.avatar + ')'}"
+              (click)="toggleProfileMenu()"
+            ></div>
+          }
+          @if (!userLoggedIn?.avatar) {
+            <button type="button"
+              class="sm:inline fas fa-user inline-flex items-center rounded-full p-2 text-gray-500 bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              (click)="toggleProfileMenu()"
+              [disabled]="!userIsLoggedIn">
+            </button>
+          }
 
-          <div *ngIf="profileMenuVisible && userIsLoggedIn"
-               class="absolute right-0 mt-2 bg-white shadow-lg rounded-lg border-2 z-50">
-            <div class="border-b-2 py-2">
-              <div class="px-4">{{ userLoggedIn?.name }}</div>
-              <div class="px-4 font-bold">{{ userLoggedIn?.email }}</div>
-            </div>
-            <ul class="text-gray-700">
-              <a routerLink="/profile-edit">
-                <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                  <span class="fas fa-user"></span> Profil
-                </li>
-              </a>
-              <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer"><span class="fas fa-gear"></span> Einstellungen
+          @if (profileMenuVisible && userIsLoggedIn) {
+            <div
+              class="absolute right-0 mt-2 bg-white shadow-lg rounded-lg border-2 z-50">
+              <div class="border-b-2 py-2">
+                <div class="px-4">{{ userLoggedIn?.name }}</div>
+                <div class="px-4 font-bold">{{ userLoggedIn?.email }}</div>
+              </div>
+              <ul class="text-gray-700">
+                <a routerLink="/profile-edit">
+                  <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
+                    <span class="fas fa-user"></span> Profil
+                  </li>
+                </a>
+                <li  class="px-4 py-2 hover:bg-gray-100 cursor-pointer"><span class="fas fa-gear"></span> Einstellungen
               </li>
-              <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer" (click)="logout($event)"><span
+              <li  class="px-4 py-2 hover:bg-gray-100 cursor-pointer" (click)="logout($event)"><span
                 class="fas fa-arrow-right-from-bracket"></span> Ausloggen
               </li>
-            </ul>
-          </div>
+          </ul>
         </div>
-
-      </div>
+      }
     </div>
 
-    <!-- Mobile menu, show/hide based on menu state. -->
-    <div *ngIf="mobileMenuVisible && userIsLoggedIn" class="sm:hidden" id="mobile-menu"> <!--- mobile menu -->
-      <div class="space-y-1 px-2 pb-1 items-center">
-        <app-navigation-links></app-navigation-links>
-      </div> <!--- mobile menu ende -->
-    </div>
-
-  </nav>
-
-  <div class="p-4" style="min-height: inherit; height: inherit">
-    <router-outlet></router-outlet>
   </div>
-
-  <div class="flex bg-gray-200 text-gray-500 text-sm font-medium">
-    <div class="grow"></div>
-    <div class="py-2">
-      <span class="fa-regular fa-copyright fa-xl rounded-lg text-xs font-medium align-middle"></span>
-      <span class="ml-1 text-xs">Alice Bedow</span>
-    </div>
-    <a href="https://www.linkedin.com/in/alice-bedow-1a7a7a219/"
-       class="rounded-lg px-1 py-2 ml-1"
-       target="_blank"
-       aria-current="page"><span class="fa-brands fa-linkedin fa-xl"></span></a>
-    <a href="https://github.com/BlueIronGirl/shopping-list-app"
-       class="rounded-lg pl-1 py-2 mr-2"
-       target="_blank"
-       aria-current="page"><span class="fa-brands fa-github fa-xl"></span></a>
-  </div>
-
-  <p-toast></p-toast>
-  <p-confirmDialog/>
 </div>
+
+<!-- Mobile menu, show/hide based on menu state. -->
+@if (mobileMenuVisible && userIsLoggedIn) {
+  <div class="sm:hidden" id="mobile-menu"> <!--- mobile menu -->
+    <div class="space-y-1 px-2 pb-1 items-center">
+      <app-navigation-links></app-navigation-links>
+    </div> <!--- mobile menu ende -->
+  </div>
+}
+
+</nav>
+
+<div class="p-4" style="min-height: inherit; height: inherit">
+  <router-outlet></router-outlet>
+</div>
+
+<div class="flex bg-gray-200 text-gray-500 text-sm font-medium">
+  <div class="grow"></div>
+  <div class="py-2">
+    <span class="fa-regular fa-copyright fa-xl rounded-lg text-xs font-medium align-middle"></span>
+    <span class="ml-1 text-xs">Alice Bedow</span>
+  </div>
+  <a href="https://www.linkedin.com/in/alice-bedow-1a7a7a219/"
+    class="rounded-lg px-1 py-2 ml-1"
+    target="_blank"
+    aria-current="page"><span class="fa-brands fa-linkedin fa-xl"></span></a>
+    <a href="https://github.com/BlueIronGirl/shopping-list-app"
+      class="rounded-lg pl-1 py-2 mr-2"
+      target="_blank"
+      aria-current="page"><span class="fa-brands fa-github fa-xl"></span></a>
+    </div>
+
+    <p-toast></p-toast>
+    <p-confirmDialog/>
+  </div>
 

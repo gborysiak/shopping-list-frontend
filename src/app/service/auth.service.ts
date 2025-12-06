@@ -10,6 +10,7 @@ import {environment} from "../../environments/environment";
 import {ROLE_NAME, RoleName} from "../entities/enum/rolename";
 import {AuthActions} from "../store/auth/auth.actions";
 import {selectLogin} from "../store/auth/auth.selectors";
+import {TranslateService, _} from "@ngx-translate/core";
 
 @Injectable({
   providedIn: 'root'
@@ -17,24 +18,35 @@ import {selectLogin} from "../store/auth/auth.selectors";
 export class AuthService {
   private api = `${environment.webserviceurl}`;
   private userRoles: RoleName[] = [];
+  private errorMessage: string = '';
+  private translate: TranslateService;
 
-  constructor(private httpClient: HttpClient, private store: Store, private messageService: MessageService) {
+  constructor(private httpClient: HttpClient, private store: Store, private messageService: MessageService,
+    translate: TranslateService ) {
+    this.translate = translate;
+    
+  }
+
+  getTranslation(key: string): string {
+    return this.translate.instant(key); 
   }
 
   private errorHandler(error: HttpErrorResponse): Observable<never> {
     console.error('Fehler aufgetreten!' + JSON.stringify(error));
-    this.messageService.add({severity: 'error', summary: `Fehler beim Speichern! ${error.message}`});
+    var summary = this.getTranslation('authservice.error') + error.error;
+    this.messageService.add({severity: 'error', summary: summary});
     return throwError(() => error);
-  }
+  } 
 
   login(user: User) {
-    return this.httpClient.post<User>(`${this.api}/auth/login`, user).pipe(
+    console.log('$ auth.service.login')
+    return this.httpClient.post<User>(`${this.api}/User/login`, user).pipe(
       catchError(error => this.errorHandler(error))
     );
   }
 
   register(user: User) {
-    return this.httpClient.post<User>(`${this.api}/auth/register`, user).pipe(
+    return this.httpClient.post<User>(`${this.api}/User/subscribe`, user).pipe(
       catchError(error => this.errorHandler(error))
     );
   }
@@ -49,21 +61,31 @@ export class AuthService {
     return this.httpClient.post<any>(`${this.api}/auth/refresh-token`, token).pipe(
       catchError(error => this.errorHandler(error))
     );
+    
   }
 
+  // save token in local storage
   saveLoginStateToLocalStorage(user: User | null) {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
   getActiveLoginToken(): string {
     let token = '';
+    let user: User;
 
-    this.store.select(selectLogin).subscribe(user => token = user?.token ? user.token : '');
+    //this.store.select(selectLogin).subscribe(user => token = user?.token ? user.token : '');
 
+    var temp;
+    temp = localStorage.getItem('user') ;
+    console.log('$ getActiveLoginToken ' + temp);
+    user = JSON.parse(localStorage.getItem('user')!);
+    token = user ? user.token !: ''; 
+    console.log('$ getActiveLoginToken  / token ' + token);
     return token;
   }
 
   isLoginStateValid() {
+    console.log('$ auth.service.isLoginStateValid')
     const userString = localStorage.getItem('user');
 
     if (userString) {

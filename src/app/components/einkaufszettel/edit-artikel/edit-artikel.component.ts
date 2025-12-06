@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Store} from "@ngrx/store";
-import {selectArtikelById} from "../../../store/einkaufszettel/einkaufszettel.selectors";
-import {Artikel} from "../../../entities/artikel";
-import {EinkaufszettelActions} from "../../../store/einkaufszettel/einkaufszettel.actions";
+import {selectItemById} from "../../../store/shoppinglist/shoppinglist.selectors";
+import {Part} from "../../../entities/Part";
+import {ShoppingListActions} from "../../../store/shoppinglist/shoppinglist.actions";
 import {ConfirmationService} from "primeng/api";
+import { ShoppinglistItem } from 'src/app/entities/ShoppingListItem';
+import { selectAllPart } from 'src/app/store/part/part.selector';
 
 @Component({
     selector: 'app-edit-artikel',
@@ -16,66 +18,92 @@ import {ConfirmationService} from "primeng/api";
 export class EditArtikelComponent implements OnInit {
   artikelForm: FormGroup = this.formBuilder.group({
     id: [{value: '', disabled: true}, Validators.required],
-    name: [{value: ''}, Validators.compose([Validators.required, Validators.minLength(1)])],
+    partRefId: [{value: '', disabled: true}, Validators.required],
+    name: [{value: ''}],
     // kategorie: ['', Validators.compose([Validators.required, Validators.minLength(1)])], TODO
-    anzahl: ['', Validators.compose([Validators.required, Validators.min(1), Validators.max(100)])],
-    gekauft: ['', Validators.required]
+    quantity: ['', Validators.compose([Validators.required, Validators.min(1), Validators.max(100)])],
+    purchased: ['', Validators.required]
   });
 
-  einkaufszettelId: number = 0;
+  shoppingId: number = 0; // einkaufszettelId
   edit: boolean = false;
   header: string = '';
 
-  constructor(private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, private store: Store, private confirmationService: ConfirmationService,) {
+  constructor(private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, private store: Store, private confirmationService: ConfirmationService,
+    private router: Router ) {
   }
 
   ngOnInit(): void {
-    this.einkaufszettelId = Number(this.activatedRoute.snapshot.paramMap.get('einkaufszettelId'));
-    const artikelId = Number(this.activatedRoute.snapshot.paramMap.get('artikelId'));
-    if (artikelId > 0) {
-      this.initEdit(artikelId);
+    this.shoppingId = Number(this.activatedRoute.snapshot.paramMap.get('shoppingList'));
+    const partId = Number(this.activatedRoute.snapshot.paramMap.get('item')); // artikelId
+    if (partId > 0) {
+      this.initEdit(partId);
     } else {
-      this.initNew();
+      //this.initNew();
+      this.router.navigate(['/home']);
     }
   }
 
-  private initEdit(artikelId: number) {
+  private initEdit(partId: number) {
     this.edit = true;
     this.header = 'Artikel bearbeiten';
 
-    this.store.select(selectArtikelById(this.einkaufszettelId, artikelId)).subscribe(artikel => this.artikelForm.patchValue(artikel));
+    const editPart = {
+      id: -1,
+      partRefId: -1,
+      name: '',
+      quantity: 1,
+      purchased: false
+    };
+
+    this.store.select(selectItemById(this.shoppingId, partId)).subscribe(
+      item => { 
+        this.store.select(selectAllPart).subscribe(parts => {
+          // search part data
+          var part = parts.find(part => part.id == item.partRefId)!;
+          editPart.name = part.name;
+          editPart.id = item.id;
+          editPart.partRefId = part.id;
+          editPart.quantity = item.quantity;
+          this.artikelForm.patchValue(editPart);
+          //console.log(item.quantity);
+        });
+      });
   }
 
+  /*
   private initNew() {
-    const emptyArtikel: Artikel = {
+    const emptyPart: ShoppinglistItem = {
       id: -1,
+      partRefId: -1,
       name: '',
-      anzahl: 1,
-      gekauft: false
+      quantity: 1,
+      purchased: false
     };
-    this.artikelForm.patchValue(emptyArtikel);
+    this.artikelForm.patchValue(emptyPart);
   }
+    */
 
   save() {
     const formValue = this.artikelForm.getRawValue();
-    const artikel: Artikel = {...formValue};
+    const item: ShoppinglistItem = {...formValue};
 
     if (this.edit) {
-      this.store.dispatch(EinkaufszettelActions.updateArtikel({
-        einkaufszettelId: this.einkaufszettelId,
-        data: artikel
+      this.store.dispatch(ShoppingListActions.updateItem({
+        shoppingId: this.shoppingId,
+        data: item
       }));
     } else {
-      this.store.dispatch(EinkaufszettelActions.createArtikel({
-        einkaufszettelId: this.einkaufszettelId,
-        data: artikel
+      this.store.dispatch(ShoppingListActions.createItem({
+        shoppingId: this.shoppingId,
+        data: item
       }));
     }
   }
 
   delete(event: Event) {
     const formValue = this.artikelForm.getRawValue();
-    const artikel: Artikel = {...formValue};
+    const item: ShoppinglistItem = {...formValue}; // artikel
 
     this.confirmationService.confirm({
       target: event.target as EventTarget,
@@ -88,11 +116,11 @@ export class EditArtikelComponent implements OnInit {
       rejectIcon: "none",
       rejectButtonStyleClass: "p-button-text",
       accept: () => {
-        this.store.dispatch(EinkaufszettelActions.deleteArtikel({
-          einkaufszettelId: this.einkaufszettelId,
-          data: artikel
+        this.store.dispatch(ShoppingListActions.deleteItem({
+          shoppingId: this.shoppingId,
+          data: item
         }));
-        this.store.dispatch(EinkaufszettelActions.loadEinkaufszettels());
+        this.store.dispatch(ShoppingListActions.loadShoppingLists());
       }
     });
   }

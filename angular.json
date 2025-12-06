@@ -18,7 +18,8 @@
           "builder": "@angular/build:application",
           "options": {
             "outputPath": {
-              "base": "dist/shoppinglist"
+              "base": "../../dotnet_api/wwwroot",
+              "browser": ""
             },
             "index": "src/index.html",
             "polyfills": [
@@ -28,12 +29,11 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/assets/i18n"
             ],
             "styles": [
               "node_modules/primeicons/primeicons.css",
-              "node_modules/primeng/resources/themes/lara-light-blue/theme.css",
-              "node_modules/primeng/resources/primeng.min.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.css",
               "node_modules/cropperjs/dist/cropper.css",
               "src/styles.scss"
@@ -64,9 +64,21 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
+            },
+          "staging": {
+              "optimization": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.staging.ts"
+                }
+              ]
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "development"
         },
         "serve": {
           "builder": "@angular/build:dev-server",
@@ -80,12 +92,6 @@
           },
           "defaultConfiguration": "development"
         },
-        "extract-i18n": {
-          "builder": "@angular/build:extract-i18n",
-          "options": {
-            "buildTarget": "shoppinglist:build"
-          }
-        },
         "test": {
           "builder": "@angular/build:karma",
           "options": {
@@ -97,7 +103,8 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/assets/i18n"
             ],
             "styles": [
               "node_modules/primeng/resources/themes/lara-light-blue/theme.css",

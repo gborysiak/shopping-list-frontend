@@ -16,13 +16,15 @@ import {
 import {ProfileEditComponent} from "./components/settings/profile-edit/profile-edit.component";
 import { PartComponent } from './components/part/part/part.component';
 import { CategoryComponent } from './components/category/category/category.component';
+import { MobilehomeComponent } from './components/mobile/mobilehome/mobilehome.component';
+import { NewpartComponent } from './components/mobile/newpart/newpart.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
-  {path: 'registration-confirmation', component: RegistrationConfirmationComponent},
-  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+  //{path: 'register', component: RegisterComponent},
+  //{path: 'registration-confirmation', component: RegistrationConfirmationComponent},
+  {path: 'home', component: window.screen.width > 767 ? HomeComponent : MobilehomeComponent, canActivate: [AuthGuard]},
   {path: 'einkaufszettel/:einkaufszettelId', component: EditEinkaufszettelComponent, canActivate: [AuthGuard]},
   {path: 'einkaufszettel', component: EditEinkaufszettelComponent, canActivate: [AuthGuard]},
   {path: 'artikel/new/:einkaufszettelId', component: EditArtikelComponent, canActivate: [AuthGuard]},
@@ -31,9 +33,10 @@ const routes: Routes = [
   {path: 'profile-edit', component: ProfileEditComponent, canActivate: [AuthGuard]},
   {path: 'user', component: UserComponent, canActivate: [AuthGuard, RoleGuard], data: {expectedRole: ROLE_NAME.ROLE_ADMIN}},
   {path: 'part', component: PartComponent, canActivate: [AuthGuard]},
-   {path: 'part/:partId', component: PartComponent, canActivate: [AuthGuard]},
+  {path: 'part/:partId', component: PartComponent, canActivate: [AuthGuard]},
   {path: 'category', component: CategoryComponent, canActivate: [AuthGuard]},
-  {path: 'category/:categoryId', component: CategoryComponent, canActivate: [AuthGuard]}
+  {path: 'category/:categoryId', component: CategoryComponent, canActivate: [AuthGuard]},
+  {path: 'mobile/addPart/:shooping', component: NewpartComponent, canActivate: [AuthGuard]} 
 ];
 
 @NgModule({

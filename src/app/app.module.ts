@@ -73,6 +73,8 @@ import { ListboxModule } from 'primeng/listbox';
 import { SplitterModule } from 'primeng/splitter';
 //import { DragDropModule} from '@angular/cdk/drag-drop';
 import { DragDropModule } from 'primeng/dragdrop';
+import { MobilehomeComponent } from './components/mobile/mobilehome/mobilehome.component';
+import { NewpartComponent } from './components/mobile/newpart/newpart.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
         return new JsonFileLoader();
@@ -94,7 +96,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         BoughtArticlesPipe,
         ProfileEditComponent,
         PartComponent,
-        CategoryComponent
+        CategoryComponent,
+        MobilehomeComponent,
+        NewpartComponent
         //AvatarComponent
     ],
     bootstrap: [AppComponent], 

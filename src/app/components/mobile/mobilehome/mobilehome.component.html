@@ -1,0 +1,28 @@
+<div class="w-full">
+  @for (shoppinglist of shoppinglists; track shoppinglist) {
+    <div  
+        class="flex-grow-1 bg-gray-50 rounded-lg shadow-lg border-2 m-5" >
+        <div class="p-3 bg-white">
+            <h2 class="flex text-2xl items-baseline">
+                <span class="font-bold text-lime-600">{{ shoppinglist.name }} </span>
+                <button type="button" [routerLink]="['/mobile/addPart', shoppinglist.id]"
+                pTooltip="Neuen Artikel anlegen"
+                class="fas fa-plus ml-2 text-gray-500" ></button>
+            </h2>
+            @for (item of shoppinglist.shoppingListItem | boughtArticles:false ; track item) {
+            <div class="flex my-1 items-start"  >
+                <p-checkbox class="mr-2 mt-1 rounded-full"
+                [(ngModel)]="item.purchased"
+                [binary]="true"
+                (onChange)="modifyItem(shoppinglist, item)"></p-checkbox>
+                <span class="text-primary font-semibold text-xl text-lime-600 mr-2">{{ item.quantity }}</span>
+                <span class="text-primary font-semibold text-xl cursor-pointer hover:underline break-all"
+                pTooltip="Artikel bearbeiten"
+                [routerLink]="['/item', shoppinglist.id, item.id]">{{ item.part?.name }}</span>
+
+            </div>
+            } 
+        </div>
+    </div>
+  }
+</div>  

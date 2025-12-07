@@ -36,7 +36,7 @@ const routes: Routes = [
   {path: 'part/:partId', component: PartComponent, canActivate: [AuthGuard]},
   {path: 'category', component: CategoryComponent, canActivate: [AuthGuard]},
   {path: 'category/:categoryId', component: CategoryComponent, canActivate: [AuthGuard]},
-  {path: 'mobile/addPart/:shooping', component: NewpartComponent, canActivate: [AuthGuard]} 
+  {path: 'mobile/addPart/:shoppingId', component: NewpartComponent, canActivate: [AuthGuard]} 
 ];
 
 @NgModule({

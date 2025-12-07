@@ -1,1 +1,23 @@
-<p>newpart works!</p>
+<h2>{{ 'home.category' | translate }}</h2>
+<p-accordion value="0">
+    @for (category of categorylist; track category) {
+    <p-accordion-panel value="{{ category.name }}">
+      <p-accordion-header>{{ category.name }}</p-accordion-header>
+      <p-accordion-content>
+          @for (part of category.parts; track part) {
+            <div class="flex my-1 items-start">
+            <p-checkbox class="mr-2 mt-1 rounded-full"
+              [binary]="true"
+                (onChange)="addItem(part)"></p-checkbox>
+            <span class="text-primary font-semibold text-xl cursor-pointer hover:underline break-all"
+              pTooltip="Artikel bearbeiten"
+            [routerLink]="['/part', part.id]">{{ part.name }}</span>
+            </div>
+          } 
+        </p-accordion-content>
+    </p-accordion-panel>
+    }
+</p-accordion>
+
+<button type="button" class="text-gray-600 font-bold underline rounded-lg mr-5 py-2 text-center" (click)="addToShoppingList()">
+    Ajout à la liste de course</button>

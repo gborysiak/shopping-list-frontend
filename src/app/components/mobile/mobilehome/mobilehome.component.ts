@@ -13,6 +13,7 @@ import { selectAllPart } from 'src/app/store/part/part.selector';
 import { CategoryVm } from 'src/app/entities/CategoryMv';
 import { MessageService } from "primeng/api";
 import { RouterLink} from '@angular/router';
+import { combineLatestWith } from 'rxjs';
 
 @Component({
   selector: 'app-mobilehome',
@@ -28,29 +29,55 @@ export class MobilehomeComponent {
 
 
     ngOnInit(): void {
-    this.store.dispatch(ShoppingListActions.loadShoppingLists());
-    this.store.dispatch(PartsActions.loadParts());
-    this.store.dispatch(CategorysActions.loadCategorys());
-    
-    this.store.select(selectAllShoppingList).subscribe(shoppinglist => {
-      this.store.select(selectAllPart).subscribe(parts => {
-        console.log('nb sl ' + shoppinglist.length+ '/ p ' + parts.length);
-        this.shoppinglists = JSON.parse(JSON.stringify(shoppinglist)); // deep copy of store, so that changes are possible
-        this.shoppinglists.forEach(sl => {
-          console.log('sl ' + sl.id );
-          sl.shoppingListItem?.forEach( item => {
-            console.log('item ' + item.id + ' part ' + item.partRefId );
-            var part = parts.find(part => part.id == item.partRefId);
-            if( part != null) {
-              console.log('part found ' + part?.name);
-              item.part = part;
-            }
+      this.store.dispatch(ShoppingListActions.loadShoppingLists());
+      this.store.dispatch(PartsActions.loadParts());
+      this.store.dispatch(CategorysActions.loadCategorys());
+      /*
+      this.store.select(selectAllShoppingList).subscribe(shoppinglist => {
+        this.store.select(selectAllPart).subscribe(parts => {
+          console.log('nb sl ' + shoppinglist.length+ '/ p ' + parts.length);
+          this.shoppinglists = JSON.parse(JSON.stringify(shoppinglist)); // deep copy of store, so that changes are possible
+          this.shoppinglists.forEach(sl => {
+            console.log('sl ' + sl.id );
+            sl.shoppingListItem?.forEach( item => {
+              console.log('item ' + item.id + ' part ' + item.partRefId );
+              var part = parts.find(part => part.id == item.partRefId);
+              if( part != null) {
+                console.log('part found ' + part?.name);
+                item.part = part;
+              }
+            });
           });
-        });
-        console.log('nb 2 sl  ' + this.shoppinglists.length);
-      })
-    });
-  }
+          console.log('nb 2 sl  ' + this.shoppinglists.length);
+        })
+      });
+      */
+
+      const shoppingLists$ = this.store.select(selectAllShoppingList);
+      const parts$ = this.store.select(selectAllPart);
+      shoppingLists$.pipe(
+        combineLatestWith(parts$))
+          .subscribe(([shoppingLists, parts]) => {
+            if( shoppingLists && parts) {
+              console.log('s ' + JSON.stringify(shoppingLists));
+              console.log('p ' + JSON.stringify(parts));
+
+            this.shoppinglists = JSON.parse(JSON.stringify(shoppingLists)); // deep copy of store, so that changes are possible
+            this.shoppinglists.forEach(sl => {
+              console.log('sl ' + sl.id );
+              sl.shoppingListItem?.forEach( item => {
+                console.log('item ' + item.id + ' part ' + item.partRefId );
+                var part = parts.find(part => part.id == item.partRefId);
+                if( part != null) {
+                  console.log('part found ' + part?.name);
+                  item.part = part;
+                }
+              });
+            });
+            console.log('nb 2 sl  ' + this.shoppinglists.length);
+          }
+          });
+    }
 
   modifyItem(shoppinglist: ShoppingList, item: ShoppinglistItem) {
     item.purchaseDate = new Date();

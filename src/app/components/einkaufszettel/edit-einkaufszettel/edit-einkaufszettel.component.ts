@@ -9,6 +9,7 @@ import {User} from "../../../entities/user";
 import {ConfirmationService} from "primeng/api";
 import {UserActions} from "../../../store/user/user.actions";
 import {selectAllUsersFriends} from "../../../store/user/user.selectors";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
     selector: 'app-einkaufszettel',
@@ -28,7 +29,8 @@ export class EditEinkaufszettelComponent implements OnInit {
   header: string = '';
   allUsersFriends: User[] = [];
 
-  constructor(private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, private store: Store, private confirmationService: ConfirmationService) {
+  constructor(private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, private store: Store, private confirmationService: ConfirmationService,
+    private translate: TranslateService ) {
   }
 
   ngOnInit(): void {
@@ -42,6 +44,10 @@ export class EditEinkaufszettelComponent implements OnInit {
       this.initNew();
     }
     this.store.select(selectAllUsersFriends).subscribe(users => this.allUsersFriends = users);
+  }
+
+  getTranslation(key: string): string {
+    return this.translate.instant(key); 
   }
 
   private initEdit(einkaufszettelId: number) {
@@ -65,7 +71,6 @@ export class EditEinkaufszettelComponent implements OnInit {
     const formValue = this.einkaufszettelForm.getRawValue();
     const einkaufszettel: ShoppingList = {...formValue};
 
-
     if (this.edit) {
       this.store.dispatch(ShoppingListActions.updateShoppingList({data: einkaufszettel}));
     } else {
@@ -78,13 +83,18 @@ export class EditEinkaufszettelComponent implements OnInit {
     const formValue = this.einkaufszettelForm.getRawValue();
     const einkaufszettel: ShoppingList = {...formValue};
 
+    var yes = this.getTranslation('global.yes');
+    var no = this.getTranslation('global.no');
+    var message = this.getTranslation('shoppinglist.message');
+    var confirmation = this.getTranslation('global.confirmation');
+
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: 'Sind Sie sich sicher, dass Sie den Einkaufszettel löschen möchten?',
-      header: 'Confirmation',
+      message: message,
+      header: confirmation,
       icon: 'pi pi-exclamation-triangle',
-      acceptLabel: 'Ja',
-      rejectLabel: 'Nein',
+      acceptLabel: yes,
+      rejectLabel: no,
       acceptIcon: "none",
       rejectIcon: "none",
       rejectButtonStyleClass: "p-button-text",

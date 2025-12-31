@@ -150,15 +150,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         ListboxModule,
         SplitterModule,
         DragDropModule
-        //TranslateModule, /*<--- Don't forget to import this too*/
-        /*
-        TranslateModule.forRoot({
-           loader: provideTranslateHttpLoader({
-            prefix: '/assets/i18n/',
-            suffix: '.json'}),
-           fallbackLang: 'fr',
-           lang: 'fr'
-        })*/
           ], 
         providers: [
              provideAnimations(),

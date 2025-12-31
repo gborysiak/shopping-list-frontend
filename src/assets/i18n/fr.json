@@ -8,7 +8,11 @@
       "submit" : " Enregistrer ",
       "yes"    : " Oui ",
       "no"     : " Non ",
-      "confirmation" :  "Confirmation"
+      "confirmation" :  " Confirmation",
+      "cancel" : " Annuler",
+      "profile": "Profile",
+      "parameters": "Paramètres",
+      "logout": "Se déconnecter"
     },
     "login": {
       "user": "Utilisateur",
@@ -44,7 +48,10 @@
     "shoppinglist" : {
       "name": "Nom *",
       "friends" : "Propriétaire",
-      "share" : "Personnes ayant accès"
+      "share" : "Personnes ayant accès",
+      "message": "Êtes-vous sûr de vouloir supprimer la liste d'achats ?",
+      "created": "La liste d'achat a été enregistrée.",
+      "deleted": "La liste d'achat a été supprimée."
     },
     "authservice": {
       "error" : "Erreur lors de l'enregistrement !"
@@ -54,11 +61,20 @@
     },
     "category" : {
       "name" : "Nom de la catégorie",
-      "text1" : "Êtes-vous sûr de vouloir supprimer la catégorie ?"
+      "text1" : "Êtes-vous sûr de vouloir supprimer la catégorie ?",
+      "created": "La catégorie a été enregistrée'.",
+      "deleted": "La catégorie a été supprimée."
     },
     "part" : {
       "name" : "Nom de l'article",
       "category": "Catégorie",
-      "text1": "Êtes-vous sûr de vouloir supprimer l'article ?"
+      "text1": "Êtes-vous sûr de vouloir supprimer l'article ?",
+      "created": "L'article a été enregistré'.",
+      "deleted": "L'article a été supprimé.",
+      "archived": "L'article a été archivé"
+    },
+    "auth": {
+      "registration": "L'inscription a été effectuée avec succès ! Le lien de confirmation vous a été envoyé par e-mail.",
+      "autherror": "Le nom d'utilisateur ou le mot de passe est incorrect ! Veuillez vérifier vos saisies."
     }
 }

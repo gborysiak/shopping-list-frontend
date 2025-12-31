@@ -8,7 +8,11 @@
       "submit" : " Speichern ",
       "yes"    : "  Ya ",
       "no"     : " Nein ",
-      "confirmation" :  "Confirmation"
+      "confirmation" :  "Confirmation",
+      "cancel" : "*Annuler",
+      "profile": "Profil",
+      "parameters": "Einstellungen",
+      "logout": "Ausloggen"
     },
     "login": {
         "user": "Benutzername",
@@ -44,7 +48,10 @@
     "shoppinglist" : {
       "name": "Name *",
       "friends" : "Besitzer",
-      "share" : "Personen mit Zugriff"
+      "share" : "Personen mit Zugriff",
+      "message": "Sind Sie sich sicher, dass Sie den Einkaufszettel löschen möchten?",
+      "created": "ShoppingList wurde gespeichert.",
+      "deleted": "ShoppingList wurde gelöscht."
     },
     "authservice": {
       "error" : "Fehler beim Speichern!"
@@ -54,12 +61,21 @@
     },
     "category" : {
       "name" : "$Nom de la catégorie",
-      "category": "$Catégorie",
-      "text1" : "$Êtes-vous sûr de vouloir supprimer la catégorie ?"
+      "category": "**Catégorie",
+      "text1" : "**Êtes-vous sûr de vouloir supprimer la catégorie ?",
+      "created": "**La catégorie a été enregistrée'.",
+      "deleted": "**La catégorie a été supprimée."
     },
     "part" : {
       "name" : "$Nom de l'article",
       "category": "$Catégorie",
-      "text1": "$Êtes-vous sûr de vouloir supprimer l'article ?"
+      "text1": "$Êtes-vous sûr de vouloir supprimer l'article ?",
+      "created": "**L'article a été ajouté'.",
+      "deleted": "**L'article a été supprimé.",
+      "archived": "**L'article a été archivé"
+    },
+        "auth": {
+      "registration": "Die Registrierung war erfolgreich! Der Bestätigungslink wurde per E-Mail versandt.",
+      "autherror": "Der Benutzername oder das Passwort sind falsch! Bitte überprüfen Sie Ihre Eingaben."
     }
   }

@@ -6,10 +6,14 @@ import {AuthService} from "../../service/auth.service";
 import {AuthActions} from "./auth.actions";
 import {of} from "rxjs";
 import {MessageService} from "primeng/api";
-
+import {TranslateService,_} from "@ngx-translate/core";
 
 @Injectable()
 export class AuthEffects {
+  
+  private txtRegistration :string = 'auth.registration';
+  private txtAutherror :string = 'auth.autherror';
+  private message: string= '';
 
   register$ = createEffect(() => {
     return this.actions$.pipe(
@@ -27,9 +31,10 @@ export class AuthEffects {
       ofType(AuthActions.registerSuccess),
       tap((action) => {
         this.messageService.clear();
+        this.message = this.translate.instant(this.txtRegistration);
         this.messageService.add({
           severity: 'success',
-          summary: 'Die Registrierung war erfolgreich! Der Bestätigungslink wurde per E-Mail versandt.'
+          summary: this.message
         });
         this.router.navigateByUrl("/login");
       }),
@@ -83,9 +88,10 @@ export class AuthEffects {
       ofType(AuthActions.loginFailure),
       tap((action) => {
         this.messageService.clear();
+        this.message = this.translate.instant(this.txtAutherror);
         this.messageService.add({
           severity: 'error',
-          summary:  'Der Benutzername oder das Passwort sind falsch! Bitte überprüfen Sie Ihre Eingaben.'
+          summary:  this.message
         });
       }),
     ), {dispatch: false});
@@ -103,5 +109,6 @@ export class AuthEffects {
   });
 
 
-  constructor(private actions$: Actions, private messageService: MessageService, private router: Router, private loginService: AuthService) {}
+  constructor(private actions$: Actions, private messageService: MessageService, private router: Router, 
+    private loginService: AuthService, private translate: TranslateService) {}
 }

@@ -44,13 +44,13 @@
               <ul class="text-gray-700">
                 <a routerLink="/profile-edit">
                   <li class="px-4 py-2 hover:bg-gray-100 cursor-pointer">
-                    <span class="fas fa-user"></span> Profil
+                    <span class="fas fa-user"></span>{{ 'global.profile' | translate}}
                   </li>
                 </a>
-                <li  class="px-4 py-2 hover:bg-gray-100 cursor-pointer"><span class="fas fa-gear"></span> Einstellungen
+                <li  class="px-4 py-2 hover:bg-gray-100 cursor-pointer"><span class="fas fa-gear"></span>{{ 'global.parameters' | translate}}
               </li>
               <li  class="px-4 py-2 hover:bg-gray-100 cursor-pointer" (click)="logout($event)"><span
-                class="fas fa-arrow-right-from-bracket"></span> Ausloggen
+                class="fas fa-arrow-right-from-bracket"></span> {{ 'global.logout' | translate}}
               </li>
           </ul>
         </div>
@@ -75,20 +75,12 @@
   <router-outlet></router-outlet>
 </div>
 
-<div class="flex bg-gray-200 text-gray-500 text-sm font-medium">
-  <div class="grow"></div>
-  <div class="py-2">
-    <span class="fa-regular fa-copyright fa-xl rounded-lg text-xs font-medium align-middle"></span>
-    <span class="ml-1 text-xs">Alice Bedow</span>
-  </div>
-  <a href="https://www.linkedin.com/in/alice-bedow-1a7a7a219/"
-    class="rounded-lg px-1 py-2 ml-1"
-    target="_blank"
-    aria-current="page"><span class="fa-brands fa-linkedin fa-xl"></span></a>
-    <a href="https://github.com/BlueIronGirl/shopping-list-app"
-      class="rounded-lg pl-1 py-2 mr-2"
-      target="_blank"
-      aria-current="page"><span class="fa-brands fa-github fa-xl"></span></a>
+  <div class="flex bg-gray-200 text-gray-500 text-sm font-medium">
+    <div class="grow"></div>
+    <div class="py-2">
+      <span class="fa-regular fa-copyright fa-xl rounded-lg text-xs font-medium align-middle"></span>
+      <span class="ml-1 text-xs">Grégory Borysiak</span>
+    </div>
     </div>
 
     <p-toast></p-toast>

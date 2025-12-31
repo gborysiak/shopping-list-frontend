@@ -1,5 +1,5 @@
 
-import {Injectable} from '@angular/core';
+import {Injectable, inject} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {catchError, concatMap, map, tap} from 'rxjs/operators';
 import {of} from 'rxjs';
@@ -7,10 +7,15 @@ import { CategorysActions } from './category.actions';
 import { CategoryService } from 'src/app/service/Category.service';
 import {Router} from "@angular/router";
 import {MessageService} from "primeng/api";
-
+import {TranslateService,_} from "@ngx-translate/core";
 
 @Injectable()
 export class CategoryEffects {
+
+  private txtCreated :string = 'category.created';
+  private txtDeleted :string = 'category.deleted';
+  private message: string= '';
+
   loadCategorys$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CategorysActions.loadCategorys),
@@ -31,7 +36,7 @@ export class CategoryEffects {
   createCategorySuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CategorysActions.createCategorySuccess),
-      this.navigateToHomeWithMessage('La liste d\'achats a été enregistrée.'),
+      this.navigateToHomeWithMessage(this.txtCreated),
       this.loadAllCategory()
     )
   });
@@ -50,7 +55,7 @@ export class CategoryEffects {
   updateCategorySuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CategorysActions.updateCategorySuccess),
-      this.navigateToHomeWithMessage('ShoppingList wurde gespeichert'),
+      this.navigateToHomeWithMessage(this.txtCreated),
       this.loadAllCategory()
     )
   });
@@ -70,7 +75,7 @@ export class CategoryEffects {
   deleteCategorySuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CategorysActions.deleteCategorySuccess),
-      this.navigateToHomeWithMessage('ShoppingList wurde gelöscht'),
+      this.navigateToHomeWithMessage(this.txtDeleted),
       this.loadAllCategory()
     )
   });
@@ -88,14 +93,17 @@ export class CategoryEffects {
     return this.navigateWithMessage(message, 'home');
   }
 
-  private navigateWithMessage(message: string, navigationTarget: string) {
+  private navigateWithMessage(key: string, navigationTarget: string) {
+
     return tap(() => {
       this.router.navigateByUrl(`/${navigationTarget}`);
       this.messageService.clear();
-      this.messageService.add({severity: 'success', summary: message});
+      this.message = this.translate.instant(key);
+      this.messageService.add({severity: 'success', summary: this.message});
     });
   }
 
-  constructor(private actions$: Actions, private messageService: MessageService, private router: Router, private categoryService: CategoryService) {
+  constructor(private actions$: Actions, private messageService: MessageService, private router: Router, 
+    private categoryService: CategoryService, private translate: TranslateService) {
   }
 }

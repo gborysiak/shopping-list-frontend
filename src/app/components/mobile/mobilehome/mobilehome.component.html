@@ -3,11 +3,15 @@
     <div  
         class="flex-grow-1 bg-gray-50 rounded-lg shadow-lg border-2 m-5" >
         <div class="p-3 bg-white">
-            <h2 class="flex text-2xl items-baseline">
+            <h2 class="text-2xl items-baseline sm:flex sm:space-x-4 sm:items-center sm:justify-center">
                 <span class="font-bold text-lime-600">{{ shoppinglist.name }} </span>
                 <button type="button" [routerLink]="['/mobile/addPart', shoppinglist.id]"
                 pTooltip="Neuen Artikel anlegen"
                 class="fas fa-plus ml-2 text-gray-500" ></button>
+                <span class="">
+                  <button type="button" class="pi pi-cog float-right" 
+                    [routerLink]="['/einkaufszettel', shoppinglist.id]"></button>
+                </span>
             </h2>
             @for (item of shoppinglist.shoppingListItem | boughtArticles:false ; track item) {
             <div class="flex my-1 items-start"  >

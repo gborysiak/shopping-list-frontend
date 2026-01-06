@@ -1,7 +1,7 @@
 {
     "app": {
         "hello": "hellofr",
-        "title": "Translation Demo"
+        "title": "Einkaufszettel"
     },
     "global": {
       "delete" : " Löschen ",
@@ -12,7 +12,8 @@
       "cancel" : "*Annuler",
       "profile": "Profil",
       "parameters": "Einstellungen",
-      "logout": "Ausloggen"
+      "logout": "Ausloggen",
+      "msgLogut": "Sind Sie sich sicher, dass Sie sich ausloggen wollen?"
     },
     "login": {
         "user": "Benutzername",

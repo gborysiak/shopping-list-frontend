@@ -76,7 +76,7 @@ export class CategoryService  {
   }
 
   updateCategory(category: Category) {
-    return this.httpClient.put<Category>(`${this.api}/Category/${category.id}`, category).pipe(
+    return this.httpClient.put<Category>(`${this.api}/Category`, category).pipe(
       catchError(error => this.errorHandler(error))
     );
   }

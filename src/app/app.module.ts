@@ -75,6 +75,8 @@ import { SplitterModule } from 'primeng/splitter';
 import { DragDropModule } from 'primeng/dragdrop';
 import { MobilehomeComponent } from './components/mobile/mobilehome/mobilehome.component';
 import { NewpartComponent } from './components/mobile/newpart/newpart.component';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
+
 
 export function HttpLoaderFactory(http: HttpClient) {
         return new JsonFileLoader();
@@ -149,7 +151,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         SelectModule,
         ListboxModule,
         SplitterModule,
-        DragDropModule
+        DragDropModule,
+        ScrollPanelModule
+
           ], 
         providers: [
              provideAnimations(),

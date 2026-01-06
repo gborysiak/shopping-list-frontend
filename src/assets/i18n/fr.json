@@ -1,7 +1,7 @@
 {
     "app": {
       "hello": "hellofr",
-      "title": "Translation Demo"
+      "title": "Liste de course"
     },
     "global": {
       "delete" : " Supprimer ",
@@ -12,7 +12,8 @@
       "cancel" : " Annuler",
       "profile": "Profile",
       "parameters": "Paramètres",
-      "logout": "Se déconnecter"
+      "logout": "Se déconnecter",
+      "msgLogut": "Êtes-vous sûr de vouloir vous déconnecter ?"
     },
     "login": {
       "user": "Utilisateur",

@@ -163,4 +163,8 @@ export class PartComponent implements OnInit {
         }
       });
     }
+    
+    cancel(event: Event) {
+      this.router.navigate(['/home']);
+    }
 }

@@ -1,4 +1,5 @@
 import {Component, OnInit, inject } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import {Store} from "@ngrx/store";
 import {ShoppingListActions} from "./store/shoppinglist/shoppinglist.actions";
 import {ConfirmationService} from "primeng/api";
@@ -21,19 +22,26 @@ export class AppComponent implements OnInit {
   userLoggedIn: User | undefined;
   mobileMenuVisible = false;
   profileMenuVisible = false;
+  message: string= '';
+  yes: string = '';
+  no: string= '';
  
-  constructor(private store: Store, private confirmationService: ConfirmationService, translate: TranslateService  ) {
+  constructor(private store: Store, private confirmationService: ConfirmationService, private translate: TranslateService,
+    private title: Title ) {
     translate.addLangs(['en', 'de','fr']);
     translate.setFallbackLang('fr');
     translate.use('fr');
+    /*
     translate.get(_('app.hello'), {value: 'world'}).subscribe((res: string) => {
       console.log(res);
       //=> 'hello world'
     });
-
+    */
     const currentLang = translate.currentLang;
     console.log('Language from translate ' + currentLang);
 
+    this.title.setTitle( this.translate.instant('app.title'));
+      
     translate.onFallbackLangChange.subscribe(event => {
       console.log('Default language changed:', event.lang);
 });
@@ -52,13 +60,17 @@ export class AppComponent implements OnInit {
   }
 
   logout(event: Event) {
+    this.message = this.translate.instant('global.msgLogout');
+    this.yes = this.translate.instant('global.yes');
+    this.no = this.translate.instant('global.no');
+
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: 'Sind Sie sich sicher, dass Sie sich ausloggen wollen?',
+      message: this.message,
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
-      acceptLabel: 'Ja',
-      rejectLabel: 'Nein',
+      acceptLabel: this.yes,
+      rejectLabel: this.no,
       acceptIcon: "none",
       rejectIcon: "none",
       rejectButtonStyleClass: "p-button-text",

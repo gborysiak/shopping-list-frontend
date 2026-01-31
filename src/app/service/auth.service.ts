@@ -31,12 +31,46 @@ export class AuthService {
     return this.translate.instant(key); 
   }
 
-  private errorHandler(error: HttpErrorResponse): Observable<never> {
-    console.error('Fehler aufgetreten!' + JSON.stringify(error));
-    var summary = this.getTranslation('authservice.error') + error.error;
+  private errorHandler(error: any): Observable<never> {
+ 
+    let err = error.error;
+    console.error('Fehler aufgetreten!' + err);
+    let handleErrResponse = {
+    status: err.status,
+    errorText: err.message || err.errorMessage || err.title,
+    response: err,
+    };
+
+    if (err.status == 400 ) {
+        let errors = Object.entries(err.errors).reduce(
+        (acc, [key, value] ) => {
+            acc.push({  
+              field: key,
+              error: String(value)
+          });
+          return acc;
+        },
+        [] as { field: string; error: string }[]
+      );
+      
+      var strErrors = '';
+      for(var i = 0; i < errors.length; i++) {
+        strErrors = strErrors + errors[i].field + " " + errors[i].error;
+      }
+
+      handleErrResponse.response = strErrors;
+    } else if (err.status == 500 ) {
+      strErrors = err.detail;
+
+      handleErrResponse.response = strErrors;
+    }
+
+
+    var summary = this.getTranslation('shoppinglistservice.error') + handleErrResponse.response;
     this.messageService.add({severity: 'error', summary: summary});
     return throwError(() => error);
-  } 
+  }
+
 
   login(user: User) {
     console.log('$ auth.service.login')

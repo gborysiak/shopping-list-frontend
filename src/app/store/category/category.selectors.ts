@@ -23,30 +23,6 @@ export const selectCategoryById = (categoryId: number) => createSelector(
   }
 )
 
-/*
-
-export interface AppState {
-  selectedCategory: Category;
-  allParts: Part[];
-}
-
-
-export const selectedCategory = (state: AppState) => state.selectedCategory;
-export const selectedParts = (state: AppState) => state.allParts;
-
-export const selectCategoryAndParts = createSelector(
-  selectAllCategory,
-  selectAllPart,
-  (selectedParts: Part[], selectedCategory: Category) => {
-    if (selectedParts && selectedCategory) {
-      return selectedCategory.parts.filter((part: Part) => part.categoryId === selectedCategory.id);
-    } else {
-      return selectedCategory;
-    }
-  }
-);
-*/
-
 export const selectCategoryAndParts = createSelector(
   selectAllCategory,
   selectAllPart,

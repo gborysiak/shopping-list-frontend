@@ -26,7 +26,7 @@ export class CategoryService  {
     return this.translate.instant(key); 
   }
 
-  private errorHandler(error: any): Observable<never> {
+   private errorHandler(error: any): Observable<never> {
  
     let err = error.error;
     console.error('Fehler aufgetreten!' + err);
@@ -36,10 +36,8 @@ export class CategoryService  {
     response: err,
     };
 
-    if (err.status == 400) {
-      
-
-      let errors = Object.entries(err.errors).reduce(
+    if (err.status == 400 ) {
+        let errors = Object.entries(err.errors).reduce(
         (acc, [key, value] ) => {
             acc.push({  
               field: key,
@@ -56,9 +54,14 @@ export class CategoryService  {
       }
 
       handleErrResponse.response = strErrors;
+    } else if (err.status == 500 ) {
+      strErrors = err.detail;
+
+      handleErrResponse.response = strErrors;
     }
 
-    var summary = this.getTranslation('categoryservice.error') + handleErrResponse.response;
+
+    var summary = this.getTranslation('shoppinglistservice.error') + handleErrResponse.response;
     this.messageService.add({severity: 'error', summary: summary});
     return throwError(() => error);
   }
@@ -76,7 +79,7 @@ export class CategoryService  {
   }
 
   updateCategory(category: Category) {
-    return this.httpClient.put<Category>(`${this.api}/Category/${category.id}`, category).pipe(
+    return this.httpClient.put<Category>(`${this.api}/Category`, category).pipe(
       catchError(error => this.errorHandler(error))
     );
   }

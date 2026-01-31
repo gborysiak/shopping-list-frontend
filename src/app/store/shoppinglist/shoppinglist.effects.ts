@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {inject, Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {catchError, concatMap, map, tap} from 'rxjs/operators';
 import {of} from 'rxjs';
@@ -6,10 +6,21 @@ import {ShoppingListActions} from './shoppinglist.actions';
 import {ShoppingListService} from "../../service/ShoppingList.service";
 import {Router} from "@angular/router";
 import {MessageService} from "primeng/api";
+import {TranslateService, _} from "@ngx-translate/core";
 
 
 @Injectable()
 export class ShoppingListEffects {
+
+  private txtCreated :string = 'shoppinglist.created';
+  private txtDeleted :string = 'shoppinglist.deleted';
+  private message: string= '';
+
+  private partCreated :string = 'part.created';
+  private partDeleted :string = 'part.deleted';
+  private partArchived :string = 'part.archived';
+
+
   loadShoppingLists$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ShoppingListActions.loadShoppingLists),
@@ -30,7 +41,7 @@ export class ShoppingListEffects {
   createShoppingListSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ShoppingListActions.createShoppingListSuccess),
-      this.navigateToHomeWithMessage('La liste d\'achats a été enregistrée.'),
+      this.navigateToHomeWithMessage(this.txtCreated),
       this.loadAllShoppingList()
     )
   });
@@ -49,7 +60,7 @@ export class ShoppingListEffects {
   updateShoppingListSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ShoppingListActions.updateShoppingListSuccess),
-      this.navigateToHomeWithMessage('ShoppingList wurde gespeichert'),
+      this.navigateToHomeWithMessage(this.txtCreated),
       this.loadAllShoppingList()
     )
   });
@@ -69,7 +80,7 @@ export class ShoppingListEffects {
   deleteShoppingListSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ShoppingListActions.deleteShoppingListSuccess),
-      this.navigateToHomeWithMessage('ShoppingList wurde gelöscht'),
+      this.navigateToHomeWithMessage(this.txtDeleted),
       this.loadAllShoppingList()
     )
   });
@@ -87,7 +98,7 @@ export class ShoppingListEffects {
   createArtikelSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ShoppingListActions.createItemSuccess),
-      this.navigateToHomeWithMessage('Artikel wurde gespeichert'),
+      this.navigateToHomeWithMessage(this.partCreated),
       this.loadAllShoppingList()
     )
   });
@@ -105,7 +116,7 @@ export class ShoppingListEffects {
   updateArtikelSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ShoppingListActions.updateItemSuccess),
-      this.navigateToHomeWithMessage('Artikel wurde gespeichert'),
+      this.navigateToHomeWithMessage(this.partCreated),
       this.loadAllShoppingList()
     )
   });
@@ -123,7 +134,7 @@ export class ShoppingListEffects {
   deleteArtikelSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ShoppingListActions.deleteItemSuccess),
-      this.navigateToHomeWithMessage('Artikel wurde gelöscht'),
+      this.navigateToHomeWithMessage(this.partDeleted),
       this.loadAllShoppingList()
     )
   });
@@ -141,7 +152,7 @@ export class ShoppingListEffects {
   archiviereArtikelSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ShoppingListActions.archiveItemSuccess),
-      this.navigateToHomeWithMessage('Artikel wurden archiviert'),
+      this.navigateToHomeWithMessage(this.partArchived),
       this.loadAllShoppingList()
     )
   });
@@ -157,14 +168,16 @@ export class ShoppingListEffects {
     return this.navigateWithMessage(message, 'home');
   }
 
-  private navigateWithMessage(message: string, navigationTarget: string) {
+  private navigateWithMessage(key: string, navigationTarget: string) {
     return tap(() => {
       this.router.navigateByUrl(`/${navigationTarget}`);
       this.messageService.clear();
-      this.messageService.add({severity: 'success', summary: message});
+      this.message = this.translate.instant(key);
+      this.messageService.add({severity: 'success', summary: this.message});
     });
   }
 
-  constructor(private actions$: Actions, private messageService: MessageService, private router: Router, private ShoppingListService: ShoppingListService) {
+  constructor(private actions$: Actions, private messageService: MessageService, private router: Router, 
+    private ShoppingListService: ShoppingListService, private translate: TranslateService) {
   }
 }

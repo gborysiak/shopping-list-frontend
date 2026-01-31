@@ -34,10 +34,8 @@ export class PartService  {
     response: err,
     };
 
-    if (err.status == 400) {
-      
-
-      let errors = Object.entries(err.errors).reduce(
+    if (err.status == 400 ) {
+        let errors = Object.entries(err.errors).reduce(
         (acc, [key, value] ) => {
             acc.push({  
               field: key,
@@ -54,12 +52,18 @@ export class PartService  {
       }
 
       handleErrResponse.response = strErrors;
+    } else if (err.status == 500 ) {
+      strErrors = err.detail;
+
+      handleErrResponse.response = strErrors;
     }
+
 
     var summary = this.getTranslation('shoppinglistservice.error') + handleErrResponse.response;
     this.messageService.add({severity: 'error', summary: summary});
     return throwError(() => error);
   }
+
 
   getAllPart(): Observable<Part[]> {
     return this.httpClient.get<Part[]>(`${this.api}/Part`).pipe(

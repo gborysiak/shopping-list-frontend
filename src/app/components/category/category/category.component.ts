@@ -98,4 +98,8 @@ export class CategoryComponent implements OnInit {
       }
     });
   }
+
+  cancel(event: Event) {
+    this.router.navigate(['/home']);
+  } 
 }

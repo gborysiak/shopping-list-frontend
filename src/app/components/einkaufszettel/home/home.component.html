@@ -9,8 +9,12 @@
               pTooltip="Neuen Artikel anlegen"
               class="fas fa-plus ml-2 text-gray-500"></button>
             <span>
-              <button type="button" class="pi pi-cog float-right"
+              <button type="button" class="pi pi-cog ml-6 float-right"
                 [routerLink]="['/einkaufszettel', shoppinglist.id]"></button>
+            </span>
+            <span>
+              <button type="button" class="pi pi-sync ml-6 float-right"
+                (click)="resetShoppingList(shoppinglist)"></button>
             </span>
           </h2>
 
@@ -71,10 +75,14 @@
                 <span class="font-bold text-lime-600">{{ shoppinglist.name }} </span>
                 <button type="button" [routerLink]="['/mobile/addPart', shoppinglist.id]"
                   pTooltip="Neuen Artikel anlegen"
-                  class="fas fa-plus ml-2 text-gray-500"></button>
+                  class="fas fa-plus ml-6 text-gray-500"></button>
                 <button type="button" [routerLink]="['/einkaufszettel', shoppinglist.id]"
                   pTooltip="Paramètres"
-                  class="pi pi-cog ml-2 text-gray-500"></button>
+                  class="pi pi-cog ml-6 text-gray-500"></button>
+                  
+              <button type="button" class="pi pi-sync ml-6 float-right"
+                (click)="resetShoppingList(shoppinglist)"></button>
+            
                 <div class="grow"></div>
               </h2>
 

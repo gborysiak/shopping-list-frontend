@@ -52,7 +52,8 @@
       "share" : "Personen mit Zugriff",
       "message": "Sind Sie sich sicher, dass Sie den Einkaufszettel löschen möchten?",
       "created": "ShoppingList wurde gespeichert.",
-      "deleted": "ShoppingList wurde gelöscht."
+      "deleted": "ShoppingList wurde gelöscht.",
+      "reseted": "ShoppingList wurde reset."
     },
     "authservice": {
       "error" : "Fehler beim Speichern!"

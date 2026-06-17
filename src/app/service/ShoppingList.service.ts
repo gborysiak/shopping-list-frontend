@@ -41,6 +41,13 @@ export class ShoppingListService  {
     );
   }
 
+  resetShoppingList(shoppingList: ShoppingList) {
+    return this.httpClient.post<ShoppingList>(`${this.api}/ResetShoppingList`, shoppingList).pipe(
+      catchError(error => this.httpErrorHandler.handle(error))
+    );
+  }
+
+
   createItem(shoppingListId: number, item: ShoppinglistItem) {
     return this.httpClient.post<ShoppinglistItem>(`${this.api}/ShoppingList/${shoppingListId}/Item`, item).pipe(
       catchError(error => this.httpErrorHandler.handle(error))

@@ -14,7 +14,9 @@ export class ShoppingListEffects {
 
   private txtCreated :string = 'shoppinglist.created';
   private txtDeleted :string = 'shoppinglist.deleted';
+  private txtReset :string = 'shoppinglist.reseted';
   private message: string= '';
+
 
   private partCreated :string = 'part.created';
   private partDeleted :string = 'part.deleted';
@@ -80,6 +82,26 @@ export class ShoppingListEffects {
   deleteShoppingListSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ShoppingListActions.deleteShoppingListSuccess),
+      this.navigateToHomeWithMessage(this.txtDeleted),
+      this.loadAllShoppingList()
+    )
+  });
+
+  resetShoppingList$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ShoppingListActions.resetShoppingList),
+      map(action => action.data),
+      concatMap(inputData => this.ShoppingListService.resetShoppingList(inputData).pipe(
+        map(data => ShoppingListActions.resetShoppingListSuccess({data: data})),
+        catchError(error => of(ShoppingListActions.resetShoppingListFailure({error})))
+      )),
+      this.loadAllShoppingList()
+    )
+  });
+
+  resetShoppingListSuccess$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ShoppingListActions.resetShoppingListSuccess),
       this.navigateToHomeWithMessage(this.txtDeleted),
       this.loadAllShoppingList()
     )

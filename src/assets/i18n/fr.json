@@ -52,7 +52,8 @@
       "share" : "Personnes ayant accès",
       "message": "Êtes-vous sûr de vouloir supprimer la liste d'achats ?",
       "created": "La liste d'achat a été enregistrée.",
-      "deleted": "La liste d'achat a été supprimée."
+      "deleted": "La liste d'achat a été supprimée.",
+      "reseted": "La liste d'achat a été réinitialisée."
     },
     "authservice": {
       "error" : "Erreur lors de l'enregistrement !"

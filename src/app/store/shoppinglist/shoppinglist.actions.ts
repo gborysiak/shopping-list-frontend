@@ -23,6 +23,10 @@ export const ShoppingListActions = createActionGroup({
     'Delete ShoppingList Success': props<{ data: ShoppingList }>(),
     'Delete ShoppingList Failure': props<{ error: HttpErrorResponse }>(),
 
+    'Reset ShoppingList': props<{ data: ShoppingList }>(),
+    'Reset ShoppingList Success': props<{ data: ShoppingList }>(),
+    'Reset ShoppingList Failure': props<{ error: HttpErrorResponse }>(),
+
 
     'Load Items': emptyProps(),
     'Load Items Success': props<{ data: ShoppinglistItem[] }>(),

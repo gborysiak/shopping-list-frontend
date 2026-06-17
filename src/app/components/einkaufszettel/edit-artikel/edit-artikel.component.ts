@@ -8,6 +8,8 @@ import {ShoppingListActions} from "../../../store/shoppinglist/shoppinglist.acti
 import {ConfirmationService} from "primeng/api";
 import { ShoppinglistItem } from 'src/app/entities/ShoppingListItem';
 import { selectAllPart } from 'src/app/store/part/part.selector';
+import {TranslateService} from "@ngx-translate/core";
+import {combineLatest} from "rxjs";
 
 @Component({
     selector: 'app-edit-artikel',
@@ -30,7 +32,7 @@ export class EditArtikelComponent implements OnInit {
   header: string = '';
 
   constructor(private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, private store: Store, private confirmationService: ConfirmationService,
-    private router: Router ) {
+    private router: Router, private translate: TranslateService ) {
   }
 
   ngOnInit(): void {
@@ -44,6 +46,11 @@ export class EditArtikelComponent implements OnInit {
     }
   }
 
+  getTranslation(key: string): string {
+    return this.translate.instant(key); 
+  }
+
+
   private initEdit(partId: number) {
     this.edit = true;
     this.header = 'Artikel bearbeiten';
@@ -56,19 +63,20 @@ export class EditArtikelComponent implements OnInit {
       purchased: false
     };
 
-    this.store.select(selectItemById(this.shoppingId, partId)).subscribe(
-      item => { 
-        this.store.select(selectAllPart).subscribe(parts => {
-          // search part data
-          var part = parts.find(part => part.id == item.partRefId)!;
-          editPart.name = part.name;
-          editPart.id = item.id;
-          editPart.partRefId = part.id;
-          editPart.quantity = item.quantity;
-          this.artikelForm.patchValue(editPart);
-          //console.log(item.quantity);
-        });
-      });
+    combineLatest([
+      this.store.select(selectItemById(this.shoppingId, partId)),
+      this.store.select(selectAllPart)
+    ]).subscribe(([item, parts]) => {
+      const part = parts.find(part => part.id === item.partRefId);
+
+      if (part) {
+        editPart.name = part.name;
+        editPart.id = item.id;
+        editPart.partRefId = part.id;
+        editPart.quantity = item.quantity;
+        this.artikelForm.patchValue(editPart);
+      }
+    });
   }
 
   /*
@@ -105,13 +113,18 @@ export class EditArtikelComponent implements OnInit {
     const formValue = this.artikelForm.getRawValue();
     const item: ShoppinglistItem = {...formValue}; // artikel
 
+    var yes = this.getTranslation('global.yes');
+    var no = this.getTranslation('global.no');
+    var message = this.getTranslation('part.text1');
+    var confirmation = this.getTranslation('global.confirmation');
+
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: 'Sind Sie sich sicher, dass Sie den Artikel löschen möchten?',
-      header: 'Confirmation',
+      message: message,
+      header: confirmation,
       icon: 'pi pi-exclamation-triangle',
-      acceptLabel: 'Ja',
-      rejectLabel: 'Nein',
+      acceptLabel: yes,
+      rejectLabel: no,
       acceptIcon: "none",
       rejectIcon: "none",
       rejectButtonStyleClass: "p-button-text",

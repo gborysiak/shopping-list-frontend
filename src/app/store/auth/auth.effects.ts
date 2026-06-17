@@ -41,7 +41,6 @@ export class AuthEffects {
     ), {dispatch: false});
 
   login$ = createEffect(() => {
-    console.log('$ AuthEffect.login')
     return this.actions$.pipe(
       ofType(AuthActions.login),
       map(action => action.data),
@@ -57,7 +56,6 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(AuthActions.loginSuccess),
       tap((action) => {
-        console.log('$ AuthEffect.loginSuccess / ' + JSON.stringify(action.data));
         this.loginService.saveLoginStateToLocalStorage(action.data);
         this.router.navigateByUrl("/home");
       }),
@@ -78,8 +76,7 @@ export class AuthEffects {
     this.actions$.pipe(
       ofType(AuthActions.refreshTokenSuccess),
       tap((action) => {
-        console.log('$ AuthEffect.refreshTokenSuccess');
-        //this.loginService.saveLoginStateToLocalStorage(action.data);
+        this.loginService.saveLoginStateToLocalStorage(action.data);
       }),
     ), {dispatch: false});
 
@@ -101,7 +98,6 @@ export class AuthEffects {
       ofType(AuthActions.logout),
       map(() => AuthActions.logoutSuccess()),
       tap(data => {
-        console.log('$ AuthEffect.logout');
         this.loginService.saveLoginStateToLocalStorage(null);
         this.router.navigateByUrl("/login");
       }),

@@ -73,7 +73,6 @@ import { ListboxModule } from 'primeng/listbox';
 import { SplitterModule } from 'primeng/splitter';
 //import { DragDropModule} from '@angular/cdk/drag-drop';
 import { DragDropModule } from 'primeng/dragdrop';
-import { MobilehomeComponent } from './components/mobile/mobilehome/mobilehome.component';
 import { NewpartComponent } from './components/mobile/newpart/newpart.component';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 
@@ -99,7 +98,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         ProfileEditComponent,
         PartComponent,
         CategoryComponent,
-        MobilehomeComponent,
         NewpartComponent
         //AvatarComponent
     ],

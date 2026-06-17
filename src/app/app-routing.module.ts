@@ -16,7 +16,6 @@ import {
 import {ProfileEditComponent} from "./components/settings/profile-edit/profile-edit.component";
 import { PartComponent } from './components/part/part/part.component';
 import { CategoryComponent } from './components/category/category/category.component';
-import { MobilehomeComponent } from './components/mobile/mobilehome/mobilehome.component';
 import { NewpartComponent } from './components/mobile/newpart/newpart.component';
 
 const routes: Routes = [
@@ -24,8 +23,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   //{path: 'register', component: RegisterComponent},
   //{path: 'registration-confirmation', component: RegistrationConfirmationComponent},
-  //{path: 'home', component: window.screen.width > 767 ? HomeComponent : MobilehomeComponent, canActivate: [AuthGuard]},
-  {path: 'home', component: MobilehomeComponent, canActivate: [AuthGuard]},
+  {path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
   {path: 'einkaufszettel/:einkaufszettelId', component: EditEinkaufszettelComponent, canActivate: [AuthGuard]},
   {path: 'einkaufszettel', component: EditEinkaufszettelComponent, canActivate: [AuthGuard]},
   {path: 'artikel/new/:einkaufszettelId', component: EditArtikelComponent, canActivate: [AuthGuard]},

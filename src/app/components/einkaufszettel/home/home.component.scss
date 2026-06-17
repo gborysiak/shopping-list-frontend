@@ -1,5 +1,38 @@
-
-
 .custom-checkbox .p-checkbox-box {
   background-color: rgb(163 230 53 / var(--tw-bg-opacity));
+}
+
+.home-page {
+  min-height: 100%;
+}
+
+.mobile-home {
+  display: block;
+}
+
+.desktop-home {
+  display: none;
+}
+
+.shopping-card {
+  flex-grow: 1;
+  margin: 1.25rem;
+  border: 2px solid rgb(229 231 235);
+  border-radius: 0.5rem;
+  background-color: rgb(249 250 251);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.empty-state {
+  margin: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .mobile-home {
+    display: none;
+  }
+
+  .desktop-home {
+    display: block;
+  }
 }

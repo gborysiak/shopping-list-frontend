@@ -84,29 +84,6 @@ export class PartComponent implements OnInit {
         const newObj = { id: part.id, name: part.name, category: part.categoryId};
         console.log(newObj);
         this.partForm.patchValue(newObj);
-        /*
-        this.store.select(selectAllCategory).subscribe(categories => {
-        console.log('nb c ' + categories.length);
-        this.categorylist = JSON.parse(JSON.stringify(categories)); // deep copy of store, so that changes are possible
-        console.log('nb 2 c ' + this.categorylist.length);
-          
-          if( part != undefined) {
-            //this.partForm.patchValue(part);
-            console.log('category ' + part.categoryId);
-            for(var i=0; i < this.categorylist.length; i ++) {
-              console.log(i + " > " + this.categorylist[i].id);
-              if( this.categorylist[i].id === part.categoryId) {
-                console.log(this.categorylist[i].id + "/" + this.categorylist[i].name);
-                //this.partForm.patchValue({"category": this.categorylist[i].name});
-                categoryName = this.categorylist[i].name;
-              }
-            }
-            const newObj = { name: part.name, category: part.categoryId};
-            console.log(newObj);
-            this.partForm.patchValue(newObj);
-          }
-        });
-        */
       });
       
   }

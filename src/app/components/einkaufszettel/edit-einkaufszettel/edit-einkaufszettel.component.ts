@@ -10,6 +10,7 @@ import {ConfirmationService} from "primeng/api";
 import {UserActions} from "../../../store/user/user.actions";
 import {selectAllUsersFriends} from "../../../store/user/user.selectors";
 import {TranslateService} from "@ngx-translate/core";
+import { ShoppinglistItem } from 'src/app/entities/ShoppingListItem';
 
 @Component({
     selector: 'app-einkaufszettel',
@@ -21,13 +22,14 @@ export class EditEinkaufszettelComponent implements OnInit {
   einkaufszettelForm: FormGroup = this.formBuilder.group({
     id: [{value: '', disabled: true}, Validators.required],
     name: [{value: ''}, Validators.compose([Validators.required, Validators.minLength(1)])],
-    owners: new FormControl<User[] | null>([]),
-    sharedWith: new FormControl<User[] | null>([])
+    ShoppingListItem : new FormControl<ShoppinglistItem[] | null>([])
+    //owners: new FormControl<User[] | null>([]),
+    //sharedWith: new FormControl<User[] | null>([])
   });
 
   edit: boolean = false;
   header: string = '';
-  allUsersFriends: User[] = [];
+  //allUsersFriends: User[] = [];
 
   constructor(private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, private store: Store, private confirmationService: ConfirmationService,
     private translate: TranslateService ) {
@@ -35,7 +37,7 @@ export class EditEinkaufszettelComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(ShoppingListActions.loadShoppingLists());
-    this.store.dispatch(UserActions.loadUsersFriends());
+    //this.store.dispatch(UserActions.loadUsersFriends());
 
     const einkaufszettelId = Number(this.activatedRoute.snapshot.paramMap.get('einkaufszettelId'));
     if (einkaufszettelId > 0) {
@@ -43,7 +45,7 @@ export class EditEinkaufszettelComponent implements OnInit {
     } else {
       this.initNew();
     }
-    this.store.select(selectAllUsersFriends).subscribe(users => this.allUsersFriends = users);
+    //this.store.select(selectAllUsersFriends).subscribe(users => this.allUsersFriends = users);
   }
 
   getTranslation(key: string): string {
@@ -70,6 +72,7 @@ export class EditEinkaufszettelComponent implements OnInit {
   save() {
     const formValue = this.einkaufszettelForm.getRawValue();
     const einkaufszettel: ShoppingList = {...formValue};
+    console.log("* save " + einkaufszettel);
 
     if (this.edit) {
       this.store.dispatch(ShoppingListActions.updateShoppingList({data: einkaufszettel}));

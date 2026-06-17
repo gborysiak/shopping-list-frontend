@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import {Observable, retry, throwError} from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import {Observable, retry} from "rxjs";
 import {environment} from "../../environments/environment";
 import {User} from "../entities/user";
-//import {ShoppingList} from "../entities/ShoppingList";
 import {catchError} from "rxjs/operators";
+import {HttpErrorHandlerService} from "./http-error-handler.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,12 +12,7 @@ import {catchError} from "rxjs/operators";
 export class UserService {
   private api = `${environment.webserviceurl}`;
 
-  constructor(private httpClient: HttpClient) {
-  }
-
-  private static errorHandler(error: HttpErrorResponse): Observable<never> {
-    console.error('Fehler aufgetreten!' + error);
-    return throwError(() => error);
+  constructor(private httpClient: HttpClient, private httpErrorHandler: HttpErrorHandlerService) {
   }
 
   getAllUsersFriends(): Observable<User[]> {
@@ -34,13 +29,13 @@ export class UserService {
 
   updateUser(user: User) {
     return this.httpClient.put<User>(`${this.api}/user/${user.id}`, user).pipe(
-      catchError(UserService.errorHandler)
+      catchError(error => this.httpErrorHandler.rethrow(error))
     );
   }
 
   deleteUser(user: User) {
     return this.httpClient.delete<User>(`${this.api}/user/${user.id}`).pipe(
-      catchError(UserService.errorHandler)
+      catchError(error => this.httpErrorHandler.rethrow(error))
     );
   }
 }

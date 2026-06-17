@@ -1,169 +1,102 @@
 import {Injectable} from '@angular/core';
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import {Observable, throwError} from "rxjs";
+import {HttpClient} from "@angular/common/http";
 import {User} from "../entities/user";
 import {catchError} from "rxjs/operators";
 import {Store} from "@ngrx/store";
 import jwtDecode, {JwtPayload} from 'jwt-decode';
-import {MessageService} from "primeng/api";
 import {environment} from "../../environments/environment";
 import {ROLE_NAME, RoleName} from "../entities/enum/rolename";
 import {AuthActions} from "../store/auth/auth.actions";
-import {selectLogin} from "../store/auth/auth.selectors";
-import {TranslateService, _} from "@ngx-translate/core";
+import {HttpErrorHandlerService} from "./http-error-handler.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private readonly storageKey = 'user';
   private api = `${environment.webserviceurl}`;
-  private userRoles: RoleName[] = [];
-  private errorMessage: string = '';
-  private translate: TranslateService;
 
-  constructor(private httpClient: HttpClient, private store: Store, private messageService: MessageService,
-    translate: TranslateService ) {
-    this.translate = translate;
-    
+  constructor(private httpClient: HttpClient, private store: Store, private httpErrorHandler: HttpErrorHandlerService) {
   }
-
-  getTranslation(key: string): string {
-    return this.translate.instant(key); 
-  }
-
-  private errorHandler(error: any): Observable<never> {
- 
-    let err = error.error;
-    console.error('Fehler aufgetreten!' + err);
-    let handleErrResponse = {
-    status: err.status,
-    errorText: err.message || err.errorMessage || err.title,
-    response: err,
-    };
-
-    if (err.status == 400 ) {
-        let errors = Object.entries(err.errors).reduce(
-        (acc, [key, value] ) => {
-            acc.push({  
-              field: key,
-              error: String(value)
-          });
-          return acc;
-        },
-        [] as { field: string; error: string }[]
-      );
-      
-      var strErrors = '';
-      for(var i = 0; i < errors.length; i++) {
-        strErrors = strErrors + errors[i].field + " " + errors[i].error;
-      }
-
-      handleErrResponse.response = strErrors;
-    } else if (err.status == 500 ) {
-      strErrors = err.detail;
-
-      handleErrResponse.response = strErrors;
-    }
-
-
-    var summary = this.getTranslation('shoppinglistservice.error') + handleErrResponse.response;
-    this.messageService.add({severity: 'error', summary: summary});
-    return throwError(() => error);
-  }
-
 
   login(user: User) {
-    console.log('$ auth.service.login')
     return this.httpClient.post<User>(`${this.api}/User/login`, user).pipe(
-      catchError(error => this.errorHandler(error))
+      catchError(error => this.httpErrorHandler.handle(error))
     );
   }
 
   register(user: User) {
     return this.httpClient.post<User>(`${this.api}/User/subscribe`, user).pipe(
-      catchError(error => this.errorHandler(error))
+      catchError(error => this.httpErrorHandler.handle(error))
     );
   }
 
   confirmRegistrationToken(token: string) {
     return this.httpClient.post<string>(`${this.api}/auth/confirm?token=${token}`, token).pipe(
-      catchError(error => this.errorHandler(error))
+      catchError(error => this.httpErrorHandler.handle(error))
     );
   }
 
   refreshToken(token: string) {
     return this.httpClient.post<any>(`${this.api}/auth/refresh-token`, token).pipe(
-      catchError(error => this.errorHandler(error))
+      catchError(error => this.httpErrorHandler.handle(error))
     );
-    
   }
 
-  // save token in local storage
   saveLoginStateToLocalStorage(user: User | null) {
-    localStorage.setItem('user', JSON.stringify(user));
+    if (user) {
+      localStorage.setItem(this.storageKey, JSON.stringify(user));
+    } else {
+      localStorage.removeItem(this.storageKey);
+    }
   }
 
   getActiveLoginToken(): string {
-    let token = '';
-    let user: User;
-
-    //this.store.select(selectLogin).subscribe(user => token = user?.token ? user.token : '');
-
-    var temp;
-    temp = localStorage.getItem('user') ;
-    console.log('$ getActiveLoginToken ' + temp);
-    user = JSON.parse(localStorage.getItem('user')!);
-    token = user ? user.token !: ''; 
-    console.log('$ getActiveLoginToken  / token ' + token);
-    return token;
+    return this.getStoredUser()?.token ?? '';
   }
 
-  isLoginStateValid() {
-    console.log('$ auth.service.isLoginStateValid')
-    const userString = localStorage.getItem('user');
+  isLoginStateValid(): boolean {
+    const user = this.getStoredUser();
 
-    if (userString) {
-      const user: User = JSON.parse(userString);
-
-      if (user && user.token && this.isTokenNotExpired(this.getExpire(user.token))) {
-        this.store.dispatch(AuthActions.loginLocalstorage({data: user}));
-        return true;
-      }
+    if (user?.token && this.isTokenNotExpired(this.getExpire(user.token))) {
+      this.store.dispatch(AuthActions.loginLocalstorage({data: user}));
+      return true;
     }
 
+    this.saveLoginStateToLocalStorage(null);
     return false;
   }
 
   getAllRolesOfLoggedInUser(): RoleName[] {
-    if (this.userRoles.length > 0) {
-      return this.userRoles;
-    }
+    const roles = this.getStoredUser()?.roles ?? [];
 
-    this.store.select(selectLogin).subscribe(user => {
-      const roles = user?.roles;
-      if (roles) {
-        this.userRoles = [];
-        for (let role of roles) {
-          Object.values(ROLE_NAME).forEach((value) => {
-            const roleValue: RoleName = value;
-            if (role.name === value) {
-              this.userRoles.push(roleValue);
-            }
-          });
-        }
-      }
-
+    return roles.flatMap(role => {
+      const roleName = Object.values(ROLE_NAME).find(value => role.name === value);
+      return roleName ? [roleName] : [];
     });
-
-    return this.userRoles;
   }
 
-  private getExpire(token: string): Date {
-    const params: JwtPayload = jwtDecode(token);
-    if (params.exp) {
-      return new Date(params.exp * 1000);
-    } else {
-      return new Date();
+  private getStoredUser(): User | null {
+    const userString = localStorage.getItem(this.storageKey);
+
+    if (!userString) {
+      return null;
+    }
+
+    try {
+      return JSON.parse(userString) as User;
+    } catch {
+      this.saveLoginStateToLocalStorage(null);
+      return null;
+    }
+  }
+
+  private getExpire(token: string): Date | undefined {
+    try {
+      const params: JwtPayload = jwtDecode(token);
+      return params.exp ? new Date(params.exp * 1000) : undefined;
+    } catch {
+      return undefined;
     }
   }
 

@@ -14,6 +14,7 @@ import { CategoryVm } from 'src/app/entities/CategoryMv';
 import { MessageService } from "primeng/api";
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, combineLatestWith, forkJoin, takeUntil } from 'rxjs';
+import { LoggerService } from "../../../service/logger.service";
 
 
 @Component({
@@ -32,12 +33,12 @@ export class NewpartComponent {
   
 
   constructor(private store: Store, private msg: MessageService, private activatedRoute: ActivatedRoute,  
-    private router: Router ) {
+    private router: Router, private logger: LoggerService ) {
   }
 
   ngOnInit(): void {
     this.shoppingId = Number(this.activatedRoute.snapshot.paramMap.get('shoppingId'));
-    console.log('> shoppingId ' + this.shoppingId);
+    this.logger.debug('> shoppingId ' + this.shoppingId);
 
     this.store.dispatch(PartsActions.loadParts());
     this.store.dispatch(CategorysActions.loadCategorys());
@@ -51,10 +52,10 @@ export class NewpartComponent {
       )
       .subscribe(([category, shoppingList]) => {
         if( category) {
-          console.log('c ' + JSON.stringify(category));
+          this.logger.debug('c ' + JSON.stringify(category));
         }
         if( shoppingList) {
-          console.log('s ' + JSON.stringify(shoppingList));
+          this.logger.debug('s ' + JSON.stringify(shoppingList));
         }
         if( category && shoppingList) {
           this.shoppingList = shoppingList;
@@ -62,7 +63,7 @@ export class NewpartComponent {
           for(var i=0; i < this.categorylist.length;i++) {
             if( this.categorylist[i].parts != undefined) {
               var parts = this.categorylist[i].parts;
-              console.log(JSON.stringify(parts));
+              this.logger.debug(JSON.stringify(parts));
               
               if( Array.isArray(parts)) {
                 // remove part already in shopping list
@@ -72,7 +73,7 @@ export class NewpartComponent {
                   shoppingList.shoppingListItem!.forEach(item => {
                     if( part.id == item.partRefId) {
                       found=true;
-                      console.log(part.name + ' deja dans la shoppinglist');
+                      this.logger.debug(part.name + ' deja dans la shoppinglist');
                     }
                   });
                   if( ! found ) {
@@ -87,7 +88,7 @@ export class NewpartComponent {
                 temp[0] = parts;
                 this.categorylist[i].parts = temp;
               }
-              console.log(this.categorylist[i].name + ' > nb p ' + this.categorylist[i].parts.length); 
+              this.logger.debug(this.categorylist[i].name + ' > nb p ' + this.categorylist[i].parts.length); 
             }          
           }
         }
@@ -95,7 +96,7 @@ export class NewpartComponent {
   }
  
   addItem(part: Part) {
-    console.log('addItem ' + JSON.stringify(part));
+    this.logger.debug('addItem ' + JSON.stringify(part));
     this.selected.push(part);
     /*
     item.purchaseDate = new Date();
@@ -108,7 +109,7 @@ export class NewpartComponent {
   }  
 
   addToShoppingList() {
-    console.log('addToShoppingList ' + JSON.stringify(this.selected));
+    this.logger.debug('addToShoppingList ' + JSON.stringify(this.selected));
     const lstItems : ShoppinglistItem[] = [];
 
     this.shoppingList!.shoppingListItem?.forEach(val => lstItems.push(val));

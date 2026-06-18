@@ -13,6 +13,7 @@ import { NgModule } from '@angular/core';
 import { SelectModule } from 'primeng/select';
 import { Observable,combineLatest, forkJoin, map, mergeMap, of, pipe, tap, zip } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+import { LoggerService } from "../../../service/logger.service";
 
 @Component({
   selector: 'app-part',
@@ -39,15 +40,16 @@ export class PartComponent implements OnInit {
     dateCreated?: Date;
 */
   constructor(private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, private store: Store, 
-    private confirmationService: ConfirmationService, private translate: TranslateService, private router: Router) {
+    private confirmationService: ConfirmationService, private translate: TranslateService, private router: Router,
+    private logger: LoggerService) {
     this.store.dispatch(PartsActions.loadParts());
 
     this.store.dispatch(CategorysActions.loadCategorys());
     
     this.store.select(selectAllCategory).subscribe( category => {
-      console.log('nb c ' + category.length);
+      this.logger.debug('nb c ' + category.length);
       this.categorylist = JSON.parse(JSON.stringify(category)); // deep copy of store, so that changes are possible
-      console.log('nb 2 c ' + this.categorylist.length);
+      this.logger.debug('nb 2 c ' + this.categorylist.length);
     });
     
 
@@ -74,7 +76,7 @@ export class PartComponent implements OnInit {
 
     
     //const newObj = { name: "abc", category: 1};
-    //console.log(newObj);
+    //this.logger.debug(newObj);
     //this.partForm.patchValue(newObj);
     //this.partForm.controls["category"].patchValue(1);
     
@@ -82,7 +84,7 @@ export class PartComponent implements OnInit {
     this.store.select(selectPartById(partId)).subscribe(part => 
       { 
         const newObj = { id: part.id, name: part.name, category: part.categoryId};
-        console.log(newObj);
+        this.logger.debug(newObj);
         this.partForm.patchValue(newObj);
       });
       

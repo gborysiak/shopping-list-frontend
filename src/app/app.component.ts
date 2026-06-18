@@ -9,6 +9,7 @@ import {User} from "./entities/user";
 import {ConfirmDialogModule } from 'primeng/confirmdialog';
 // translation
 import {TranslateService, _, TranslatePipe, TranslateDirective } from "@ngx-translate/core";
+import {LoggerService} from "./service/logger.service";
 //import translationsFR from "../../public/i18n/fr.json";
 
 @Component({
@@ -27,23 +28,23 @@ export class AppComponent implements OnInit {
   no: string= '';
  
   constructor(private store: Store, private confirmationService: ConfirmationService, private translate: TranslateService,
-    private title: Title ) {
+    private title: Title, private logger: LoggerService ) {
     translate.addLangs(['en', 'de','fr']);
     translate.setFallbackLang('fr');
     translate.use('fr');
     /*
     translate.get(_('app.hello'), {value: 'world'}).subscribe((res: string) => {
-      console.log(res);
+      this.logger.debug(res);
       //=> 'hello world'
     });
     */
     const currentLang = translate.currentLang;
-    console.log('Language from translate ' + currentLang);
+    this.logger.debug('Language from translate ' + currentLang);
 
     this.title.setTitle( this.translate.instant('app.title'));
       
     translate.onFallbackLangChange.subscribe(event => {
-      console.log('Default language changed:', event.lang);
+      this.logger.debug('Default language changed:', event.lang);
 });
   }
 

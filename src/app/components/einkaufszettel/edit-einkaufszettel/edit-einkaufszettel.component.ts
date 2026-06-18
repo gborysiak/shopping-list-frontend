@@ -11,6 +11,7 @@ import {UserActions} from "../../../store/user/user.actions";
 import {selectAllUsersFriends} from "../../../store/user/user.selectors";
 import {TranslateService} from "@ngx-translate/core";
 import { ShoppinglistItem } from 'src/app/entities/ShoppingListItem';
+import {LoggerService} from "../../../service/logger.service";
 
 @Component({
     selector: 'app-einkaufszettel',
@@ -32,7 +33,7 @@ export class EditEinkaufszettelComponent implements OnInit {
   //allUsersFriends: User[] = [];
 
   constructor(private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, private store: Store, private confirmationService: ConfirmationService,
-    private translate: TranslateService ) {
+    private translate: TranslateService, private logger: LoggerService ) {
   }
 
   ngOnInit(): void {
@@ -72,7 +73,7 @@ export class EditEinkaufszettelComponent implements OnInit {
   save() {
     const formValue = this.einkaufszettelForm.getRawValue();
     const einkaufszettel: ShoppingList = {...formValue};
-    console.log("* save " + einkaufszettel);
+    this.logger.debug("* save " + JSON.stringify(einkaufszettel));
 
     if (this.edit) {
       this.store.dispatch(ShoppingListActions.updateShoppingList({data: einkaufszettel}));

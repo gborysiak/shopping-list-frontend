@@ -12,6 +12,7 @@ import { selectAllPart } from 'src/app/store/part/part.selector';
 import { CategoryVm } from 'src/app/entities/CategoryMv';
 import { MessageService } from "primeng/api";
 import { combineLatest } from "rxjs";
+import { LoggerService } from "../../../service/logger.service";
 
 @Component({
   selector: 'app-home',
@@ -27,7 +28,7 @@ export class HomeComponent implements OnInit {
   selected: Part[] = [];
   iconVisible: boolean = false;
 
-  constructor(private store: Store, private msg: MessageService) {
+  constructor(private store: Store, private msg: MessageService, private logger: LoggerService) {
   }
 
   archiviereGekaufteArtikel(shoppinglist: ShoppingList) {
@@ -112,18 +113,18 @@ export class HomeComponent implements OnInit {
   }
 
   mouseEnter() {
-    //console.log("mouse enter");
+    this.logger.debug("mouse enter");
     this.iconVisible = true;
   }
 
   mouseLeave() {
-    //console.log("mouse leave");
+    this.logger.debug("mouse leave");
     this.iconVisible = false;
   }
 
   dragStart(part: Part) {
     this.currentlyDragging = part;
-    console.log("** dragStart > " + JSON.stringify(this.currentlyDragging));
+    this.logger.debug("** dragStart > " + JSON.stringify(this.currentlyDragging));
 
     // Show the toast message on the frontend
     this.msg.add({
@@ -135,7 +136,7 @@ export class HomeComponent implements OnInit {
 
   drag() {
     // Show the toast message on the frontend
-    console.log("** drag");
+    this.logger.debug("** drag");
     this.msg.add({
       severity: "success",
       summary: "Dragging...",
@@ -145,7 +146,7 @@ export class HomeComponent implements OnInit {
 
   // On Drag End
   dragEnd() {
-    console.log("** dragEnd");
+    this.logger.debug("** dragEnd");
     this.currentlyDragging = null;
     // Show the toast message on the frontend
     this.msg.add({
@@ -159,12 +160,12 @@ export class HomeComponent implements OnInit {
   drop(shoppinglist: ShoppingList) {
 
 
-    console.log("** drop " + JSON.stringify(shoppinglist));
+    this.logger.debug("** drop " + JSON.stringify(shoppinglist));
     if (this.currentlyDragging) {
-      console.log("*** drop > " + JSON.stringify(this.currentlyDragging));
+      this.logger.debug("*** drop > " + JSON.stringify(this.currentlyDragging));
       //let currentlyDraggingIndex = this.findIndex(this.currentlyDragging);
       this.selected = [...this.selected, this.currentlyDragging];
-      console.log("*** drop > " + JSON.stringify(this.selected));
+      this.logger.debug("*** drop > " + JSON.stringify(this.selected));
       //this.available = this.available.filter(
       //    (val, i) => i != currentlyDraggingIndex
       //);

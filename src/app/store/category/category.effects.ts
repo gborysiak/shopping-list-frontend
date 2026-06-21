@@ -4,7 +4,7 @@ import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {catchError, concatMap, map, tap} from 'rxjs/operators';
 import {of} from 'rxjs';
 import { CategorysActions } from './category.actions';
-import { CategoryService } from 'src/app/service/Category.service';
+import { CategoryService } from '@app/service/Category.service';
 import {Router} from "@angular/router";
 import {MessageService} from "primeng/api";
 import {TranslateService,_} from "@ngx-translate/core";

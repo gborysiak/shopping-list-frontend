@@ -2,15 +2,12 @@ import {Component, OnInit} from '@angular/core';
 import {ShoppingList} from "../../../entities/ShoppingList";
 import {Store} from "@ngrx/store";
 import {ShoppingListActions} from "../../../store/shoppinglist/shoppinglist.actions";
-import {selectAllShoppingList, selectShoppingListById} from "../../../store/shoppinglist/shoppinglist.selectors";
+import {selectShoppingListById} from "../../../store/shoppinglist/shoppinglist.selectors";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
-import {User} from "../../../entities/user";
 import {ConfirmationService} from "primeng/api";
-import {UserActions} from "../../../store/user/user.actions";
-import {selectAllUsersFriends} from "../../../store/user/user.selectors";
 import {TranslateService} from "@ngx-translate/core";
-import { ShoppinglistItem } from 'src/app/entities/ShoppingListItem';
+import {ShoppingListItem} from '@app/entities/ShoppingListItem';
 import {LoggerService} from "../../../service/logger.service";
 
 @Component({
@@ -20,77 +17,70 @@ import {LoggerService} from "../../../service/logger.service";
     standalone: false
 })
 export class EditEinkaufszettelComponent implements OnInit {
-  einkaufszettelForm: FormGroup = this.formBuilder.group({
+  shoppingListForm: FormGroup = this.formBuilder.group({
     id: [{value: '', disabled: true}, Validators.required],
     name: [{value: ''}, Validators.compose([Validators.required, Validators.minLength(1)])],
-    ShoppingListItem : new FormControl<ShoppinglistItem[] | null>([])
-    //owners: new FormControl<User[] | null>([]),
-    //sharedWith: new FormControl<User[] | null>([])
+    shoppingListItem: new FormControl<ShoppingListItem[] | null>([])
   });
 
   edit: boolean = false;
   header: string = '';
-  //allUsersFriends: User[] = [];
 
-  constructor(private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, private store: Store, private confirmationService: ConfirmationService,
-    private translate: TranslateService, private logger: LoggerService ) {
+  constructor(private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, private store: Store,
+    private confirmationService: ConfirmationService, private translate: TranslateService, private logger: LoggerService ) {
   }
 
   ngOnInit(): void {
     this.store.dispatch(ShoppingListActions.loadShoppingLists());
-    //this.store.dispatch(UserActions.loadUsersFriends());
 
-    const einkaufszettelId = Number(this.activatedRoute.snapshot.paramMap.get('einkaufszettelId'));
-    if (einkaufszettelId > 0) {
-      this.initEdit(einkaufszettelId);
+    const shoppingListId = Number(this.activatedRoute.snapshot.paramMap.get('einkaufszettelId'));
+    if (shoppingListId > 0) {
+      this.initEdit(shoppingListId);
     } else {
       this.initNew();
     }
-    //this.store.select(selectAllUsersFriends).subscribe(users => this.allUsersFriends = users);
   }
 
   getTranslation(key: string): string {
-    return this.translate.instant(key); 
+    return this.translate.instant(key);
   }
 
-  private initEdit(einkaufszettelId: number) {
+  private initEdit(shoppingListId: number) {
     this.edit = true;
     this.header = 'Einkaufszettel bearbeiten';
 
-    this.store.select(selectShoppingListById(einkaufszettelId)).subscribe(einkaufszettel => this.einkaufszettelForm.patchValue(einkaufszettel));
+    this.store.select(selectShoppingListById(shoppingListId)).subscribe(shoppingList => this.shoppingListForm.patchValue(shoppingList));
   }
 
   private initNew() {
-    const einkaufszettel: ShoppingList = {
+    const shoppingList: ShoppingList = {
       id: 0,
-      name: '',
-     // owners: [],
-     // sharedWith: []
+      name: ''
     };
-    this.einkaufszettelForm.patchValue(einkaufszettel);
+    this.shoppingListForm.patchValue(shoppingList);
   }
 
   save() {
-    const formValue = this.einkaufszettelForm.getRawValue();
-    const einkaufszettel: ShoppingList = {...formValue};
-    this.logger.debug("* save " + JSON.stringify(einkaufszettel));
+    const formValue = this.shoppingListForm.getRawValue();
+    const shoppingList: ShoppingList = {...formValue};
+    this.logger.debug("* save " + JSON.stringify(shoppingList));
 
     if (this.edit) {
-      this.store.dispatch(ShoppingListActions.updateShoppingList({data: einkaufszettel}));
+      this.store.dispatch(ShoppingListActions.updateShoppingList({data: shoppingList}));
     } else {
-      einkaufszettel.shoppingListItem = Array();
-      this.store.dispatch(ShoppingListActions.createShoppingList({data: einkaufszettel}));
+      shoppingList.shoppingListItem = [];
+      this.store.dispatch(ShoppingListActions.createShoppingList({data: shoppingList}));
     }
   }
 
   delete(event: Event) {
-    const formValue = this.einkaufszettelForm.getRawValue();
-    const einkaufszettel: ShoppingList = {...formValue};
+    const formValue = this.shoppingListForm.getRawValue();
+    const shoppingList: ShoppingList = {...formValue};
 
-    var yes = this.getTranslation('global.yes');
-    var no = this.getTranslation('global.no');
-    var message = this.getTranslation('shoppinglist.message');
-    var confirmation = this.getTranslation('global.confirmation');
+    const yes = this.getTranslation('global.yes');
+    const no = this.getTranslation('global.no');
+    const message = this.getTranslation('shoppinglist.message');
+    const confirmation = this.getTranslation('global.confirmation');
 
     this.confirmationService.confirm({
       target: event.target as EventTarget,
@@ -103,7 +93,7 @@ export class EditEinkaufszettelComponent implements OnInit {
       rejectIcon: "none",
       rejectButtonStyleClass: "p-button-text",
       accept: () => {
-        this.store.dispatch(ShoppingListActions.deleteShoppingList({data: einkaufszettel}));
+        this.store.dispatch(ShoppingListActions.deleteShoppingList({data: shoppingList}));
         this.store.dispatch(ShoppingListActions.loadShoppingLists());
       }
     });

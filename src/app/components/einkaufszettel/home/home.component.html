@@ -1,33 +1,33 @@
 <div class="w-full home-page">
   <section class="mobile-home">
-    @for (shoppinglist of shoppinglists; track shoppinglist) {
+    @for (shoppingList of shoppingLists; track shoppingList) {
       <div class="shopping-card">
         <div class="p-3 bg-white">
           <h2 class="text-2xl items-baseline sm:flex sm:space-x-4 sm:items-center sm:justify-center">
-            <span class="font-bold text-lime-600">{{ shoppinglist.name }} </span>
-            <button type="button" [routerLink]="['/mobile/addPart', shoppinglist.id]"
+            <span class="font-bold text-lime-600">{{ shoppingList.name }} </span>
+            <button type="button" [routerLink]="['/mobile/addPart', shoppingList.id]"
               pTooltip="Neuen Artikel anlegen"
               class="fas fa-plus ml-2 text-gray-500"></button>
             <span>
               <button type="button" class="pi pi-cog ml-6 float-right"
-                [routerLink]="['/einkaufszettel', shoppinglist.id]"></button>
+                [routerLink]="['/einkaufszettel', shoppingList.id]"></button>
             </span>
             <span>
               <button type="button" class="pi pi-sync ml-6 float-right"
-                (click)="resetShoppingList(shoppinglist)"></button>
+                (click)="resetShoppingList(shoppingList)"></button>
             </span>
           </h2>
 
-          @for (item of shoppinglist.shoppingListItem | boughtArticles:false ; track item) {
+          @for (item of shoppingList.shoppingListItem | boughtArticles:false ; track item) {
             <div class="flex my-1 items-start">
               <p-checkbox class="mr-2 mt-1 rounded-full"
                 [(ngModel)]="item.purchased"
                 [binary]="true"
-                (onChange)="modifyItem(shoppinglist, item)"></p-checkbox>
+                (onChange)="modifyItem(shoppingList, item)"></p-checkbox>
               <span class="text-primary font-semibold text-xl text-lime-600 mr-2">{{ item.quantity }}</span>
               <span class="text-primary font-semibold text-xl cursor-pointer hover:underline break-all"
                 pTooltip="Artikel bearbeiten"
-                [routerLink]="['/item', shoppinglist.id, item.id]">{{ item.part?.name }}</span>
+                [routerLink]="['/item', shoppingList.id, item.id]">{{ item.part?.name }}</span>
             </div>
           }
         </div>
@@ -36,16 +36,16 @@
           <p-accordion-panel value="0">
             <p-accordion-header></p-accordion-header>
             <p-accordion-content>
-              @for (item of shoppinglist.shoppingListItem | boughtArticles:true ; track item) {
+              @for (item of shoppingList.shoppingListItem | boughtArticles:true ; track item) {
                 <div class="flex my-1 items-start">
                   <p-checkbox class="mr-2 mt-1 rounded-full"
                     [(ngModel)]="item.purchased"
                     [binary]="true"
-                    (onChange)="modifyItem(shoppinglist, item)"></p-checkbox>
+                    (onChange)="modifyItem(shoppingList, item)"></p-checkbox>
                   <span class="text-primary font-semibold text-xl text-lime-600 mr-2">{{ item.quantity }}</span>
                   <span class="text-primary font-semibold text-xl cursor-pointer hover:underline break-all"
                     pTooltip="Artikel bearbeiten"
-                    [routerLink]="['/item', shoppinglist.id, item.id]">{{ item.part?.name }}</span>
+                    [routerLink]="['/item', shoppingList.id, item.id]">{{ item.part?.name }}</span>
                 </div>
               }
             </p-accordion-content>
@@ -54,7 +54,7 @@
       </div>
     }
 
-    @if(shoppinglists.length === 0) {
+    @if(shoppingLists.length === 0) {
       <div class="font-medium empty-state">
         <div class="text-gray-500">{{ 'home.text1' | translate }}</div>
         <a routerLink="/einkaufszettel" class="text-lime-600">
@@ -68,42 +68,42 @@
   <section class="desktop-home">
     <p-splitter class="m-0 p-0 h-screen">
       <ng-template #panel>
-        @for (shoppinglist of shoppinglists; track shoppinglist) {
+        @for (shoppingList of shoppingLists; track shoppingList) {
           <div class="shopping-card" >
-            <div class="p-3 bg-white" pDroppable (onDrop)="drop(shoppinglist)">
+            <div class="p-3 bg-white" pDroppable (onDrop)="drop(shoppingList)">
               <h2 class="flex text-2xl items-baseline">
-                <span class="font-bold text-lime-600">{{ shoppinglist.name }} </span>
-                <button type="button" [routerLink]="['/mobile/addPart', shoppinglist.id]"
+                <span class="font-bold text-lime-600">{{ shoppingList.name }} </span>
+                <button type="button" [routerLink]="['/mobile/addPart', shoppingList.id]"
                   pTooltip="Neuen Artikel anlegen"
                   class="fas fa-plus ml-6 text-gray-500"></button>
-                <button type="button" [routerLink]="['/einkaufszettel', shoppinglist.id]"
+                <button type="button" [routerLink]="['/einkaufszettel', shoppingList.id]"
                   pTooltip="Paramètres"
                   class="pi pi-cog ml-6 text-gray-500"></button>
                   
               <button type="button" class="pi pi-sync ml-6 float-right"
-                (click)="resetShoppingList(shoppinglist)"></button>
+                (click)="resetShoppingList(shoppingList)"></button>
             
                 <div class="grow"></div>
               </h2>
 
-              @for (item of shoppinglist.shoppingListItem | boughtArticles:false ; track item) {
+              @for (item of shoppingList.shoppingListItem | boughtArticles:false ; track item) {
                 <div class="flex my-1 items-start" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()">
                   <p-checkbox class="mr-2 mt-1 rounded-full"
                     [(ngModel)]="item.purchased"
                     [binary]="true"
-                    (onChange)="modifyItem(shoppinglist, item)"></p-checkbox>
+                    (onChange)="modifyItem(shoppingList, item)"></p-checkbox>
                   <span class="text-primary font-semibold text-xl text-lime-600 mr-2">{{ item.quantity }}</span>
                   <span class="text-primary font-semibold text-xl cursor-pointer hover:underline break-all"
                     pTooltip="Artikel bearbeiten"
-                    [routerLink]="['/item', shoppinglist.id, item.id]">{{ item.part?.name }}</span>
-                  <span class="pi pi-shopping-cart" [hidden]="!iconVisible" (click)="modifyItem(shoppinglist, item)"></span>
+                    [routerLink]="['/item', shoppingList.id, item.id]">{{ item.part?.name }}</span>
+                  <span class="pi pi-shopping-cart" [hidden]="!iconVisible" (click)="modifyItem(shoppingList, item)"></span>
                 </div>
               }
             </div>
           </div>
         }
 
-        @if(shoppinglists.length === 0) {
+        @if(shoppingLists.length === 0) {
           <div class="font-medium empty-state">
             <div class="text-gray-500">{{ 'home.text1' | translate }}</div>
             <a routerLink="/einkaufszettel" class="text-lime-600">
@@ -117,7 +117,7 @@
       <ng-template #panel>
         <p-scrollpanel [style]="{ width: '100%', height: '100%' }">
           <span><h2 class="flex text-2xl items-baseline font-bold text-lime-600">{{ 'home.category' | translate }}</h2></span>
-          @for (category of categorylist; track category) {
+          @for (category of categoryList; track category) {
             <p-accordion value="{{category.name}}">
               <p-accordion-panel value="0">
                 <p-accordion-header>

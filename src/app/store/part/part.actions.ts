@@ -1,6 +1,6 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { HttpErrorResponse } from "@angular/common/http";
-import { Part } from "src/app/entities/Part";
+import { Part } from "@app/entities/Part";
 
 
 export const PartsActions = createActionGroup({

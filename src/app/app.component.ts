@@ -1,15 +1,15 @@
-import {Component, OnInit, inject } from '@angular/core';
+import {Component, OnInit, Inject } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import {Store} from "@ngrx/store";
-import {ShoppingListActions} from "./store/shoppinglist/shoppinglist.actions";
+//import {ShoppingListActions} from "./store/shoppinglist/shoppinglist.actions";
 import {ConfirmationService} from "primeng/api";
-import {AuthActions} from "./store/auth/auth.actions";
-import {selectLogin} from "./store/auth/auth.selectors";
-import {User} from "./entities/user";
-import {ConfirmDialogModule } from 'primeng/confirmdialog';
+import {AuthActions} from "@app/store/auth/auth.actions";
+import {selectLogin} from "@app/store/auth/auth.selectors";
+import {User} from "@app/entities/user";
+//import {ConfirmDialogModule } from 'primeng/confirmdialog';
 // translation
 import {TranslateService, _, TranslatePipe, TranslateDirective } from "@ngx-translate/core";
-import {LoggerService} from "./service/logger.service";
+import {LoggerService} from "@app/service/logger.service";
 //import translationsFR from "../../public/i18n/fr.json";
 
 @Component({
@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
   no: string= '';
  
   constructor(private store: Store, private confirmationService: ConfirmationService, private translate: TranslateService,
-    private title: Title, private logger: LoggerService ) {
+    private title: Title, @Inject(LoggerService) private logger: LoggerService ) {
     translate.addLangs(['en', 'de','fr']);
     translate.setFallbackLang('fr');
     translate.use('fr');

@@ -1,82 +1,83 @@
 {
-    "app": {
-      "hello": "hellofr",
-      "title": "Liste de course"
-    },
-    "global": {
-      "delete" : " Supprimer ",
-      "submit" : " Enregistrer ",
-      "yes"    : " Oui ",
-      "no"     : " Non ",
-      "confirmation" :  " Confirmation",
-      "cancel" : " Annuler",
-      "profile": "Profile",
-      "parameters": "Paramètres",
-      "logout": "Se déconnecter",
-      "msgLogut": "Êtes-vous sûr de vouloir vous déconnecter ?"
-    },
-    "login": {
-      "user": "Utilisateur",
-      "password": "Mot de passe",
-      "reset": "Réinitialiser",
-      "login": "Se connecter",
-      "text1": "Vous n'avez pas encore de compte ?",
-      "text2": "Enregistrez-vous"
-    },
-    "register": {
-      "user": "Utilisateur *",
-      "password": "Mot de passe *",
-      "name" : "Nom *",
-      "email" : "Email *",
-      "reset": "Réinitialiser",
-      "submit" : "Enregistrer",
-      "back" : "Retour",
-      "login": "Se connecter"
-    },
-    "navigation-link": {
-      "home" : " Accueil ",
-      "shoppinglist" : " Liste de course ",
-      "archive" : " Archive ",
-      "user" : " Utilisateur ",
-      "part" : "Article",
-      "category": "Catégorie"
-    },
-    "home" : {
-      "text1" : "Vous n'avez pas encore créé de liste d'achats ?",
-      "text2" : "Créez une nouvelle liste de courses",
-      "category" : "Catégorie"
-    },
-    "shoppinglist" : {
-      "name": "Nom *",
-      "friends" : "Propriétaire",
-      "share" : "Personnes ayant accès",
-      "message": "Êtes-vous sûr de vouloir supprimer la liste d'achats ?",
-      "created": "La liste d'achat a été enregistrée.",
-      "deleted": "La liste d'achat a été supprimée.",
-      "reseted": "La liste d'achat a été réinitialisée."
-    },
-    "authservice": {
-      "error" : "Erreur lors de l'enregistrement !"
-    },
-    "shoppinglistservice" : {
-      "error" : "Erreur lors de l'enregistrement !"
-    },
-    "category" : {
-      "name" : "Nom de la catégorie",
-      "text1" : "Êtes-vous sûr de vouloir supprimer la catégorie ?",
-      "created": "La catégorie a été enregistrée'.",
-      "deleted": "La catégorie a été supprimée."
-    },
-    "part" : {
-      "name" : "Nom de l'article",
-      "category": "Catégorie",
-      "text1": "Êtes-vous sûr de vouloir supprimer l'article ?",
-      "created": "L'article a été enregistré'.",
-      "deleted": "L'article a été supprimé.",
-      "archived": "L'article a été archivé"
-    },
-    "auth": {
-      "registration": "L'inscription a été effectuée avec succès ! Le lien de confirmation vous a été envoyé par e-mail.",
-      "autherror": "Le nom d'utilisateur ou le mot de passe est incorrect ! Veuillez vérifier vos saisies."
-    }
+  "app": {
+    "hello": "hellofr",
+    "title": "Liste de course"
+  },
+  "global": {
+    "delete": " Supprimer ",
+    "submit": " Enregistrer ",
+    "yes": " Oui ",
+    "no": " Non ",
+    "confirmation": " Confirmation",
+    "cancel": " Annuler",
+    "profile": "Profile",
+    "parameters": "Paramètres",
+    "logout": "Se déconnecter",
+    "msgLogut": "Êtes-vous sûr de vouloir vous déconnecter ?"
+  },
+  "login": {
+    "user": "Utilisateur",
+    "password": "Mot de passe",
+    "reset": "Réinitialiser",
+    "login": "Se connecter",
+    "text1": "Vous n'avez pas encore de compte ?",
+    "text2": "Enregistrez-vous"
+  },
+  "register": {
+    "user": "Utilisateur *",
+    "password": "Mot de passe *",
+    "name": "Nom *",
+    "email": "Email *",
+    "reset": "Réinitialiser",
+    "submit": "Enregistrer",
+    "back": "Retour",
+    "login": "Se connecter"
+  },
+  "navigation-link": {
+    "home": " Accueil ",
+    "shoppinglist": " Liste de course ",
+    "archive": " Archive ",
+    "user": " Utilisateur ",
+    "part": "Article",
+    "category": "Catégorie",
+    "categorys": "Catégories"
+  },
+  "home": {
+    "text1": "Vous n'avez pas encore créé de liste d'achats ?",
+    "text2": "Créez une nouvelle liste de courses",
+    "category": "Catégorie"
+  },
+  "shoppinglist": {
+    "name": "Nom *",
+    "friends": "Propriétaire",
+    "share": "Personnes ayant accès",
+    "message": "Êtes-vous sûr de vouloir supprimer la liste d'achats ?",
+    "created": "La liste d'achat a été enregistrée.",
+    "deleted": "La liste d'achat a été supprimée.",
+    "reseted": "La liste d'achat a été réinitialisée."
+  },
+  "authservice": {
+    "error": "Erreur lors de l'enregistrement !"
+  },
+  "shoppinglistservice": {
+    "error": "Erreur lors de l'enregistrement !"
+  },
+  "category": {
+    "name": "Nom de la catégorie",
+    "text1": "Êtes-vous sûr de vouloir supprimer la catégorie ?",
+    "created": "La catégorie a été enregistrée'.",
+    "deleted": "La catégorie a été supprimée."
+  },
+  "part": {
+    "name": "Nom de l'article",
+    "category": "Catégorie",
+    "text1": "Êtes-vous sûr de vouloir supprimer l'article ?",
+    "created": "L'article a été enregistré'.",
+    "deleted": "L'article a été supprimé.",
+    "archived": "L'article a été archivé"
+  },
+  "auth": {
+    "registration": "L'inscription a été effectuée avec succès ! Le lien de confirmation vous a été envoyé par e-mail.",
+    "autherror": "Le nom d'utilisateur ou le mot de passe est incorrect ! Veuillez vérifier vos saisies."
+  }
 }

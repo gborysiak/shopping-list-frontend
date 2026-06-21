@@ -3,11 +3,10 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Store} from "@ngrx/store";
 import {selectItemById} from "../../../store/shoppinglist/shoppinglist.selectors";
-import {Part} from "../../../entities/Part";
 import {ShoppingListActions} from "../../../store/shoppinglist/shoppinglist.actions";
 import {ConfirmationService} from "primeng/api";
-import { ShoppinglistItem } from 'src/app/entities/ShoppingListItem';
-import { selectAllPart } from 'src/app/store/part/part.selector';
+import {ShoppingListItem} from '@app/entities/ShoppingListItem';
+import {selectAllPart} from '@app/store/part/part.selector';
 import {TranslateService} from "@ngx-translate/core";
 import {combineLatest} from "rxjs";
 
@@ -18,44 +17,41 @@ import {combineLatest} from "rxjs";
     standalone: false
 })
 export class EditArtikelComponent implements OnInit {
-  artikelForm: FormGroup = this.formBuilder.group({
+  itemForm: FormGroup = this.formBuilder.group({
     id: [{value: '', disabled: true}, Validators.required],
     partRefId: [{value: '', disabled: true}, Validators.required],
     name: [{value: ''}],
-    // kategorie: ['', Validators.compose([Validators.required, Validators.minLength(1)])], TODO
     quantity: ['', Validators.compose([Validators.required, Validators.min(1), Validators.max(100)])],
     purchased: ['', Validators.required]
   });
 
-  shoppingId: number = 0; // einkaufszettelId
+  shoppingListId: number = 0;
   edit: boolean = false;
   header: string = '';
 
-  constructor(private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, private store: Store, private confirmationService: ConfirmationService,
-    private router: Router, private translate: TranslateService ) {
+  constructor(private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, private store: Store,
+    private confirmationService: ConfirmationService, private router: Router, private translate: TranslateService ) {
   }
 
   ngOnInit(): void {
-    this.shoppingId = Number(this.activatedRoute.snapshot.paramMap.get('shoppingList'));
-    const partId = Number(this.activatedRoute.snapshot.paramMap.get('item')); // artikelId
-    if (partId > 0) {
-      this.initEdit(partId);
+    this.shoppingListId = Number(this.activatedRoute.snapshot.paramMap.get('shoppingList'));
+    const itemId = Number(this.activatedRoute.snapshot.paramMap.get('item'));
+    if (itemId > 0) {
+      this.initEdit(itemId);
     } else {
-      //this.initNew();
       this.router.navigate(['/home']);
     }
   }
 
   getTranslation(key: string): string {
-    return this.translate.instant(key); 
+    return this.translate.instant(key);
   }
 
-
-  private initEdit(partId: number) {
+  private initEdit(itemId: number) {
     this.edit = true;
     this.header = 'Artikel bearbeiten';
 
-    const editPart = {
+    const editableItem = {
       id: -1,
       partRefId: -1,
       name: '',
@@ -64,59 +60,46 @@ export class EditArtikelComponent implements OnInit {
     };
 
     combineLatest([
-      this.store.select(selectItemById(this.shoppingId, partId)),
+      this.store.select(selectItemById(this.shoppingListId, itemId)),
       this.store.select(selectAllPart)
     ]).subscribe(([item, parts]) => {
       const part = parts.find(part => part.id === item.partRefId);
 
       if (part) {
-        editPart.name = part.name;
-        editPart.id = item.id;
-        editPart.partRefId = part.id;
-        editPart.quantity = item.quantity;
-        this.artikelForm.patchValue(editPart);
+        editableItem.name = part.name;
+        editableItem.id = item.id;
+        editableItem.partRefId = part.id;
+        editableItem.quantity = item.quantity;
+        this.itemForm.patchValue(editableItem);
       }
     });
   }
 
-  /*
-  private initNew() {
-    const emptyPart: ShoppinglistItem = {
-      id: -1,
-      partRefId: -1,
-      name: '',
-      quantity: 1,
-      purchased: false
-    };
-    this.artikelForm.patchValue(emptyPart);
-  }
-    */
-
   save() {
-    const formValue = this.artikelForm.getRawValue();
-    const item: ShoppinglistItem = {...formValue};
+    const formValue = this.itemForm.getRawValue();
+    const item: ShoppingListItem = {...formValue};
 
     if (this.edit) {
       this.store.dispatch(ShoppingListActions.updateItem({
-        shoppingId: this.shoppingId,
+        shoppingId: this.shoppingListId,
         data: item
       }));
     } else {
       this.store.dispatch(ShoppingListActions.createItem({
-        shoppingId: this.shoppingId,
+        shoppingId: this.shoppingListId,
         data: item
       }));
     }
   }
 
   delete(event: Event) {
-    const formValue = this.artikelForm.getRawValue();
-    const item: ShoppinglistItem = {...formValue}; // artikel
+    const formValue = this.itemForm.getRawValue();
+    const item: ShoppingListItem = {...formValue};
 
-    var yes = this.getTranslation('global.yes');
-    var no = this.getTranslation('global.no');
-    var message = this.getTranslation('part.text1');
-    var confirmation = this.getTranslation('global.confirmation');
+    const yes = this.getTranslation('global.yes');
+    const no = this.getTranslation('global.no');
+    const message = this.getTranslation('part.text1');
+    const confirmation = this.getTranslation('global.confirmation');
 
     this.confirmationService.confirm({
       target: event.target as EventTarget,
@@ -130,7 +113,7 @@ export class EditArtikelComponent implements OnInit {
       rejectButtonStyleClass: "p-button-text",
       accept: () => {
         this.store.dispatch(ShoppingListActions.deleteItem({
-          shoppingId: this.shoppingId,
+          shoppingId: this.shoppingListId,
           data: item
         }));
         this.store.dispatch(ShoppingListActions.loadShoppingLists());

@@ -1,6 +1,6 @@
 <h2>{{ 'home.category' | translate }}</h2>
 <p-accordion value="0">
-    @for (category of categorylist; track category) {
+    @for (category of categoryList; track category) {
     <p-accordion-panel value="{{ category.name }}">
       <p-accordion-header>{{ category.name }}</p-accordion-header>
       <p-accordion-content>

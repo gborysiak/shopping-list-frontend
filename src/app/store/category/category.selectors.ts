@@ -1,10 +1,10 @@
 
 import {createFeatureSelector, createSelector} from '@ngrx/store';
-import { combineLatest } from 'rxjs';
+//import { combineLatest } from 'rxjs';
 import * as fromCategoryList from './category.reducer';
 import { selectAllPart } from '../part/part.selector';
-import { Part } from 'src/app/entities/Part';
-import { Category } from 'src/app/entities/Category';
+//import { Part } from 'src/app/entities/Part';
+//import { Category } from 'src/app/entities/Category';
 
 export const selectCategoryState = createFeatureSelector<fromCategoryList.State>(
   fromCategoryList.categoryFeatureKey

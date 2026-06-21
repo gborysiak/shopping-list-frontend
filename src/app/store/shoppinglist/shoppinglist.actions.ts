@@ -1,7 +1,7 @@
 import {createActionGroup, emptyProps, props} from '@ngrx/store';
 import { HttpErrorResponse } from "@angular/common/http";
 //import {Part} from "../../entities/Part";
-import {ShoppinglistItem} from "../../entities/ShoppingListItem";
+import {ShoppingListItem} from "../../entities/ShoppingListItem";
 import {ShoppingList} from "../../entities/ShoppingList";
 
 export const ShoppingListActions = createActionGroup({
@@ -29,23 +29,23 @@ export const ShoppingListActions = createActionGroup({
 
 
     'Load Items': emptyProps(),
-    'Load Items Success': props<{ data: ShoppinglistItem[] }>(),
+    'Load Items Success': props<{ data: ShoppingListItem[] }>(),
     'Load Items Failure': props<{ error: HttpErrorResponse }>(),
 
-    'Create Item': props<{ shoppingId: number, data: ShoppinglistItem }>(), //shoppingId einkaufszettelId
-    'Create Item Success': props<{ data: ShoppinglistItem }>(),
+    'Create Item': props<{ shoppingId: number, data: ShoppingListItem }>(), //shoppingId einkaufszettelId
+    'Create Item Success': props<{ data: ShoppingListItem }>(),
     'Create Item Failure': props<{ error: HttpErrorResponse }>(),
 
-    'Update Item': props<{ shoppingId: number, data: ShoppinglistItem }>(),
-    'Update Item Success': props<{ data: ShoppinglistItem }>(),
+    'Update Item': props<{ shoppingId: number, data: ShoppingListItem }>(),
+    'Update Item Success': props<{ data: ShoppingListItem }>(),
     'Update Item Failure': props<{ error: HttpErrorResponse }>(),
 
-    'Delete Item': props<{ shoppingId: number, data: ShoppinglistItem }>(),
-    'Delete Item Success': props<{ data: ShoppinglistItem }>(),
+    'Delete Item': props<{ shoppingId: number, data: ShoppingListItem }>(),
+    'Delete Item Success': props<{ data: ShoppingListItem }>(),
     'Delete Item Failure': props<{ error: HttpErrorResponse }>(),
 
     'Archive Item': props<{ shoppingId: number }>(),
-    'Archive Item Success': props<{ data: ShoppinglistItem[] }>(),
+    'Archive Item Success': props<{ data: ShoppingListItem[] }>(),
     'Archive Item Failure': props<{ error: HttpErrorResponse }>(),
   }
 });

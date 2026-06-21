@@ -1,4 +1,4 @@
-<form [formGroup]="artikelForm" class="max-w-xl m-auto" (ngSubmit)="save()">
+<form [formGroup]="itemForm" class="max-w-xl m-auto" (ngSubmit)="save()">
   <!-- Name -->
   <div class="mt-2 mb-6">
     <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="name" > Name* </label>
@@ -23,7 +23,7 @@
         Supprimer
       </button>
     }
-    <button type="submit" [disabled]="artikelForm.invalid"
+    <button type="submit" [disabled]="itemForm.invalid"
       class="bg-lime-400 rounded-lg px-2 py-2 text-center">
       Enregistrer
     </button>

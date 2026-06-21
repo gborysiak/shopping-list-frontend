@@ -1,22 +1,23 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {HomeComponent} from "./components/einkaufszettel/home/home.component";
-import {EditArtikelComponent} from "./components/einkaufszettel/edit-artikel/edit-artikel.component";
-import {LoginComponent} from "./components/auth/login/login.component";
-import {AuthGuard} from "./guard/auth-guard";
-import {RegisterComponent} from "./components/auth/register/register.component";
-import {ArchivComponent} from "./components/archiv/archiv.component";
-import {EditEinkaufszettelComponent} from "./components/einkaufszettel/edit-einkaufszettel/edit-einkaufszettel.component";
-import {RoleGuard} from "./guard/role-guard";
-import {UserComponent} from "./components/admin/user/user.component";
-import {ROLE_NAME} from "./entities/enum/rolename";
+import {HomeComponent} from "@app/components/einkaufszettel/home/home.component";
+import {EditArtikelComponent} from "@app/components/einkaufszettel/edit-artikel/edit-artikel.component";
+import {LoginComponent} from "@app/components/auth/login/login.component";
+import {AuthGuard} from "@app/guard/auth-guard";
+import {RegisterComponent} from "@app/components/auth/register/register.component";
+import {ArchivComponent} from "@app/components/archiv/archiv.component";
+import {EditEinkaufszettelComponent} from "@app/components/einkaufszettel/edit-einkaufszettel/edit-einkaufszettel.component";
+import {RoleGuard} from "@app/guard/role-guard";
+import {UserComponent} from "@app/components/admin/user/user.component";
+import {ROLE_NAME} from "@app/entities/enum/rolename";
 import {
   RegistrationConfirmationComponent
-} from "./components/auth/registration-confirmation/registration-confirmation.component";
-import {ProfileEditComponent} from "./components/settings/profile-edit/profile-edit.component";
-import { PartComponent } from './components/part/part/part.component';
-import { CategoryComponent } from './components/category/category/category.component';
-import { NewpartComponent } from './components/mobile/newpart/newpart.component';
+} from "@app/components/auth/registration-confirmation/registration-confirmation.component";
+import {ProfileEditComponent} from "@app/components/settings/profile-edit/profile-edit.component";
+import { PartComponent } from '@app/components/part/part/part.component';
+import { CategoryComponent } from '@app/components/category/category/category.component';
+import { NewpartComponent } from '@app/components/mobile/newpart/newpart.component';
+import { CategorysComponent } from '@app/components/categorys/categorys.component';
 
 const routes: Routes = [
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -35,7 +36,8 @@ const routes: Routes = [
   {path: 'part/:partId', component: PartComponent, canActivate: [AuthGuard]},
   {path: 'category', component: CategoryComponent, canActivate: [AuthGuard]},
   {path: 'category/:categoryId', component: CategoryComponent, canActivate: [AuthGuard]},
-  {path: 'mobile/addPart/:shoppingId', component: NewpartComponent, canActivate: [AuthGuard]} 
+  {path: 'mobile/addPart/:shoppingId', component: NewpartComponent, canActivate: [AuthGuard]},
+  {path: 'categorys', component: CategorysComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

@@ -1,6 +1,6 @@
 import { createReducer, on, createFeature } from "@ngrx/store";
 import { PartsActions} from "./part.actions";
-import { Part } from "src/app/entities/Part";
+import { Part } from "@app/entities/Part";
 
 
 export const partFeatureKey = 'part';

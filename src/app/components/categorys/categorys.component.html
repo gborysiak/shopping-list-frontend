@@ -1,0 +1,24 @@
+<div>
+@for (category of categoryList; track category) {
+<p-accordion value="{{category.name}}">
+    <p-accordion-panel value="0">
+        <p-accordion-header>
+            <h2 class="flex text-2xl items-baseline">
+                <span class="font-bold text-lime-600">{{ category.name }} </span>
+                <button type="button" [routerLink]="['/category', category.id]" pTooltip="Détails"
+                    class="pi pi-pencil ml-2 text-gray-500"></button>
+                <div class="grow"></div>
+            </h2>
+        </p-accordion-header>
+        <p-accordion-content>
+            @for (part of category.parts; track part) {
+            <div class="flex my-1 items-start" >
+                <span class="text-primary font-semibold text-xl cursor-pointer hover:underline break-all"
+                    pTooltip="Artikel bearbeiten" [routerLink]="['/part', part.id]">{{ part.name }}</span>
+            </div>
+            }
+        </p-accordion-content>
+    </p-accordion-panel>
+</p-accordion>
+}
+</div>

@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
-import { Part } from 'src/app/entities/Part';
+import { Part } from '@app/entities/Part';
 import {Store} from "@ngrx/store";
 import {ConfirmationService} from "primeng/api";
-import { PartsActions } from 'src/app/store/part/part.actions';
-import { selectPartById } from 'src/app/store/part/part.selector';
-import { Category } from 'src/app/entities/Category';
-import { CategorysActions } from 'src/app/store/category/category.actions';
-import { selectAllCategory } from 'src/app/store/category/category.selectors';
+import { PartsActions } from '@app/store/part/part.actions';
+import { selectPartById } from '@app/store/part/part.selector';
+import { Category } from '@app/entities/Category';
+import { CategorysActions } from '@app/store/category/category.actions';
+import { selectAllCategory } from '@app/store/category/category.selectors';
 import { NgModule } from '@angular/core';
 import { SelectModule } from 'primeng/select';
 import { Observable,combineLatest, forkJoin, map, mergeMap, of, pipe, tap, zip } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
-import { LoggerService } from "../../../service/logger.service";
+import { LoggerService } from "@app/service/logger.service";
 
 @Component({
   selector: 'app-part',

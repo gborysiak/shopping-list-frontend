@@ -1,21 +1,17 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {ShoppingListActions} from "../../../store/shoppinglist/shoppinglist.actions";
-import {selectAllShoppingList, selectShoppingListById} from "../../../store/shoppinglist/shoppinglist.selectors";
+import {selectShoppingListById} from "../../../store/shoppinglist/shoppinglist.selectors";
 import {Part} from "../../../entities/Part";
 import {ShoppingList} from "../../../entities/ShoppingList";
-import { ShoppinglistItem } from 'src/app/entities/ShoppingListItem';
-import { Category } from 'src/app/entities/Category';
-import { CategorysActions } from 'src/app/store/category/category.actions';
-import { selectAllCategory , selectCategoryAndParts} from 'src/app/store/category/category.selectors';
-import { PartsActions } from 'src/app/store/part/part.actions';
-import { selectAllPart } from 'src/app/store/part/part.selector';
-import { CategoryVm } from 'src/app/entities/CategoryMv';
-import { MessageService } from "primeng/api";
-import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, combineLatestWith, forkJoin, takeUntil } from 'rxjs';
-import { LoggerService } from "../../../service/logger.service";
-
+import {ShoppingListItem} from '@app/entities/ShoppingListItem';
+import {CategorysActions} from '@app/store/category/category.actions';
+import {selectCategoryAndParts} from '@app/store/category/category.selectors';
+import {PartsActions} from '@app/store/part/part.actions';
+import {CategoryVm} from '@app/entities/CategoryMv';
+import {ActivatedRoute} from '@angular/router';
+import {combineLatestWith} from 'rxjs';
+import {LoggerService} from "../../../service/logger.service";
 
 @Component({
   selector: 'app-newpart',
@@ -24,117 +20,95 @@ import { LoggerService } from "../../../service/logger.service";
   standalone: false
 })
 export class NewpartComponent {
-  shoppingId: number = 0;
+  shoppingListId: number = 0;
   shoppingList: ShoppingList | null = null;
-  categorylist!: CategoryVm[];
-  //partList!: string[];
-  selected: Part[] = [];
+  categoryList!: CategoryVm[];
+  selectedParts: Part[] = [];
   iconVisible: boolean = false;
-  
 
-  constructor(private store: Store, private msg: MessageService, private activatedRoute: ActivatedRoute,  
-    private router: Router, private logger: LoggerService ) {
+  constructor(private store: Store, private activatedRoute: ActivatedRoute, private logger: LoggerService ) {
   }
 
   ngOnInit(): void {
-    this.shoppingId = Number(this.activatedRoute.snapshot.paramMap.get('shoppingId'));
-    this.logger.debug('> shoppingId ' + this.shoppingId);
+    this.shoppingListId = Number(this.activatedRoute.snapshot.paramMap.get('shoppingId'));
+    this.logger.debug('> shoppingListId ' + this.shoppingListId);
 
     this.store.dispatch(PartsActions.loadParts());
     this.store.dispatch(CategorysActions.loadCategorys());
     this.store.dispatch(ShoppingListActions.loadShoppingLists());
 
-    const CategoryAndParts$ = this.store.select(selectCategoryAndParts);
-    const shoppingList$ = this.store.select(selectShoppingListById(this.shoppingId));
-    
-    CategoryAndParts$.pipe(
+    const categoryAndParts$ = this.store.select(selectCategoryAndParts);
+    const shoppingList$ = this.store.select(selectShoppingListById(this.shoppingListId));
+
+    categoryAndParts$.pipe(
         combineLatestWith(shoppingList$)
       )
-      .subscribe(([category, shoppingList]) => {
-        if( category) {
-          this.logger.debug('c ' + JSON.stringify(category));
+      .subscribe(([categories, shoppingList]) => {
+        if (categories) {
+          this.logger.debug('categories ' + JSON.stringify(categories));
         }
-        if( shoppingList) {
-          this.logger.debug('s ' + JSON.stringify(shoppingList));
+        if (shoppingList) {
+          this.logger.debug('shoppingList ' + JSON.stringify(shoppingList));
         }
-        if( category && shoppingList) {
+        if (categories && shoppingList) {
           this.shoppingList = shoppingList;
-          this.categorylist = JSON.parse(JSON.stringify(category));
-          for(var i=0; i < this.categorylist.length;i++) {
-            if( this.categorylist[i].parts != undefined) {
-              var parts = this.categorylist[i].parts;
-              this.logger.debug(JSON.stringify(parts));
-              
-              if( Array.isArray(parts)) {
-                // remove part already in shopping list
-                var cleanedParts: Part[] = [];
-                parts.forEach(part => {
-                  var found=false;
-                  shoppingList.shoppingListItem!.forEach(item => {
-                    if( part.id == item.partRefId) {
-                      found=true;
-                      this.logger.debug(part.name + ' deja dans la shoppinglist');
-                    }
-                  });
-                  if( ! found ) {
-                    cleanedParts.push(part);
-                  }
-                });
-                
-                //this.categorylist[i].parts = parts;
-                this.categorylist[i].parts = cleanedParts;
-              } else {
-                var temp = Array(1);
-                temp[0] = parts;
-                this.categorylist[i].parts = temp;
-              }
-              this.logger.debug(this.categorylist[i].name + ' > nb p ' + this.categorylist[i].parts.length); 
-            }          
-          }
+          this.categoryList = this.removeAlreadySelectedParts(categories, shoppingList);
         }
        });
   }
- 
+
   addItem(part: Part) {
     this.logger.debug('addItem ' + JSON.stringify(part));
-    this.selected.push(part);
-    /*
-    item.purchaseDate = new Date();
-    item.purchased = true;
-    this.store.dispatch(ShoppingListActions.updateItem({
-      shoppingId: shoppinglist.id,
-      data: item
-    }));
-    */
-  }  
+    this.selectedParts.push(part);
+  }
 
   addToShoppingList() {
-    this.logger.debug('addToShoppingList ' + JSON.stringify(this.selected));
-    const lstItems : ShoppinglistItem[] = [];
+    this.logger.debug('addToShoppingList ' + JSON.stringify(this.selectedParts));
+    const listItems: ShoppingListItem[] = [];
 
-    this.shoppingList!.shoppingListItem?.forEach(val => lstItems.push(val));
-  
-    this.selected.forEach(part => {
-      const item: ShoppinglistItem = {
-                id : 0,
-                name : part.name,
-                partRefId : part.id,
-                purchased : false,
-                quantity : 1
+    this.shoppingList!.shoppingListItem?.forEach(item => listItems.push(item));
+
+    this.selectedParts.forEach(part => {
+      const item: ShoppingListItem = {
+        id: 0,
+        name: part.name,
+        partRefId: part.id,
+        purchased: false,
+        quantity: 1
       };
-      // add new
-      lstItems.push(item);
+      listItems.push(item);
     });
-    const updshoppinglist : ShoppingList = {
+
+    const updatedShoppingList: ShoppingList = {
       id: this.shoppingList!.id,
       name: this.shoppingList!.name,
-      shoppingListItem: lstItems
+      shoppingListItem: listItems
     };
     this.store.dispatch(ShoppingListActions.updateShoppingList({
-      data: updshoppinglist }));
+      data: updatedShoppingList
+    }));
+  }
+
+  private removeAlreadySelectedParts(categories: CategoryVm[], shoppingList: ShoppingList): CategoryVm[] {
+    const categoryList: CategoryVm[] = JSON.parse(JSON.stringify(categories));
+
+    categoryList.forEach(category => {
+      if (!category.parts) {
+        return;
+      }
+
+      const parts = Array.isArray(category.parts) ? category.parts : [category.parts];
+      category.parts = parts.filter(part => {
+        const alreadyInShoppingList = shoppingList.shoppingListItem?.some(item => part.id === item.partRefId) ?? false;
+        if (alreadyInShoppingList) {
+          this.logger.debug(part.name + ' deja dans la shoppinglist');
+        }
+        return !alreadyInShoppingList;
+      });
+
+      this.logger.debug(category.name + ' > nb p ' + category.parts.length);
+    });
+
+    return categoryList;
   }
 }
-function concatLatestFrom(arg0: () => Observable<unknown>[]) {
-  throw new Error('Function not implemented.');
-}
-

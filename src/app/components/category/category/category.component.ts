@@ -1,9 +1,9 @@
 
 import {Component, OnInit} from '@angular/core';
-import {Category} from "../../../entities/Category";
+import {Category} from "@app/entities/Category";
 import {Store} from "@ngrx/store";
-import {CategorysActions} from "../../../store/category/category.actions";
-import {selectAllCategory, selectCategoryById} from "src/app/store/category/category.selectors";
+import {CategorysActions} from "@app/store/category/category.actions";
+import {selectAllCategory, selectCategoryById} from "@app/store/category/category.selectors";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ConfirmationService} from "primeng/api";

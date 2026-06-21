@@ -4,12 +4,12 @@ import { ShoppingListActions } from "../../../store/shoppinglist/shoppinglist.ac
 import { selectAllShoppingList } from "../../../store/shoppinglist/shoppinglist.selectors";
 import { Part } from "../../../entities/Part";
 import { ShoppingList } from "../../../entities/ShoppingList";
-import { ShoppinglistItem } from 'src/app/entities/ShoppingListItem';
-import { CategorysActions } from 'src/app/store/category/category.actions';
-import { selectCategoryAndParts } from 'src/app/store/category/category.selectors';
-import { PartsActions } from 'src/app/store/part/part.actions';
-import { selectAllPart } from 'src/app/store/part/part.selector';
-import { CategoryVm } from 'src/app/entities/CategoryMv';
+import { ShoppingListItem } from '@app/entities/ShoppingListItem';
+import { CategorysActions } from '@app/store/category/category.actions';
+import { selectCategoryAndParts } from '@app/store/category/category.selectors';
+import { PartsActions } from '@app/store/part/part.actions';
+import { selectAllPart } from '@app/store/part/part.selector';
+import { CategoryVm } from '@app/entities/CategoryMv';
 import { MessageService } from "primeng/api";
 import { combineLatest } from "rxjs";
 import { LoggerService } from "../../../service/logger.service";
@@ -21,9 +21,8 @@ import { LoggerService } from "../../../service/logger.service";
   standalone: false
 })
 export class HomeComponent implements OnInit {
-  shoppinglists: ShoppingList[] = [];
-  categorylist: CategoryVm[] = [];
-  //partList!: string[];
+  shoppingLists: ShoppingList[] = [];
+  categoryList: CategoryVm[] = [];
   currentlyDragging: Part | null = null;
   selected: Part[] = [];
   iconVisible: boolean = false;
@@ -31,8 +30,8 @@ export class HomeComponent implements OnInit {
   constructor(private store: Store, private msg: MessageService, private logger: LoggerService) {
   }
 
-  archiviereGekaufteArtikel(shoppinglist: ShoppingList) {
-    this.store.dispatch(ShoppingListActions.archiveItem({ shoppingId: shoppinglist.id }));
+  archivePurchasedItems(shoppingList: ShoppingList) {
+    this.store.dispatch(ShoppingListActions.archiveItem({ shoppingId: shoppingList.id }));
   }
 
   ngOnInit(): void {
@@ -44,13 +43,13 @@ export class HomeComponent implements OnInit {
       this.store.select(selectAllShoppingList),
       this.store.select(selectAllPart)
     ]).subscribe(([shoppingLists, parts]) => {
-      this.shoppinglists = this.enrichShoppingListsWithParts(shoppingLists, parts);
+      this.shoppingLists = this.enrichShoppingListsWithParts(shoppingLists, parts);
       /* a revoir
-      this.shoppinglists.forEach(shoppinglist => shoppinglist.shoppingListActions = [
-        {label: 'Parameters', routerLink: ['/einkaufszettel', shoppinglist.id], icon: 'fas fa-gear'},
+      this.shoppingLists.forEach(shoppingList => shoppingList.shoppingListActions = [
+        {label: 'Parameters', routerLink: ['/einkaufszettel', shoppingList.id], icon: 'fas fa-gear'},
         {
           label: 'Archive purchased parts',
-          callback: () => this.archiviereGekaufteArtikel(shoppinglist),
+          callback: () => this.archivePurchasedItems(shoppingList),
           icon: 'fas fa-box-archive'
         },
       ]);
@@ -58,7 +57,7 @@ export class HomeComponent implements OnInit {
     });
 
     this.store.select(selectCategoryAndParts).subscribe(category => {
-      this.categorylist = this.normalizeCategoryParts(category);
+      this.categoryList = this.normalizeCategoryParts(category);
     });
 
   }
@@ -90,26 +89,26 @@ export class HomeComponent implements OnInit {
     return categoryList;
   }
 
-  modifyItem(shoppinglist: ShoppingList, item: ShoppinglistItem) {
+  modifyItem(shoppingList: ShoppingList, item: ShoppingListItem) {
     item.purchaseDate = new Date();
     item.purchased = true;
     this.store.dispatch(ShoppingListActions.updateItem({
-      shoppingId: shoppinglist.id,
+      shoppingId: shoppingList.id,
       data: item
     }));
   }
 
-  changeArtikelGekauft(shoppinglist: ShoppingList, item: ShoppinglistItem) {
+  toggleItemPurchased(shoppingList: ShoppingList, item: ShoppingListItem) {
     item.purchased = !item.purchased;
     this.store.dispatch(ShoppingListActions.updateItem({
-      shoppingId: shoppinglist.id,
+      shoppingId: shoppingList.id,
       data: item
     }));
   }
 
-  resetShoppingList(shoppinglist: ShoppingList) {
+  resetShoppingList(shoppingList: ShoppingList) {
     this.store.dispatch(ShoppingListActions.resetShoppingList({
-      data: shoppinglist }));
+      data: shoppingList }));
   }
 
   mouseEnter() {
@@ -157,10 +156,10 @@ export class HomeComponent implements OnInit {
   }
 
   // On Drop of Item to droppable area
-  drop(shoppinglist: ShoppingList) {
+  drop(shoppingList: ShoppingList) {
 
 
-    this.logger.debug("** drop " + JSON.stringify(shoppinglist));
+    this.logger.debug("** drop " + JSON.stringify(shoppingList));
     if (this.currentlyDragging) {
       this.logger.debug("*** drop > " + JSON.stringify(this.currentlyDragging));
       //let currentlyDraggingIndex = this.findIndex(this.currentlyDragging);
@@ -169,7 +168,7 @@ export class HomeComponent implements OnInit {
       //this.available = this.available.filter(
       //    (val, i) => i != currentlyDraggingIndex
       //);
-      const item: ShoppinglistItem = {
+      const item: ShoppingListItem = {
         id: 0,
         name: this.currentlyDragging.name,
         partRefId: this.currentlyDragging.id,
@@ -178,23 +177,23 @@ export class HomeComponent implements OnInit {
       };
       /*
       this.store.dispatch(ShoppingListActions.createItem({
-        shoppingId: shoppinglist.id,
+            shoppingId: shoppingList.id,
         data: item
       }));
       */
-      const lstItems: ShoppinglistItem[] = [];
-      shoppinglist.shoppingListItem?.forEach(val => lstItems.push(val));
+      const lstItems: ShoppingListItem[] = [];
+      shoppingList.shoppingListItem?.forEach(val => lstItems.push(val));
       // add new
       lstItems.push(item);
 
-      const updshoppinglist: ShoppingList = {
-        id: shoppinglist.id,
-        name: shoppinglist.name,
+      const updatedShoppingList: ShoppingList = {
+        id: shoppingList.id,
+        name: shoppingList.name,
         shoppingListItem: lstItems
       };
-      shoppinglist.shoppingListItem?.push(item);
+      shoppingList.shoppingListItem?.push(item);
       this.store.dispatch(ShoppingListActions.updateShoppingList({
-        data: updshoppinglist
+        data: updatedShoppingList
       }));
 
       this.currentlyDragging = null;

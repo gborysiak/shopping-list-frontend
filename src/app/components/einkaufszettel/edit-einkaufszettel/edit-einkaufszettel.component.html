@@ -1,4 +1,4 @@
-<form [formGroup]="einkaufszettelForm" class="max-w-xl m-auto" (ngSubmit)="save()">
+<form [formGroup]="shoppingListForm" class="max-w-xl m-auto" (ngSubmit)="save()">
   <!-- Name -->
   <div class="mt-2 mb-6">
     <label class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4" for="name" >{{ 'shoppinglist.name' | translate }}</label>
@@ -42,7 +42,7 @@
                 <ng-container >{{ 'global.delete' | translate }}</ng-container>
           </button>
             }
-            <button type="submit" [disabled]="einkaufszettelForm.invalid"
+            <button type="submit" [disabled]="shoppingListForm.invalid"
               class="bg-lime-400 rounded-lg px-2 py-2 text-center mr-3 " >
                   <ng-container >{{ 'global.submit' | translate }}</ng-container>
             </button>

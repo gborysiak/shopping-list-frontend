@@ -1,12 +1,11 @@
-import {User} from "./user";
 import { Part } from "./Part";
 
-export interface ShoppinglistItem {
-  id: number; // einkaufszettelId
+export interface ShoppingListItem {
+  id: number;
   partRefId: number;
   name: string;
-  quantity: number; // anzahl
-  purchased: boolean; // gekauft
-  purchaseDate?: Date; // kaufZeitpunkt
+  quantity: number;
+  purchased: boolean;
+  purchaseDate?: Date;
   part?: Part;
 }

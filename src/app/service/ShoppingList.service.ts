@@ -5,7 +5,7 @@ import {catchError} from "rxjs/operators";
 import {environment} from "../../environments/environment";
 import {ShoppingList} from "../entities/ShoppingList";
 import {PartArchive} from "../entities/PartArchive";
-import { ShoppinglistItem } from '../entities/ShoppingListItem';
+import { ShoppingListItem } from '../entities/ShoppingListItem';
 import {HttpErrorHandlerService} from "./http-error-handler.service";
 
 @Injectable({
@@ -48,26 +48,26 @@ export class ShoppingListService  {
   }
 
 
-  createItem(shoppingListId: number, item: ShoppinglistItem) {
-    return this.httpClient.post<ShoppinglistItem>(`${this.api}/ShoppingList/${shoppingListId}/Item`, item).pipe(
+  createItem(shoppingListId: number, item: ShoppingListItem) {
+    return this.httpClient.post<ShoppingListItem>(`${this.api}/ShoppingList/${shoppingListId}/Item`, item).pipe(
       catchError(error => this.httpErrorHandler.handle(error))
     );
   }
 
-  updateItem(shoppingListId: number, item: ShoppinglistItem) {
-    return this.httpClient.put<ShoppinglistItem>(`${this.api}/ShoppingList/${shoppingListId}/Item/${item.id}`, item).pipe(
+  updateItem(shoppingListId: number, item: ShoppingListItem) {
+    return this.httpClient.put<ShoppingListItem>(`${this.api}/ShoppingList/${shoppingListId}/Item/${item.id}`, item).pipe(
       catchError(error => this.httpErrorHandler.handle(error))
     );
   }
 
-  deleteItem(shoppingListId: number, item: ShoppinglistItem) {
-    return this.httpClient.delete<ShoppinglistItem>(`${this.api}/ShoppingList/${shoppingListId}/Item/${item.id}`).pipe(
+  deleteItem(shoppingListId: number, item: ShoppingListItem) {
+    return this.httpClient.delete<ShoppingListItem>(`${this.api}/ShoppingList/${shoppingListId}/Item/${item.id}`).pipe(
       catchError(error => this.httpErrorHandler.handle(error))
     );
   }
 
   archivePart(shoppingListId: number) {
-    return this.httpClient.post<ShoppinglistItem[]>(`${this.api}/ShoppingList/${shoppingListId}/archivedPart`, null).pipe(
+    return this.httpClient.post<ShoppingListItem[]>(`${this.api}/ShoppingList/${shoppingListId}/archivedPart`, null).pipe(
       catchError(error => this.httpErrorHandler.handle(error))
     );
   }

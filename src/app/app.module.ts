@@ -1,80 +1,81 @@
 import {isDevMode, NgModule, ErrorHandler} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
-import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
-import {HomeComponent} from './components/einkaufszettel/home/home.component';
+import {AppRoutingModule} from '@app/app-routing.module';
+import {AppComponent} from '@app/app.component';
+import {HomeComponent} from '@app/components/einkaufszettel/home/home.component';
 import {StoreModule, provideStore } from '@ngrx/store';
 import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {EffectsModule} from '@ngrx/effects';
-import {ShoppingListEffects} from "./store/shoppinglist/shoppinglist.effects";
-import {shoppingListReducer} from "./store/shoppinglist/shoppinglist.reducer";
+import {ShoppingListEffects} from "@app/store/shoppinglist/shoppinglist.effects";
+import {shoppingListReducer} from "@app/store/shoppinglist/shoppinglist.reducer";
 import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi,HttpClient  } from "@angular/common/http";
 import {CardModule} from "primeng/card";
 import {CheckboxModule} from "primeng/checkbox";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {PanelModule} from "primeng/panel";
-import {EditArtikelComponent} from './components/einkaufszettel/edit-artikel/edit-artikel.component';
+import {EditArtikelComponent} from '@app/components/einkaufszettel/edit-artikel/edit-artikel.component';
 import {InputNumberModule} from "primeng/inputnumber";
 import {ButtonModule} from "primeng/button";
 import {InputTextModule} from "primeng/inputtext";
 import {Message, MessageModule} from "primeng/message";
-import {LoginComponent} from './components/auth/login/login.component';
-import {TokenInterceptor} from "./interceptor/token-interceptor.service";
+import {LoginComponent} from '@app/components/auth/login/login.component';
+import {TokenInterceptor} from "@app/interceptor/token-interceptor.service";
 import {PasswordModule} from "primeng/password";
-import {RegisterComponent} from './components/auth/register/register.component';
+import {RegisterComponent} from '@app/components/auth/register/register.component';
 import {ConfirmationService, MessageService} from "primeng/api";
 import {ToastModule} from "primeng/toast";
-import {ArchivComponent} from './components/archiv/archiv.component';
+import {ArchivComponent} from '@app/components/archiv/archiv.component';
 import {DividerModule} from "primeng/divider";
-import { EditEinkaufszettelComponent} from './components/einkaufszettel/edit-einkaufszettel/edit-einkaufszettel.component';
+import { EditEinkaufszettelComponent} from '@app/components/einkaufszettel/edit-einkaufszettel/edit-einkaufszettel.component';
 import {MultiSelectModule} from "primeng/multiselect";
 import {ConfirmDialogModule} from "primeng/confirmdialog";
 import {TableModule} from "primeng/table";
 import {TooltipModule} from "primeng/tooltip";
-import {UserComponent} from './components/admin/user/user.component';
-import {RegistrationConfirmationComponent} from './components/auth/registration-confirmation/registration-confirmation.component';
-import {AuthEffects} from "./store/auth/auth.effects";
-import {authFeature} from "./store/auth/auth.reducer";
-import {UserEffects} from "./store/user/user.effects";
-import {userFeature} from "./store/user/user.reducer";
-import {ArchiveEffects} from "./store/archive/archive.effects";
-import {archiveFeature} from "./store/archive/archive.reducer";
-import { shoppingListFeature } from './store/shoppinglist/shoppinglist.reducer';
-import {NavigationLinksComponent} from './components/common/navigation-links/navigation-links.component';
-import {SplitButtonComponent} from './components/common/split-button/split-button.component';
-import {BoughtArticlesPipe} from './pipe/bought-articles.pipe';
-import {ProfileEditComponent} from './components/settings/profile-edit/profile-edit.component';
+import {UserComponent} from '@app/components/admin/user/user.component';
+import {RegistrationConfirmationComponent} from '@app/components/auth/registration-confirmation/registration-confirmation.component';
+import {AuthEffects} from "@app/store/auth/auth.effects";
+import {authFeature} from "@app/store/auth/auth.reducer";
+import {UserEffects} from "@app/store/user/user.effects";
+import {userFeature} from "@app/store/user/user.reducer";
+import {ArchiveEffects} from "@app/store/archive/archive.effects";
+import {archiveFeature} from "@app/store/archive/archive.reducer";
+import { shoppingListFeature } from '@app/store/shoppinglist/shoppinglist.reducer';
+import {NavigationLinksComponent} from '@app/components/common/navigation-links/navigation-links.component';
+import {SplitButtonComponent} from '@app/components/common/split-button/split-button.component';
+import {BoughtArticlesPipe} from '@app/pipe/bought-articles.pipe';
+import {ProfileEditComponent} from '@app/components/settings/profile-edit/profile-edit.component';
 import {FileUploadModule} from "primeng/fileupload";
-import {ImageCropperComponent} from './components/common/image-cropper/image-cropper.component';
+import {ImageCropperComponent} from '@app/components/common/image-cropper/image-cropper.component';
 import {DialogModule} from "primeng/dialog";
 import {DialogService, DynamicDialogModule} from 'primeng/dynamicdialog';
-//import { AvatarComponent } from './components/settings/profile-edit/avatar/avatar.component';
+//import { AvatarComponent } from '@app/components/settings/profile-edit/avatar/avatar.component';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
-///import { ErrorInterceptor } from './interceptor/ErrorInterceptor.service';
-//import { GlobalErrorHandler } from './core/globalErrorHandler';
+///import { ErrorInterceptor } from '@app/interceptor/ErrorInterceptor.service';
+//import { GlobalErrorHandler } from '@app/core/globalErrorHandler';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateLoader, provideTranslateCompiler } from '@ngx-translate/core';
 import { provideTranslateHttpLoader, } from '@ngx-translate/http-loader';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { JsonFileLoader } from './util/JsonLoader';
-import { CustomHttpLoader } from './util/CustomHttpLoader';
+import { JsonFileLoader } from '@app/util/JsonLoader';
+import { CustomHttpLoader } from '@app/util/CustomHttpLoader';
 import { provideStoreDevtools  } from '@ngrx/store-devtools';
-import { partFeature, partReducer } from './store/part/part.reducer';
-import { PartEffects } from './store/part/part.effects';
-import { PartComponent } from './components/part/part/part.component';
-import { categoryFeature, categoryReducer } from './store/category/category.reducer';
-import { CategoryEffects } from './store/category/category.effects';
-import { CategoryComponent } from './components/category/category/category.component';
+import { partFeature, partReducer } from '@app/store/part/part.reducer';
+import { PartEffects } from '@app/store/part/part.effects';
+import { PartComponent } from '@app/components/part/part/part.component';
+import { categoryFeature, categoryReducer } from '@app/store/category/category.reducer';
+import { CategoryEffects } from '@app/store/category/category.effects';
+import { CategoryComponent } from '@app/components/category/category/category.component';
 import { AccordionModule } from 'primeng/accordion';
 import { SelectModule } from 'primeng/select';
 import { ListboxModule } from 'primeng/listbox';
 import { SplitterModule } from 'primeng/splitter';
 //import { DragDropModule} from '@angular/cdk/drag-drop';
 import { DragDropModule } from 'primeng/dragdrop';
-import { NewpartComponent } from './components/mobile/newpart/newpart.component';
+import { NewpartComponent } from '@app/components/mobile/newpart/newpart.component';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { CategorysComponent } from '@app/components/categorys/categorys.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -98,7 +99,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         ProfileEditComponent,
         PartComponent,
         CategoryComponent,
-        NewpartComponent
+        NewpartComponent,
+        CategorysComponent
         //AvatarComponent
     ],
     bootstrap: [AppComponent], 

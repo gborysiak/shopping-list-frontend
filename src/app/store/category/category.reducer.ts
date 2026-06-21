@@ -1,7 +1,7 @@
 
 import { createReducer, on, createFeature } from "@ngrx/store";
 import { CategorysActions} from "./category.actions";
-import { Category } from "src/app/entities/Category";
+import { Category } from "@app/entities/Category";
 
 
 export const categoryFeatureKey = 'category';

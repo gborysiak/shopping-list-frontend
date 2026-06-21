@@ -39,7 +39,8 @@
         "archive" : " Archiv ",
         "user" : " Userverwaltung ",
         "part" : "$Article",
-        "category": "$Catégorie"
+        "category": "$Catégorie",
+        "categorys": "Catégories"
     },
     "home" : {
       "text1" : "Sie haben noch keinen Einkaufszettel angelegt?",

@@ -1,13 +1,7 @@
-import {Part} from "./Part";
-import { ShoppinglistItem } from "./ShoppingListItem";
-import {User} from "./user";
-import {Action} from "../util/action";
+import { ShoppingListItem } from "./ShoppingListItem";
 
 export interface ShoppingList {
   id: number;
   name: string;
-  shoppingListItem?: ShoppinglistItem[]; //artikels
-  //owners: User[];
-  //sharedWith: User[];
-  //shoppingListActions?: Action[]; //einkaufszettelActions
+  shoppingListItem?: ShoppingListItem[];
 }

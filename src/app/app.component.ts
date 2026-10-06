@@ -1,4 +1,9 @@
 import {Component, OnInit, Inject } from '@angular/core';
+import {NgClass, NgStyle} from '@angular/common';
+import {RouterLink, RouterOutlet} from '@angular/router';
+import {Toast} from 'primeng/toast';
+import {ConfirmDialog} from 'primeng/confirmdialog';
+import {NavigationLinksComponent} from '@app/components/common/navigation-links/navigation-links.component';
 import { Title } from '@angular/platform-browser';
 import {Store} from "@ngrx/store";
 //import {ShoppingListActions} from "./store/shoppinglist/shoppinglist.actions";
@@ -17,7 +22,7 @@ import {AuthService} from "@app/service/auth.service";
     selector: 'app-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
-    standalone: false
+    imports: [NgClass, NgStyle, RouterOutlet, RouterLink, NavigationLinksComponent, Toast, ConfirmDialog, TranslatePipe]
 })
 export class AppComponent implements OnInit {
   userIsLoggedIn = false;

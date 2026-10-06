@@ -1,12 +1,13 @@
 import {Component, Input} from '@angular/core';
 import {Action} from "../../../util/action";
-import {Router} from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
+import { NgClass } from '@angular/common';
 
 @Component({
     selector: 'app-split-button',
     templateUrl: './split-button.component.html',
     styleUrls: ['./split-button.component.scss'],
-    standalone: false
+    imports: [NgClass, RouterLink]
 })
 export class SplitButtonComponent {
   @Input() actions: Action[] = [];

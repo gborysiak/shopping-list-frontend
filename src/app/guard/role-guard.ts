@@ -1,23 +1,17 @@
-import {Injectable} from '@angular/core';
+import {inject} from '@angular/core';
+import {CanActivateFn, Router} from "@angular/router";
 import {AuthService} from "../service/auth.service";
-import {ActivatedRouteSnapshot, Router, UrlTree} from "@angular/router";
 
-@Injectable({
-  providedIn: 'root'
-})
-export class RoleGuard {
+export const roleGuard: CanActivateFn = route => {
+  const authService = inject(AuthService);
+  const router = inject(Router);
 
-  constructor(private router: Router, private authService: AuthService) {
+  if (!authService.isLoginStateValid()) {
+    return router.createUrlTree(['/login']);
   }
 
-  canActivate(route: ActivatedRouteSnapshot): boolean | UrlTree {
-    if (!this.authService.isLoginStateValid()) {
-      return this.router.createUrlTree(['/login']);
-    }
+  const hasExpectedRole = authService.getAllRolesOfLoggedInUser()
+    .some(role => role === route.data['expectedRole']);
 
-    const hasExpectedRole = this.authService.getAllRolesOfLoggedInUser()
-      .some(role => role === route.data['expectedRole']);
-
-    return hasExpectedRole || this.router.createUrlTree(['/home']);
-  }
-}
+  return hasExpectedRole || router.createUrlTree(['/home']);
+};

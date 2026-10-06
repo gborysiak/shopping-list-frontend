@@ -11,12 +11,23 @@ import { selectCategoryAndParts } from '@app/store/category/category.selectors';
 import { PartsActions } from '@app/store/part/part.actions';
 import { CategoryVm } from '@app/entities/CategoryMv';
 import { LoggerService } from "../../../service/logger.service";
+import { RouterLink } from '@angular/router';
+import { Bind } from 'primeng/bind';
+import { Checkbox } from 'primeng/checkbox';
+import { FormsModule } from '@angular/forms';
+import { Accordion, AccordionPanel, AccordionHeader, AccordionContent } from 'primeng/accordion';
+import { Ripple } from 'primeng/ripple';
+import { Splitter } from 'primeng/splitter';
+import { Droppable, Draggable } from 'primeng/dragdrop';
+import { ScrollPanel } from 'primeng/scrollpanel';
+import { TranslatePipe } from '@ngx-translate/core';
+import { BoughtArticlesPipe } from '@app/pipe/bought-articles.pipe';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
-  standalone: false
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.scss'],
+    imports: [RouterLink, Bind, Checkbox, FormsModule, Accordion, AccordionPanel, Ripple, AccordionHeader, AccordionContent, Splitter, Droppable, ScrollPanel, Draggable, TranslatePipe, BoughtArticlesPipe]
 })
 export class HomeComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);

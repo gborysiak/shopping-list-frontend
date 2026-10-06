@@ -7,13 +7,15 @@ import {ConfirmationService} from "primeng/api";
 import {AuthService} from "../../../service/auth.service";
 import {selectLogin} from "../../../store/auth/auth.selectors";
 import {User} from "../../../entities/user";
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-navigation-links',
     templateUrl: './navigation-links.component.html',
     styleUrls: ['./navigation-links.component.scss'],
     encapsulation: ViewEncapsulation.None,
-    standalone: false
+    imports: [RouterLink, RouterLinkActive, TranslatePipe]
 })
 export class NavigationLinksComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);

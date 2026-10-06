@@ -5,12 +5,15 @@ import {ArchiveActions} from "../../store/archive/archive.actions";
 import {selectAllPartArchive} from "../../store/archive/archive.selectors";
 import {PartArchive} from "../../entities/PartArchive";
 import {TableModule} from "primeng/table";
+import { Bind } from 'primeng/bind';
+import { PrimeTemplate } from 'primeng/api';
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-archiv',
     templateUrl: './archiv.component.html',
     styleUrls: ['./archiv.component.scss'],
-    standalone: false
+    imports: [Bind, TableModule, PrimeTemplate, DatePipe]
 })
 export class ArchivComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);

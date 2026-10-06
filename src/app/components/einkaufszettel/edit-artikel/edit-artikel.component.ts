@@ -1,6 +1,6 @@
 import {Component, OnInit, DestroyRef, inject} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Store} from "@ngrx/store";
 import {selectItemById} from "../../../store/shoppinglist/shoppinglist.selectors";
@@ -10,12 +10,15 @@ import {ShoppingListItem} from '@app/entities/ShoppingListItem';
 import {selectAllPart} from '@app/store/part/part.selector';
 import {TranslateService} from "@ngx-translate/core";
 import {combineLatest} from "rxjs";
+import { Bind } from 'primeng/bind';
+import { InputNumber } from 'primeng/inputnumber';
+import { NgStyle } from '@angular/common';
 
 @Component({
     selector: 'app-edit-artikel',
     templateUrl: './edit-artikel.component.html',
     styleUrls: ['./edit-artikel.component.scss'],
-    standalone: false
+    imports: [FormsModule, ReactiveFormsModule, Bind, InputNumber, NgStyle]
 })
 export class EditArtikelComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);

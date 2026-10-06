@@ -2,10 +2,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 //import {Part} from "../entities/Part";
 import { ShoppingListItem } from '../entities/ShoppingListItem';
 
-@Pipe({
-    name: 'boughtArticles',
-    standalone: false
-})
+@Pipe({ name: 'boughtArticles' })
 export class BoughtArticlesPipe implements PipeTransform {
 
   transform(items: ShoppingListItem[] | undefined, purchased: boolean): ShoppingListItem[] {

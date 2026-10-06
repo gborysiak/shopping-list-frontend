@@ -1,6 +1,6 @@
 import {Component, OnInit, DestroyRef, inject} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import { Part } from '@app/entities/Part';
 import {Store} from "@ngrx/store";
@@ -11,16 +11,17 @@ import { Category } from '@app/entities/Category';
 import { CategorysActions } from '@app/store/category/category.actions';
 import { selectAllCategory } from '@app/store/category/category.selectors';
 import { NgModule } from '@angular/core';
-import { SelectModule } from 'primeng/select';
+import { SelectModule, Select } from 'primeng/select';
 import { Observable,combineLatest, forkJoin, map, mergeMap, of, pipe, tap, zip } from 'rxjs';
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 import { LoggerService } from "@app/service/logger.service";
+import { Bind } from 'primeng/bind';
 
 @Component({
-  selector: 'app-part',
-  templateUrl: './part.component.html',
-  styleUrl: './part.component.scss',
-  standalone: false
+    selector: 'app-part',
+    templateUrl: './part.component.html',
+    styleUrl: './part.component.scss',
+    imports: [FormsModule, ReactiveFormsModule, Bind, Select, TranslatePipe]
 })
 export class PartComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);

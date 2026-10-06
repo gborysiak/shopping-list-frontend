@@ -5,17 +5,17 @@ import {Category} from "@app/entities/Category";
 import {Store} from "@ngrx/store";
 import {CategorysActions} from "@app/store/category/category.actions";
 import {selectAllCategory, selectCategoryById} from "@app/store/category/category.selectors";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ConfirmationService} from "primeng/api";
-import { TranslateService } from '@ngx-translate/core';
+import { TranslateService, TranslatePipe } from '@ngx-translate/core';
 
 
 @Component({
     selector: 'app-category',
     templateUrl: './category.component.html',
     styleUrls: ['./category.component.scss'],
-    standalone: false
+    imports: [FormsModule, ReactiveFormsModule, TranslatePipe]
 })
 export class CategoryComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);

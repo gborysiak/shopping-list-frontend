@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {NgClass, NgStyle} from '@angular/common';
 import {ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {FileSelectEvent, FileUpload} from "primeng/fileupload";
 import {ImageCropperComponent} from "../../../common/image-cropper/image-cropper.component";
@@ -17,7 +18,7 @@ import {environment} from "../../../../../environments/environment";
             useExisting: AvatarComponent
         }
     ],
-    standalone: false
+    imports: [NgClass, NgStyle, FileUpload]
 })
 export class AvatarComponent implements OnInit, ControlValueAccessor {
   @Input() image!: Uint8Array | string | undefined;
@@ -27,7 +28,7 @@ export class AvatarComponent implements OnInit, ControlValueAccessor {
 
   api = `${environment.webserviceurl}/profil/uploadFile`;
   file: string = '';
-  ref: DynamicDialogRef | undefined;
+  ref: DynamicDialogRef<ImageCropperComponent> | null = null;
 
   onChange = (fileUrl: string) => {
   };
@@ -73,12 +74,13 @@ export class AvatarComponent implements OnInit, ControlValueAccessor {
   }
 
   openAvatarEditor(image: string): void {
-    this.ref = this.dialogService.open(ImageCropperComponent, {
+    const ref = this.dialogService.open(ImageCropperComponent, {
       style: {'max-width': '100%'},
       data: image,
     });
+    this.ref = ref;
 
-    this.ref.onClose.subscribe((result: string | null | undefined) => {
+    ref?.onClose.subscribe((result: string | null | undefined) => {
       if (result) {
         this.file = result;
         this.onChange(this.file);

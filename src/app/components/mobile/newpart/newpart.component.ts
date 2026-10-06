@@ -10,15 +10,20 @@ import {CategorysActions} from '@app/store/category/category.actions';
 import {selectCategoryAndParts} from '@app/store/category/category.selectors';
 import {PartsActions} from '@app/store/part/part.actions';
 import {CategoryVm} from '@app/entities/CategoryMv';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import {combineLatestWith} from 'rxjs';
 import {LoggerService} from "../../../service/logger.service";
+import { Bind } from 'primeng/bind';
+import { Accordion, AccordionPanel, AccordionHeader, AccordionContent } from 'primeng/accordion';
+import { Ripple } from 'primeng/ripple';
+import { Checkbox } from 'primeng/checkbox';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
-  selector: 'app-newpart',
-  templateUrl: './newpart.component.html',
-  styleUrl: './newpart.component.scss',
-  standalone: false
+    selector: 'app-newpart',
+    templateUrl: './newpart.component.html',
+    styleUrl: './newpart.component.scss',
+    imports: [Bind, Accordion, AccordionPanel, Ripple, AccordionHeader, AccordionContent, Checkbox, RouterLink, TranslatePipe]
 })
 export class NewpartComponent {
   private readonly destroyRef = inject(DestroyRef);

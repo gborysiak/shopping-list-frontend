@@ -2,15 +2,18 @@ import {Component, OnInit} from '@angular/core';
 import {Store} from "@ngrx/store";
 import {MessageService} from "primeng/api";
 import {User} from "../../../entities/user";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthActions} from "../../../store/auth/auth.actions";
+import { Bind } from 'primeng/bind';
+import { Password } from 'primeng/password';
+import { TranslatePipe } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss'],
-    standalone: false
+    imports: [FormsModule, ReactiveFormsModule, Bind, Password, TranslatePipe]
 })
 export class LoginComponent implements OnInit {
   user?: User;

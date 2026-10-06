@@ -4,10 +4,10 @@ import {ShoppingList} from "../../../entities/ShoppingList";
 import {Store} from "@ngrx/store";
 import {ShoppingListActions} from "../../../store/shoppinglist/shoppinglist.actions";
 import {selectShoppingListById} from "../../../store/shoppinglist/shoppinglist.selectors";
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {ActivatedRoute} from "@angular/router";
+import { FormBuilder, FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { ActivatedRoute, RouterLink } from "@angular/router";
 import {ConfirmationService} from "primeng/api";
-import {TranslateService} from "@ngx-translate/core";
+import { TranslateService, TranslatePipe } from "@ngx-translate/core";
 import {ShoppingListItem} from '@app/entities/ShoppingListItem';
 import {LoggerService} from "../../../service/logger.service";
 
@@ -15,7 +15,7 @@ import {LoggerService} from "../../../service/logger.service";
     selector: 'app-einkaufszettel',
     templateUrl: './edit-einkaufszettel.component.html',
     styleUrls: ['./edit-einkaufszettel.component.scss'],
-    standalone: false
+    imports: [FormsModule, ReactiveFormsModule, RouterLink, TranslatePipe]
 })
 export class EditEinkaufszettelComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);

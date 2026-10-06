@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import { ActivatedRoute, RouterLink } from "@angular/router";
 import {AuthService} from "../../../service/auth.service";
 import {catchError, map, of, switchMap} from "rxjs";
 
@@ -7,7 +7,7 @@ import {catchError, map, of, switchMap} from "rxjs";
     selector: 'app-registration-confirmation',
     templateUrl: './registration-confirmation.component.html',
     styleUrls: ['./registration-confirmation.component.scss'],
-    standalone: false
+    imports: [RouterLink]
 })
 export class RegistrationConfirmationComponent implements OnInit {
   message: string = '';

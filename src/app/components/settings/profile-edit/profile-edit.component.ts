@@ -1,6 +1,6 @@
 import {Component, DestroyRef, inject} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {ProfileService} from "../../../service/profile.service";
 import {MessageService} from "primeng/api";
 import {DialogService} from "primeng/dynamicdialog";
@@ -14,7 +14,7 @@ import {AuthActions} from "../../../store/auth/auth.actions";
     selector: 'app-profile-edit',
     templateUrl: './profile-edit.component.html',
     styleUrls: ['./profile-edit.component.scss'],
-    standalone: false
+    imports: [FormsModule, ReactiveFormsModule]
 })
 export class ProfileEditComponent {
   private readonly destroyRef = inject(DestroyRef);

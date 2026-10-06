@@ -2,20 +2,23 @@ import {Component, DestroyRef, inject} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {User} from "../../../entities/user";
 import {ActivatedRoute} from "@angular/router";
-import {FormBuilder} from "@angular/forms";
+import { FormBuilder, FormsModule } from "@angular/forms";
 import {Store} from "@ngrx/store";
-import {ConfirmationService} from "primeng/api";
+import { ConfirmationService, PrimeTemplate } from "primeng/api";
 import {Role} from "../../../entities/role";
 import {ROLE_NAME} from "../../../entities/enum/rolename";
 import {UserActions} from "../../../store/user/user.actions";
 import {selectAllRoles, selectAllUsers} from "../../../store/user/user.selectors";
 import { TableModule } from 'primeng/table';
+import { Bind } from 'primeng/bind';
+import { NgClass, NgStyle, DatePipe } from '@angular/common';
+import { MultiSelect } from 'primeng/multiselect';
 
 @Component({
     selector: 'app-user',
     templateUrl: './user.component.html',
     styleUrls: ['./user.component.scss'],
-    standalone: false
+    imports: [Bind, TableModule, PrimeTemplate, NgClass, NgStyle, FormsModule, MultiSelect, DatePipe]
 })
 export class UserComponent {
   private readonly destroyRef = inject(DestroyRef);

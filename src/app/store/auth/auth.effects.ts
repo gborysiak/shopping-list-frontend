@@ -1,12 +1,12 @@
-import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import {Injectable} from '@angular/core';
+import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {catchError, map, concatMap, tap} from 'rxjs/operators';
 import {Router} from "@angular/router";
 import {AuthService} from "../../service/auth.service";
 import {AuthActions} from "./auth.actions";
 import {of} from "rxjs";
 import {MessageService} from "primeng/api";
-import {TranslateService,_} from "@ngx-translate/core";
+import {TranslateService} from "@ngx-translate/core";
 
 @Injectable()
 export class AuthEffects {

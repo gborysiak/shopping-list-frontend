@@ -1,0 +1,87 @@
+{
+  "app": {
+    "hello": "hello",
+    "title": "Shopping list"
+  },
+  "global": {
+    "delete": " Delete ",
+    "submit": " Save ",
+    "yes": " Yes ",
+    "no": " No ",
+    "confirmation": " Confirmation",
+    "cancel": " Cancel",
+    "profile": "Profile",
+    "parameters": "Settings",
+    "logout": "Log out",
+    "msgLogout": "Are you sure you want to log out?",
+    "networkError": "Network error. Please check your connection."
+  },
+  "login": {
+    "user": "User",
+    "password": "Password",
+    "reset": "Reset",
+    "login": "Log in",
+    "text1": "Don't have an account yet?",
+    "text2": "Register"
+  },
+  "register": {
+    "user": "User *",
+    "password": "Password *",
+    "name": "Name *",
+    "email": "Email *",
+    "reset": "Reset",
+    "submit": "Save",
+    "back": "Back",
+    "login": "Log in"
+  },
+  "navigation-link": {
+    "home": " Home ",
+    "shoppinglist": " Shopping list ",
+    "archive": " Archive ",
+    "user": " User ",
+    "part": "Item",
+    "category": "Category",
+    "categorys": "Categories"
+  },
+  "home": {
+    "text1": "You haven't created a shopping list yet?",
+    "text2": "Create a new shopping list",
+    "category": "Category"
+  },
+  "shoppinglist": {
+    "name": "Name *",
+    "friends": "Owner",
+    "share": "People with access",
+    "message": "Are you sure you want to delete the shopping list?",
+    "created": "The shopping list has been saved.",
+    "updated": "The shopping list has been updated.",
+    "deleted": "The shopping list has been deleted.",
+    "reseted": "The shopping list has been reset."
+  },
+  "authservice": {
+    "error": "Error while saving!"
+  },
+  "shoppinglistservice": {
+    "error": "Error while saving!"
+  },
+  "category": {
+    "name": "Category name",
+    "text1": "Are you sure you want to delete the category?",
+    "created": "The category has been saved.",
+    "updated": "The category has been updated.",
+    "deleted": "The category has been deleted."
+  },
+  "part": {
+    "name": "Item name",
+    "category": "Category",
+    "text1": "Are you sure you want to delete the item?",
+    "created": "The item has been saved.",
+    "updated": "The item has been updated.",
+    "deleted": "The item has been deleted.",
+    "archived": "The item has been archived."
+  },
+  "auth": {
+    "registration": "Registration successful! The confirmation link has been sent to you by email.",
+    "autherror": "The username or password is incorrect! Please check your input."
+  }
+}

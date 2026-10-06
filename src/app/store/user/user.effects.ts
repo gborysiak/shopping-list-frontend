@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import {Injectable} from '@angular/core';
+import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {catchError, map, concatMap, switchMap, tap} from 'rxjs/operators';
-import { Observable, EMPTY, of } from 'rxjs';
-import { UserActions } from './user.actions';
+import {of} from 'rxjs';
+import {UserActions} from './user.actions';
 import {MessageService} from "primeng/api";
 import {Router} from "@angular/router";
 import {AuthService} from "../../service/auth.service";

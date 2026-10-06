@@ -4,11 +4,11 @@ import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {Category} from "@app/entities/Category";
 import {Store} from "@ngrx/store";
 import {CategorysActions} from "@app/store/category/category.actions";
-import {selectAllCategory, selectCategoryById} from "@app/store/category/category.selectors";
-import { FormBuilder, FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import {selectCategoryById} from "@app/store/category/category.selectors";
+import {FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ConfirmationService} from "primeng/api";
-import { TranslateService, TranslatePipe } from '@ngx-translate/core';
+import {TranslateService, TranslatePipe} from '@ngx-translate/core';
 
 
 @Component({

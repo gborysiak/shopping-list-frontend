@@ -5,7 +5,7 @@ import {LoggerService} from "../service/logger.service";
 
 // Import your translation files
 import frTranslations from '../../assets/i18n/fr.json';
-import enTranslations from '../../assets/i18n/fr.json';
+import enTranslations from '../../assets/i18n/en.json';
 import deTranslations from '../../assets/i18n/de.json';
 
 

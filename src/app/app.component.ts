@@ -1,22 +1,19 @@
-import {Component, OnInit, Inject } from '@angular/core';
+import {Component, OnInit, Inject} from '@angular/core';
 import {NgClass, NgStyle} from '@angular/common';
 import {RouterLink, RouterOutlet} from '@angular/router';
 import {Toast} from 'primeng/toast';
 import {ConfirmDialog} from 'primeng/confirmdialog';
 import {NavigationLinksComponent} from '@app/components/common/navigation-links/navigation-links.component';
-import { Title } from '@angular/platform-browser';
+import {Title} from '@angular/platform-browser';
 import {Store} from "@ngrx/store";
-//import {ShoppingListActions} from "./store/shoppinglist/shoppinglist.actions";
 import {ConfirmationService} from "primeng/api";
 import {AuthActions} from "@app/store/auth/auth.actions";
 import {selectLogin} from "@app/store/auth/auth.selectors";
 import {User} from "@app/entities/user";
-//import {ConfirmDialogModule } from 'primeng/confirmdialog';
 // translation
-import {TranslateService, _, TranslatePipe, TranslateDirective } from "@ngx-translate/core";
+import {TranslateService, TranslatePipe} from "@ngx-translate/core";
 import {LoggerService} from "@app/service/logger.service";
 import {AuthService} from "@app/service/auth.service";
-//import translationsFR from "../../public/i18n/fr.json";
 
 @Component({
     selector: 'app-root',
@@ -38,12 +35,6 @@ export class AppComponent implements OnInit {
     translate.addLangs(['en', 'de','fr']);
     translate.setFallbackLang('fr');
     translate.use('fr');
-    /*
-    translate.get(_('app.hello'), {value: 'world'}).subscribe((res: string) => {
-      this.logger.debug(res);
-      //=> 'hello world'
-    });
-    */
     const currentLang = translate.currentLang;
     this.logger.debug('Language from translate ' + currentLang);
 

@@ -1,16 +1,16 @@
-import {Component, OnInit, DestroyRef, inject} from '@angular/core';
+import {Component, DestroyRef, inject} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import { Store } from "@ngrx/store";
-import { MessageService } from "primeng/api";
-import { CategoryVm } from '@app/entities/CategoryMv';
-import { LoggerService } from '@app/service/logger.service';
-import { CategorysActions } from '@app/store/category/category.actions';
-import { PartsActions } from '@app/store/part/part.actions';
-import { selectCategoryAndParts } from '@app/store/category/category.selectors';
-import { Bind } from 'primeng/bind';
-import { Accordion, AccordionPanel, AccordionHeader, AccordionContent } from 'primeng/accordion';
-import { Ripple } from 'primeng/ripple';
-import { RouterLink } from '@angular/router';
+import {Store} from "@ngrx/store";
+import {MessageService} from "primeng/api";
+import {CategoryVm} from '@app/entities/CategoryMv';
+import {LoggerService} from '@app/service/logger.service';
+import {CategorysActions} from '@app/store/category/category.actions';
+import {PartsActions} from '@app/store/part/part.actions';
+import {selectCategoryAndParts} from '@app/store/category/category.selectors';
+import {Bind} from 'primeng/bind';
+import {Accordion, AccordionPanel, AccordionHeader, AccordionContent} from 'primeng/accordion';
+import {Ripple} from 'primeng/ripple';
+import {RouterLink} from '@angular/router';
 
 
 @Component({

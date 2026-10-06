@@ -1,14 +1,12 @@
 import {Component, OnInit, ViewEncapsulation, DestroyRef, inject} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {ROLE_NAME, RoleName} from "../../../entities/enum/rolename";
-import {AuthActions} from "../../../store/auth/auth.actions";
 import {Store} from "@ngrx/store";
-import {ConfirmationService} from "primeng/api";
 import {AuthService} from "../../../service/auth.service";
 import {selectLogin} from "../../../store/auth/auth.selectors";
 import {User} from "../../../entities/user";
-import { RouterLink, RouterLinkActive } from '@angular/router';
-import { TranslatePipe } from '@ngx-translate/core';
+import {RouterLink, RouterLinkActive} from '@angular/router';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
     selector: 'app-navigation-links',

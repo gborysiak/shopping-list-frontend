@@ -1,5 +1,4 @@
 import {Pipe, PipeTransform} from '@angular/core';
-//import {Part} from "../entities/Part";
 import { ShoppingListItem } from '../entities/ShoppingListItem';
 
 @Pipe({ name: 'boughtArticles' })

@@ -1,21 +1,20 @@
 import {Component, OnInit, DestroyRef, inject} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import { FormBuilder, FormControl, FormGroup, Validators, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import {FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
-import { Part } from '@app/entities/Part';
+import {Part} from '@app/entities/Part';
 import {Store} from "@ngrx/store";
 import {ConfirmationService} from "primeng/api";
-import { PartsActions } from '@app/store/part/part.actions';
-import { selectPartById } from '@app/store/part/part.selector';
-import { Category } from '@app/entities/Category';
-import { CategorysActions } from '@app/store/category/category.actions';
-import { selectAllCategory } from '@app/store/category/category.selectors';
-import { NgModule } from '@angular/core';
-import { SelectModule, Select } from 'primeng/select';
-import { Observable,combineLatest, forkJoin, map, mergeMap, of, pipe, tap, zip } from 'rxjs';
-import { TranslateService, TranslatePipe } from '@ngx-translate/core';
-import { LoggerService } from "@app/service/logger.service";
-import { Bind } from 'primeng/bind';
+import {PartsActions} from '@app/store/part/part.actions';
+import {selectPartById} from '@app/store/part/part.selector';
+import {Category} from '@app/entities/Category';
+import {CategorysActions} from '@app/store/category/category.actions';
+import {selectAllCategory} from '@app/store/category/category.selectors';
+import {Select} from 'primeng/select';
+import {of, pipe} from 'rxjs';
+import {TranslateService, TranslatePipe} from '@ngx-translate/core';
+import {LoggerService} from "@app/service/logger.service";
+import {Bind} from 'primeng/bind';
 
 @Component({
     selector: 'app-part',
@@ -37,12 +36,6 @@ export class PartComponent implements OnInit {
   edit: boolean = false;
   header: string = '';
 
-/*
-    id: number; // einkaufszettelId
-    name: string;
-    quantity: number; // anzahl
-    dateCreated?: Date;
-*/
   constructor(private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, private store: Store, 
     private confirmationService: ConfirmationService, private translate: TranslateService, private router: Router,
     private logger: LoggerService) {
@@ -78,10 +71,6 @@ export class PartComponent implements OnInit {
     this.header = 'Modification de l\'article';
     
     
-    //const newObj = { name: "abc", category: 1};
-    //this.logger.debug(newObj);
-    //this.partForm.patchValue(newObj);
-    //this.partForm.controls["category"].patchValue(1);
     
 
     this.store.select(selectPartById(partId)).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(part => 

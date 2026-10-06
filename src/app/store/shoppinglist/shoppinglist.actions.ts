@@ -1,6 +1,5 @@
 import {createActionGroup, emptyProps, props} from '@ngrx/store';
 import { HttpErrorResponse } from "@angular/common/http";
-//import {Part} from "../../entities/Part";
 import {ShoppingListItem} from "../../entities/ShoppingListItem";
 import {ShoppingList} from "../../entities/ShoppingList";
 

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Overview
 
-Angular 21 frontend (standalone components, `bootstrapApplication`) for a shopping-list app. It talks to a separate Spring Boot backend (repos: `shopping-list-backend`, `shopping-list-app`). UI is PrimeNG (Aura theme) + Tailwind, state is NgRx, UI text is translated with ngx-translate (`src/assets/i18n/de.json`, `fr.json`). Code, entity and route names are a mix of German and English (`einkaufszettel` = shopping list, `artikel`/`part` = item, `archiv` = archive).
+Angular 21 frontend (standalone components, `bootstrapApplication`) for a shopping-list app. It talks to a separate Spring Boot backend (repos: `shopping-list-backend`, `shopping-list-app`). UI is PrimeNG (Aura theme) + Tailwind, state is NgRx, UI text is translated with ngx-translate (`src/assets/i18n/de.json`, `fr.json`, `en.json`; `fr` is the default and fallback language). Code, entity and route names are a mix of German and English (`einkaufszettel` = shopping list, `artikel`/`part` = item, `archiv` = archive).
 
 ## Commands
 

@@ -1,6 +1,5 @@
 import {createFeatureSelector, createSelector} from '@ngrx/store';
 import * as fromPartList from './part.reducer';
-//import { selectAllCategory } from '../category/category.selectors';
 
 export const selectPartState = createFeatureSelector<fromPartList.State>(
   fromPartList.partFeatureKey

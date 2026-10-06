@@ -7,14 +7,15 @@ import { PartService } from '@app/service/Part.service';
 import {Router} from "@angular/router";
 import {MessageService} from "primeng/api";
 import {TranslateService,_} from "@ngx-translate/core";
+import {navigateWithMessage} from '../navigate-with-message';
 
 @Injectable()
 export class PartEffects {
 
 
   private txtCreated :string = 'part.created';
+  private txtUpdated :string = 'part.updated';
   private txtDeleted :string = 'part.deleted';
-  private message: string= '';
   
   loadParts$ = createEffect(() => {
     return this.actions$.pipe(
@@ -55,7 +56,7 @@ export class PartEffects {
   updatePartSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(PartsActions.updatePartSuccess),
-      this.navigateToHomeWithMessage(this.txtCreated),
+      this.navigateToHomeWithMessage(this.txtUpdated),
       this.loadAllPart()
     )
   });
@@ -67,8 +68,7 @@ export class PartEffects {
       concatMap(inputData => this.partService.deletePart(inputData).pipe(
         map(data => PartsActions.deletePartSuccess({data: data})),
         catchError(error => of(PartsActions.deletePartFailure({error})))
-      )),
-      this.loadAllPart()
+      ))
     )
   });
 
@@ -94,12 +94,7 @@ export class PartEffects {
   }
 
   private navigateWithMessage(key: string, navigationTarget: string) {
-    return tap(() => {
-      this.router.navigateByUrl(`/${navigationTarget}`);
-      this.messageService.clear();
-      this.message = this.translate.instant(key);
-      this.messageService.add({severity: 'success', summary: this.message});
-    });
+    return navigateWithMessage(this.router, this.messageService, this.translate, key, navigationTarget);
   }
 
   constructor(private actions$: Actions, private messageService: MessageService, private router: Router, 

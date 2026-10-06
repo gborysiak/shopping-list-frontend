@@ -7,18 +7,20 @@ import {ShoppingListService} from "../../service/ShoppingList.service";
 import {Router} from "@angular/router";
 import {MessageService} from "primeng/api";
 import {TranslateService, _} from "@ngx-translate/core";
+import {navigateWithMessage} from '../navigate-with-message';
 
 
 @Injectable()
 export class ShoppingListEffects {
 
   private txtCreated :string = 'shoppinglist.created';
+  private txtUpdated :string = 'shoppinglist.updated';
   private txtDeleted :string = 'shoppinglist.deleted';
   private txtReset :string = 'shoppinglist.reseted';
-  private message: string= '';
 
 
   private partCreated :string = 'part.created';
+  private partUpdated :string = 'part.updated';
   private partDeleted :string = 'part.deleted';
   private partArchived :string = 'part.archived';
 
@@ -62,7 +64,7 @@ export class ShoppingListEffects {
   updateShoppingListSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ShoppingListActions.updateShoppingListSuccess),
-      this.navigateToHomeWithMessage(this.txtCreated),
+      this.navigateToHomeWithMessage(this.txtUpdated),
       this.loadAllShoppingList()
     )
   });
@@ -74,8 +76,7 @@ export class ShoppingListEffects {
       concatMap(inputData => this.ShoppingListService.deleteShoppingList(inputData).pipe(
         map(data => ShoppingListActions.deleteShoppingListSuccess({data: data})),
         catchError(error => of(ShoppingListActions.deleteShoppingListFailure({error})))
-      )),
-      this.loadAllShoppingList()
+      ))
     )
   });
 
@@ -94,15 +95,14 @@ export class ShoppingListEffects {
       concatMap(inputData => this.ShoppingListService.resetShoppingList(inputData).pipe(
         map(data => ShoppingListActions.resetShoppingListSuccess({data: data})),
         catchError(error => of(ShoppingListActions.resetShoppingListFailure({error})))
-      )),
-      this.loadAllShoppingList()
+      ))
     )
   });
 
   resetShoppingListSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ShoppingListActions.resetShoppingListSuccess),
-      this.navigateToHomeWithMessage(this.txtDeleted),
+      this.navigateToHomeWithMessage(this.txtReset),
       this.loadAllShoppingList()
     )
   });
@@ -138,7 +138,7 @@ export class ShoppingListEffects {
   updateArtikelSuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(ShoppingListActions.updateItemSuccess),
-      this.navigateToHomeWithMessage(this.partCreated),
+      this.navigateToHomeWithMessage(this.partUpdated),
       this.loadAllShoppingList()
     )
   });
@@ -191,12 +191,7 @@ export class ShoppingListEffects {
   }
 
   private navigateWithMessage(key: string, navigationTarget: string) {
-    return tap(() => {
-      this.router.navigateByUrl(`/${navigationTarget}`);
-      this.messageService.clear();
-      this.message = this.translate.instant(key);
-      this.messageService.add({severity: 'success', summary: this.message});
-    });
+    return navigateWithMessage(this.router, this.messageService, this.translate, key, navigationTarget);
   }
 
   constructor(private actions$: Actions, private messageService: MessageService, private router: Router, 

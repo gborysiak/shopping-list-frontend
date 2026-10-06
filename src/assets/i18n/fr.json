@@ -53,6 +53,7 @@
     "share": "Personnes ayant accès",
     "message": "Êtes-vous sûr de vouloir supprimer la liste d'achats ?",
     "created": "La liste d'achat a été enregistrée.",
+    "updated": "La liste d'achat a été mise à jour.",
     "deleted": "La liste d'achat a été supprimée.",
     "reseted": "La liste d'achat a été réinitialisée."
   },
@@ -66,6 +67,7 @@
     "name": "Nom de la catégorie",
     "text1": "Êtes-vous sûr de vouloir supprimer la catégorie ?",
     "created": "La catégorie a été enregistrée'.",
+    "updated": "La catégorie a été mise à jour.",
     "deleted": "La catégorie a été supprimée."
   },
   "part": {
@@ -73,6 +75,7 @@
     "category": "Catégorie",
     "text1": "Êtes-vous sûr de vouloir supprimer l'article ?",
     "created": "L'article a été enregistré'.",
+    "updated": "L'article a été mis à jour.",
     "deleted": "L'article a été supprimé.",
     "archived": "L'article a été archivé"
   },

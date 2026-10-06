@@ -8,13 +8,14 @@ import { CategoryService } from '@app/service/Category.service';
 import {Router} from "@angular/router";
 import {MessageService} from "primeng/api";
 import {TranslateService,_} from "@ngx-translate/core";
+import {navigateWithMessage} from '../navigate-with-message';
 
 @Injectable()
 export class CategoryEffects {
 
   private txtCreated :string = 'category.created';
+  private txtUpdated :string = 'category.updated';
   private txtDeleted :string = 'category.deleted';
-  private message: string= '';
 
   loadCategorys$ = createEffect(() => {
     return this.actions$.pipe(
@@ -55,7 +56,7 @@ export class CategoryEffects {
   updateCategorySuccess$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(CategorysActions.updateCategorySuccess),
-      this.navigateToHomeWithMessage(this.txtCreated),
+      this.navigateToHomeWithMessage(this.txtUpdated),
       this.loadAllCategory()
     )
   });
@@ -67,8 +68,7 @@ export class CategoryEffects {
       concatMap(inputData => this.categoryService.deleteCategory(inputData).pipe(
         map(data => CategorysActions.deleteCategorySuccess({data: data})),
         catchError(error => of(CategorysActions.deleteCategoryFailure({error})))
-      )),
-      this.loadAllCategory()
+      ))
     )
   });
 
@@ -94,13 +94,7 @@ export class CategoryEffects {
   }
 
   private navigateWithMessage(key: string, navigationTarget: string) {
-
-    return tap(() => {
-      this.router.navigateByUrl(`/${navigationTarget}`);
-      this.messageService.clear();
-      this.message = this.translate.instant(key);
-      this.messageService.add({severity: 'success', summary: this.message});
-    });
+    return navigateWithMessage(this.router, this.messageService, this.translate, key, navigationTarget);
   }
 
   constructor(private actions$: Actions, private messageService: MessageService, private router: Router, 

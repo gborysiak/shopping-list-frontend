@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import {Component, DestroyRef, inject} from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ProfileService} from "../../../service/profile.service";
 import {MessageService} from "primeng/api";
@@ -16,6 +17,8 @@ import {AuthActions} from "../../../store/auth/auth.actions";
     standalone: false
 })
 export class ProfileEditComponent {
+  private readonly destroyRef = inject(DestroyRef);
+
   profileForm: FormGroup;
   userLoggedIn!: User | undefined;
 
@@ -27,7 +30,7 @@ export class ProfileEditComponent {
       avatar: ['', Validators.required]
     });
 
-    this.store.select(selectLogin).subscribe(user => {
+    this.store.select(selectLogin).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
       this.userLoggedIn = user != null ? {...user} : undefined;
       if (user) {
         this.profileForm.patchValue(user);

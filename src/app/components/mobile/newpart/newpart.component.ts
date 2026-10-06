@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import {Component, DestroyRef, inject} from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {Store} from "@ngrx/store";
 import {ShoppingListActions} from "../../../store/shoppinglist/shoppinglist.actions";
 import {selectShoppingListById} from "../../../store/shoppinglist/shoppinglist.selectors";
@@ -20,6 +21,8 @@ import {LoggerService} from "../../../service/logger.service";
   standalone: false
 })
 export class NewpartComponent {
+  private readonly destroyRef = inject(DestroyRef);
+
   shoppingListId: number = 0;
   shoppingList: ShoppingList | null = null;
   categoryList!: CategoryVm[];
@@ -43,7 +46,7 @@ export class NewpartComponent {
     categoryAndParts$.pipe(
         combineLatestWith(shoppingList$)
       )
-      .subscribe(([categories, shoppingList]) => {
+      .pipe(takeUntilDestroyed(this.destroyRef)).subscribe(([categories, shoppingList]) => {
         if (categories) {
           this.logger.debug('categories ' + JSON.stringify(categories));
         }

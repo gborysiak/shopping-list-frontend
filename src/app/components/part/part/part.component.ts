@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, DestroyRef, inject} from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import { Part } from '@app/entities/Part';
@@ -22,6 +23,8 @@ import { LoggerService } from "@app/service/logger.service";
   standalone: false
 })
 export class PartComponent implements OnInit {
+  private readonly destroyRef = inject(DestroyRef);
+
   partForm: FormGroup = this.formBuilder.group({
     id: [{value: '', disabled: true}, Validators.required],
     name: [{value: ''}, Validators.compose([Validators.required, Validators.minLength(1)])],
@@ -46,7 +49,7 @@ export class PartComponent implements OnInit {
 
     this.store.dispatch(CategorysActions.loadCategorys());
     
-    this.store.select(selectAllCategory).subscribe( category => {
+    this.store.select(selectAllCategory).pipe(takeUntilDestroyed(this.destroyRef)).subscribe( category => {
       this.logger.debug('nb c ' + category.length);
       this.categorylist = JSON.parse(JSON.stringify(category)); // deep copy of store, so that changes are possible
       this.logger.debug('nb 2 c ' + this.categorylist.length);
@@ -81,7 +84,7 @@ export class PartComponent implements OnInit {
     //this.partForm.controls["category"].patchValue(1);
     
 
-    this.store.select(selectPartById(partId)).subscribe(part => 
+    this.store.select(selectPartById(partId)).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(part => 
       { 
         const newObj = { id: part.id, name: part.name, category: part.categoryId};
         this.logger.debug(newObj);

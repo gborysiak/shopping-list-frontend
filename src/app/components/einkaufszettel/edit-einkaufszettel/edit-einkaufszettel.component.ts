@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, DestroyRef, inject} from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {ShoppingList} from "../../../entities/ShoppingList";
 import {Store} from "@ngrx/store";
 import {ShoppingListActions} from "../../../store/shoppinglist/shoppinglist.actions";
@@ -17,6 +18,8 @@ import {LoggerService} from "../../../service/logger.service";
     standalone: false
 })
 export class EditEinkaufszettelComponent implements OnInit {
+  private readonly destroyRef = inject(DestroyRef);
+
   shoppingListForm: FormGroup = this.formBuilder.group({
     id: [{value: '', disabled: true}, Validators.required],
     name: [{value: ''}, Validators.compose([Validators.required, Validators.minLength(1)])],
@@ -49,7 +52,7 @@ export class EditEinkaufszettelComponent implements OnInit {
     this.edit = true;
     this.header = 'Einkaufszettel bearbeiten';
 
-    this.store.select(selectShoppingListById(shoppingListId)).subscribe(shoppingList => this.shoppingListForm.patchValue(shoppingList));
+    this.store.select(selectShoppingListById(shoppingListId)).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(shoppingList => this.shoppingListForm.patchValue(shoppingList));
   }
 
   private initNew() {

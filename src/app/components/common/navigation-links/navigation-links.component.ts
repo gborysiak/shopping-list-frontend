@@ -1,4 +1,5 @@
-import {Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, OnInit, ViewEncapsulation, DestroyRef, inject} from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {ROLE_NAME, RoleName} from "../../../entities/enum/rolename";
 import {AuthActions} from "../../../store/auth/auth.actions";
 import {Store} from "@ngrx/store";
@@ -15,6 +16,8 @@ import {User} from "../../../entities/user";
     standalone: false
 })
 export class NavigationLinksComponent implements OnInit {
+  private readonly destroyRef = inject(DestroyRef);
+
 
   protected readonly ROLE_NAME = ROLE_NAME;
   userRoles: RoleName[] = [];
@@ -26,7 +29,7 @@ export class NavigationLinksComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.store.select(selectLogin).subscribe(user => {
+    this.store.select(selectLogin).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(user => {
       this.userLoggedIn = user != null ? user : undefined;
       this.userIsLoggedIn = user != null;
       this.userRoles = [...this.authService.getAllRolesOfLoggedInUser()];

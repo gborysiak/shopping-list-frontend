@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import {Component, DestroyRef, inject} from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {User} from "../../../entities/user";
 import {ActivatedRoute} from "@angular/router";
 import {FormBuilder} from "@angular/forms";
@@ -17,6 +18,8 @@ import { TableModule } from 'primeng/table';
     standalone: false
 })
 export class UserComponent {
+  private readonly destroyRef = inject(DestroyRef);
+
   allUsers: User[] = [];
   allUsersCloned: User[] = [];
 
@@ -29,12 +32,12 @@ export class UserComponent {
     this.store.dispatch(UserActions.loadUsers());
     this.store.dispatch(UserActions.loadRoles());
 
-    this.store.select(selectAllUsers).subscribe(users => {
+    this.store.select(selectAllUsers).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(users => {
       this.allUsers = JSON.parse(JSON.stringify(users)); // deep copy
       this.allUsersCloned = JSON.parse(JSON.stringify(users));
     });
 
-    this.store.select(selectAllRoles).subscribe(roles => {
+    this.store.select(selectAllRoles).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(roles => {
       this.allRoles = roles;
     });
   }

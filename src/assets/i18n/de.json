@@ -13,7 +13,7 @@
       "profile": "Profil",
       "parameters": "Einstellungen",
       "logout": "Ausloggen",
-      "msgLogut": "Sind Sie sich sicher, dass Sie sich ausloggen wollen?"
+      "msgLogout": "Sind Sie sich sicher, dass Sie sich ausloggen wollen?"
     },
     "login": {
         "user": "Benutzername",

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, DestroyRef, inject} from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import { Store } from "@ngrx/store";
 import { ShoppingListActions } from "../../../store/shoppinglist/shoppinglist.actions";
 import { selectAllShoppingList } from "../../../store/shoppinglist/shoppinglist.selectors";
@@ -10,7 +11,6 @@ import { selectCategoryAndParts } from '@app/store/category/category.selectors';
 import { PartsActions } from '@app/store/part/part.actions';
 import { selectAllPart } from '@app/store/part/part.selector';
 import { CategoryVm } from '@app/entities/CategoryMv';
-import { MessageService } from "primeng/api";
 import { combineLatest } from "rxjs";
 import { LoggerService } from "../../../service/logger.service";
 
@@ -21,13 +21,15 @@ import { LoggerService } from "../../../service/logger.service";
   standalone: false
 })
 export class HomeComponent implements OnInit {
+  private readonly destroyRef = inject(DestroyRef);
+
   shoppingLists: ShoppingList[] = [];
   categoryList: CategoryVm[] = [];
   currentlyDragging: Part | null = null;
   selected: Part[] = [];
   iconVisible: boolean = false;
 
-  constructor(private store: Store, private msg: MessageService, private logger: LoggerService) {
+  constructor(private store: Store, private logger: LoggerService) {
   }
 
   archivePurchasedItems(shoppingList: ShoppingList) {
@@ -42,21 +44,11 @@ export class HomeComponent implements OnInit {
     combineLatest([
       this.store.select(selectAllShoppingList),
       this.store.select(selectAllPart)
-    ]).subscribe(([shoppingLists, parts]) => {
+    ]).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(([shoppingLists, parts]) => {
       this.shoppingLists = this.enrichShoppingListsWithParts(shoppingLists, parts);
-      /* a revoir
-      this.shoppingLists.forEach(shoppingList => shoppingList.shoppingListActions = [
-        {label: 'Parameters', routerLink: ['/einkaufszettel', shoppingList.id], icon: 'fas fa-gear'},
-        {
-          label: 'Archive purchased parts',
-          callback: () => this.archivePurchasedItems(shoppingList),
-          icon: 'fas fa-box-archive'
-        },
-      ]);
-      */
     });
 
-    this.store.select(selectCategoryAndParts).subscribe(category => {
+    this.store.select(selectCategoryAndParts).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(category => {
       this.categoryList = this.normalizeCategoryParts(category);
     });
 
@@ -90,19 +82,16 @@ export class HomeComponent implements OnInit {
   }
 
   modifyItem(shoppingList: ShoppingList, item: ShoppingListItem) {
-    item.purchaseDate = new Date();
-    item.purchased = true;
     this.store.dispatch(ShoppingListActions.updateItem({
       shoppingId: shoppingList.id,
-      data: item
+      data: {...item, purchaseDate: new Date(), purchased: true}
     }));
   }
 
   toggleItemPurchased(shoppingList: ShoppingList, item: ShoppingListItem) {
-    item.purchased = !item.purchased;
     this.store.dispatch(ShoppingListActions.updateItem({
       shoppingId: shoppingList.id,
-      data: item
+      data: {...item, purchased: !item.purchased}
     }));
   }
 
@@ -123,94 +112,38 @@ export class HomeComponent implements OnInit {
 
   dragStart(part: Part) {
     this.currentlyDragging = part;
-    this.logger.debug("** dragStart > " + JSON.stringify(this.currentlyDragging));
-
-    // Show the toast message on the frontend
-    this.msg.add({
-      severity: "info",
-      summary: "Drag Started",
-      detail: "onDragStart Event"
-    });
+    this.logger.debug("** dragStart > " + JSON.stringify(part));
   }
 
-  drag() {
-    // Show the toast message on the frontend
-    this.logger.debug("** drag");
-    this.msg.add({
-      severity: "success",
-      summary: "Dragging...",
-      detail: "onDrag Event"
-    });
-  }
-
-  // On Drag End
   dragEnd() {
     this.logger.debug("** dragEnd");
     this.currentlyDragging = null;
-    // Show the toast message on the frontend
-    this.msg.add({
-      severity: "error",
-      summary: "Drag End",
-      detail: "onDragEnd Event"
-    });
   }
 
-  // On Drop of Item to droppable area
   drop(shoppingList: ShoppingList) {
+    const part = this.currentlyDragging;
+    if (!part) {
+      return;
+    }
+    this.logger.debug("** drop > " + JSON.stringify(part));
+    this.selected = [...this.selected, part];
 
+    const item: ShoppingListItem = {
+      id: 0,
+      name: part.name,
+      partRefId: part.id,
+      purchased: false,
+      quantity: 1
+    };
 
-    this.logger.debug("** drop " + JSON.stringify(shoppingList));
-    if (this.currentlyDragging) {
-      this.logger.debug("*** drop > " + JSON.stringify(this.currentlyDragging));
-      //let currentlyDraggingIndex = this.findIndex(this.currentlyDragging);
-      this.selected = [...this.selected, this.currentlyDragging];
-      this.logger.debug("*** drop > " + JSON.stringify(this.selected));
-      //this.available = this.available.filter(
-      //    (val, i) => i != currentlyDraggingIndex
-      //);
-      const item: ShoppingListItem = {
-        id: 0,
-        name: this.currentlyDragging.name,
-        partRefId: this.currentlyDragging.id,
-        purchased: false,
-        quantity: 1
-      };
-      /*
-      this.store.dispatch(ShoppingListActions.createItem({
-            shoppingId: shoppingList.id,
-        data: item
-      }));
-      */
-      const lstItems: ShoppingListItem[] = [];
-      shoppingList.shoppingListItem?.forEach(val => lstItems.push(val));
-      // add new
-      lstItems.push(item);
-
-      const updatedShoppingList: ShoppingList = {
+    this.store.dispatch(ShoppingListActions.updateShoppingList({
+      data: {
         id: shoppingList.id,
         name: shoppingList.name,
-        shoppingListItem: lstItems
-      };
-      shoppingList.shoppingListItem?.push(item);
-      this.store.dispatch(ShoppingListActions.updateShoppingList({
-        data: updatedShoppingList
-      }));
-
-      this.currentlyDragging = null;
-    }
-  }
-
-  /*
-  // Find the Index of a Person
-  findIndex(person: Person) {
-      let index = -1;
-      for (let i = 0; i < this.available.length; i++) {
-          if (person.id === this.available[i].id) {
-              index = i;
-              break;
-          }
+        shoppingListItem: [...(shoppingList.shoppingListItem ?? []), item]
       }
-      return index;
+    }));
+
+    this.currentlyDragging = null;
   }
-      */
 }

@@ -1,5 +1,6 @@
 
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, DestroyRef, inject} from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {Category} from "@app/entities/Category";
 import {Store} from "@ngrx/store";
 import {CategorysActions} from "@app/store/category/category.actions";
@@ -17,6 +18,8 @@ import { TranslateService } from '@ngx-translate/core';
     standalone: false
 })
 export class CategoryComponent implements OnInit {
+  private readonly destroyRef = inject(DestroyRef);
+
   categoryForm: FormGroup = this.formBuilder.group({
     id: [{value: '', disabled: true}, Validators.required],
 	  name: [{value: ''}, Validators.compose([Validators.required, Validators.minLength(1)])]
@@ -48,7 +51,7 @@ export class CategoryComponent implements OnInit {
     this.edit = true;
     this.header = 'Category';
 
-    this.store.select(selectCategoryById(categoryId)).subscribe(category => this.categoryForm.patchValue(category));
+    this.store.select(selectCategoryById(categoryId)).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(category => this.categoryForm.patchValue(category));
   }
 
   private initNew() {

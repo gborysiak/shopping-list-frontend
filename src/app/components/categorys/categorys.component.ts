@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, DestroyRef, inject} from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import { Store } from "@ngrx/store";
 import { MessageService } from "primeng/api";
 import { CategoryVm } from '@app/entities/CategoryMv';
@@ -14,7 +15,9 @@ import { selectCategoryAndParts } from '@app/store/category/category.selectors';
   styleUrl: './categorys.component.scss',
   standalone: false
 })
-export class CategorysComponent { 
+export class CategorysComponent {
+  private readonly destroyRef = inject(DestroyRef);
+ 
 
   categoryList: CategoryVm[] = [];
 
@@ -25,7 +28,7 @@ export class CategorysComponent {
     this.store.dispatch(PartsActions.loadParts());
     this.store.dispatch(CategorysActions.loadCategorys());
 
-    this.store.select(selectCategoryAndParts).subscribe(category => {
+    this.store.select(selectCategoryAndParts).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(category => {
       this.categoryList = this.normalizeCategoryParts(category);
     });
   }

@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, DestroyRef, inject} from '@angular/core';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Store} from "@ngrx/store";
@@ -17,6 +18,8 @@ import {combineLatest} from "rxjs";
     standalone: false
 })
 export class EditArtikelComponent implements OnInit {
+  private readonly destroyRef = inject(DestroyRef);
+
   itemForm: FormGroup = this.formBuilder.group({
     id: [{value: '', disabled: true}, Validators.required],
     partRefId: [{value: '', disabled: true}, Validators.required],
@@ -62,7 +65,7 @@ export class EditArtikelComponent implements OnInit {
     combineLatest([
       this.store.select(selectItemById(this.shoppingListId, itemId)),
       this.store.select(selectAllPart)
-    ]).subscribe(([item, parts]) => {
+    ]).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(([item, parts]) => {
       const part = parts.find(part => part.id === item.partRefId);
 
       if (part) {

@@ -47,3 +47,6 @@ Thumbs.db
 /src/app/core/globalErrorHandler.ts
 /src/app/service/error.service.ts
 /src/app/interceptor/ErrorInterceptor.service.ts
+
+# Local environment / secrets
+.env

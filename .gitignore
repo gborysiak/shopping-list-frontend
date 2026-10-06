@@ -50,3 +50,6 @@ Thumbs.db
 
 # Local environment / secrets
 .env
+
+# graphify output
+graphify-out/

@@ -1,4 +1,4 @@
-import {isDevMode, NgModule, ErrorHandler} from '@angular/core';
+import {isDevMode, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import {AppRoutingModule} from '@app/app-routing.module';
@@ -52,8 +52,6 @@ import {DialogService, DynamicDialogModule} from 'primeng/dynamicdialog';
 //import { AvatarComponent } from '@app/components/settings/profile-edit/avatar/avatar.component';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
-///import { ErrorInterceptor } from '@app/interceptor/ErrorInterceptor.service';
-//import { GlobalErrorHandler } from '@app/core/globalErrorHandler';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { TranslateModule, TranslateLoader, provideTranslateCompiler } from '@ngx-translate/core';
 import { provideTranslateHttpLoader, } from '@ngx-translate/http-loader';
@@ -162,16 +160,6 @@ export function HttpLoaderFactory(http: HttpClient) {
             useClass: TokenInterceptor,
             multi: true
         },
-        /* 
-        { 
-            provide: ErrorHandler, 
-            useClass: GlobalErrorHandler 
-        },
-        { 
-            provide: HTTP_INTERCEPTORS, 
-            useClass: ErrorInterceptor, 
-            multi: true 
-        }, */
         MessageService, 
         ConfirmationService,
         DialogService,

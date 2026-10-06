@@ -13,7 +13,8 @@
     "profile": "Profile",
     "parameters": "Paramètres",
     "logout": "Se déconnecter",
-    "msgLogout": "Êtes-vous sûr de vouloir vous déconnecter ?"
+    "msgLogout": "Êtes-vous sûr de vouloir vous déconnecter ?",
+    "networkError": "Erreur réseau. Veuillez vérifier votre connexion."
   },
   "login": {
     "user": "Utilisateur",

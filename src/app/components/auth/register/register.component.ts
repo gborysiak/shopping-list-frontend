@@ -5,7 +5,6 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Store} from "@ngrx/store";
 import {Router} from "@angular/router";
 import {AuthActions} from "../../../store/auth/auth.actions";
-//import { ErrorService } from 'src/app/service/error.service';
 import { MessageModule } from 'primeng/message';
 
 @Component({

@@ -13,7 +13,8 @@
       "profile": "Profil",
       "parameters": "Einstellungen",
       "logout": "Ausloggen",
-      "msgLogout": "Sind Sie sich sicher, dass Sie sich ausloggen wollen?"
+      "msgLogout": "Sind Sie sich sicher, dass Sie sich ausloggen wollen?",
+      "networkError": "Netzwerkfehler. Bitte Verbindung prüfen."
     },
     "login": {
         "user": "Benutzername",

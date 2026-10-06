@@ -10,6 +10,7 @@ import {User} from "@app/entities/user";
 // translation
 import {TranslateService, _, TranslatePipe, TranslateDirective } from "@ngx-translate/core";
 import {LoggerService} from "@app/service/logger.service";
+import {AuthService} from "@app/service/auth.service";
 //import translationsFR from "../../public/i18n/fr.json";
 
 @Component({
@@ -28,7 +29,7 @@ export class AppComponent implements OnInit {
   no: string= '';
  
   constructor(private store: Store, private confirmationService: ConfirmationService, private translate: TranslateService,
-    private title: Title, @Inject(LoggerService) private logger: LoggerService ) {
+    private title: Title, @Inject(LoggerService) private logger: LoggerService, private authService: AuthService ) {
     translate.addLangs(['en', 'de','fr']);
     translate.setFallbackLang('fr');
     translate.use('fr');
@@ -58,6 +59,7 @@ export class AppComponent implements OnInit {
       this.profileMenuVisible = false;
     });
 
+    this.authService.restoreLoginState();
   }
 
   logout(event: Event) {

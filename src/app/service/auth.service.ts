@@ -32,7 +32,7 @@ export class AuthService {
   }
 
   confirmRegistrationToken(token: string) {
-    return this.httpClient.post<string>(`${this.api}/auth/confirm?token=${token}`, token).pipe(
+    return this.httpClient.post<string>(`${this.api}/auth/confirm?token=${encodeURIComponent(token)}`, token).pipe(
       catchError(error => this.httpErrorHandler.handle(error))
     );
   }
@@ -59,12 +59,20 @@ export class AuthService {
     const user = this.getStoredUser();
 
     if (user?.token && this.isTokenNotExpired(this.getExpire(user.token))) {
-      this.store.dispatch(AuthActions.loginLocalstorage({data: user}));
       return true;
     }
 
     this.saveLoginStateToLocalStorage(null);
     return false;
+  }
+
+  /** Puts the user stored in localStorage back into the store (call once at startup, e.g. after a page reload). */
+  restoreLoginState(): void {
+    const user = this.getStoredUser();
+
+    if (user && this.isLoginStateValid()) {
+      this.store.dispatch(AuthActions.loginLocalstorage({data: user}));
+    }
   }
 
   getAllRolesOfLoggedInUser(): RoleName[] {

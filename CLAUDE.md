@@ -12,12 +12,15 @@ Angular 21 frontend (standalone components, `bootstrapApplication`) for a shoppi
 npm start                                    # ng serve (development config)
 npm run build                                # ng build (default config: development)
 npm run build -- --configuration production  # production build (what the Dockerfile uses)
-npm test                                     # Karma + Jasmine (Chrome)
-npx ng test --include='**/foo.spec.ts'       # single spec file
+npm test                                     # Karma + Jasmine (Chrome, watch mode)
+npx ng test --watch=false --browsers=ChromeHeadless   # one-shot run (CI / scripts)
+npx ng test --watch=false --browsers=ChromeHeadless --include='**/foo.spec.ts'   # single spec file
 npx tsc --noEmit -p tsconfig.app.json        # quick type-check (also run by a Claude hook after .ts edits)
 ```
 
 There is no ESLint/Prettier setup; `.editorconfig` is the only style config.
+
+Specs use the shared providers in `src/app/testing/test-providers.ts` (`testProviders`: mock store with every feature's initial state, router, HTTP testing, translate, PrimeNG services) and `fakeToken()` from `src/app/testing/fake-token.ts` to build JWTs. Effects specs use `setupEffects()` from `src/app/testing/effects-testing.ts` (mocked actions, router, toast and translate; translate returns the key). `ng build` writes to `../../dotnet_api/wwwroot` (see `outputPath` in `angular.json`); pass `--output-path <dir>` to build elsewhere.
 
 ## Architecture
 

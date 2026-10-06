@@ -79,10 +79,10 @@ export class CategoryComponent implements OnInit {
     const formValue = this.categoryForm.getRawValue();
     const category: Category = {...formValue};
 
-    var text1 = this.getTranslation('category.text1');
-    var yes = this.getTranslation('global.yes');
-    var no = this.getTranslation('global.no');
-    var confirmation = this.getTranslation('global.confirmation');
+    const text1 = this.getTranslation('category.text1');
+    const yes = this.getTranslation('global.yes');
+    const no = this.getTranslation('global.no');
+    const confirmation = this.getTranslation('global.confirmation');
 
     this.confirmationService.confirm({
       target: event.target as EventTarget,

@@ -48,11 +48,11 @@ export class AvatarComponent implements OnInit, ControlValueAccessor {
     this.file = _file;
   }
 
-  registerOnChange(fn: any): void {
+  registerOnChange(fn: (value: string) => void): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {
+  registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 
@@ -78,7 +78,7 @@ export class AvatarComponent implements OnInit, ControlValueAccessor {
       data: image,
     });
 
-    this.ref.onClose.subscribe((result: any) => {
+    this.ref.onClose.subscribe((result: string | null | undefined) => {
       if (result) {
         this.file = result;
         this.onChange(this.file);

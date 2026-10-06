@@ -9,7 +9,7 @@ export const CategorysActions = createActionGroup({
   events: {
     'Load Categorys':  emptyProps(), 
     'Load Categorys Success': props<{ data: Category[] }>(),
-    'Load Categorys Failure': props<{ error: any }>(),
+    'Load Categorys Failure': props<{ error: HttpErrorResponse }>(),
  
     'Create Category': props<{ data: Category }>(),
     'Create Category Success': props<{ data: Category }>(),

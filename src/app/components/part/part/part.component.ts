@@ -75,8 +75,7 @@ export class PartComponent implements OnInit {
   private initEdit(partId: number) {
     this.edit = true;
     this.header = 'Modification de l\'article';
-    var categoryName  ='';
-
+    
     
     //const newObj = { name: "abc", category: 1};
     //this.logger.debug(newObj);
@@ -122,10 +121,10 @@ export class PartComponent implements OnInit {
       const formValue = this.partForm.getRawValue();
       const part: Part = {...formValue};
 
-      var text1 = this.getTranslation('part.text1');
-      var yes = this.getTranslation('global.yes');
-      var no = this.getTranslation('global.no');
-      var confirmation = this.getTranslation('global.confirmation');
+      const text1 = this.getTranslation('part.text1');
+      const yes = this.getTranslation('global.yes');
+      const no = this.getTranslation('global.no');
+      const confirmation = this.getTranslation('global.confirmation');
   
       this.confirmationService.confirm({
         target: event.target as EventTarget,

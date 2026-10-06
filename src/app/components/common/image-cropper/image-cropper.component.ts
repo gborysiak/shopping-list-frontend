@@ -37,9 +37,12 @@ export class ImageCropperComponent implements OnInit, AfterViewInit {
     });
   }
 
-  getRoundedCanvas(sourceCanvas: any) {
+  getRoundedCanvas(sourceCanvas: HTMLCanvasElement) {
     const canvas = document.createElement('canvas');
-    const context: any = canvas.getContext('2d');
+    const context = canvas.getContext('2d');
+    if (!context) {
+      return;
+    }
     const width = sourceCanvas.width;
     const height = sourceCanvas.height;
 
@@ -64,16 +67,8 @@ export class ImageCropperComponent implements OnInit, AfterViewInit {
 //get the cropped image and closes the dialog
 //returning an url or null if no image
   crop() {
-    const croppedCanvas = this.cropper.getCroppedCanvas();
-    const roundedCanvas = this.getRoundedCanvas(croppedCanvas);
-
-    let roundedImage = document.createElement('img');
-
-    if (roundedImage) {
-      this.ref.close(roundedCanvas.toDataURL('image/jpeg', 0.6));
-    } else {
-      return this.ref.close(null);
-    }
+    const roundedCanvas = this.getRoundedCanvas(this.cropper.getCroppedCanvas());
+    this.ref.close(roundedCanvas ? roundedCanvas.toDataURL('image/jpeg', 0.6) : null);
   }
 
 // resets the cropper

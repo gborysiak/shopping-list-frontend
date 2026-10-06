@@ -38,7 +38,7 @@ export class AuthService {
   }
 
   refreshToken(token: string) {
-    return this.httpClient.post<any>(`${this.api}/auth/refresh-token`, token).pipe(
+    return this.httpClient.post<User>(`${this.api}/auth/refresh-token`, token).pipe(
       catchError(error => this.httpErrorHandler.handle(error))
     );
   }

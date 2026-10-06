@@ -8,7 +8,7 @@ export const PartsActions = createActionGroup({
   events: {
     'Load Parts':  emptyProps(), 
     'Load Parts Success': props<{ data: Part[] }>(),
-    'Load Parts Failure': props<{ error: any }>(),
+    'Load Parts Failure': props<{ error: HttpErrorResponse }>(),
  
     'Create Part': props<{ data: Part }>(),
     'Create Part Success': props<{ data: Part }>(),

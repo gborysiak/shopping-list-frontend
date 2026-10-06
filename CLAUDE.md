@@ -11,9 +11,9 @@ Angular 21 frontend (standalone components, `bootstrapApplication`) for a shoppi
 ```bash
 npm start                                    # ng serve (development config)
 npm run build                                # ng build (default config: development)
-npm run build -- --configuration production  # production build (what the Dockerfile uses)
+npm run build -- --configuration production  # production build
 npm test                                     # Karma + Jasmine (Chrome, watch mode)
-npx ng test --watch=false --browsers=ChromeHeadless   # one-shot run (CI / scripts)
+npx ng test --watch=false --browsers=ChromeHeadless   # one-shot run (scripts)
 npx ng test --watch=false --browsers=ChromeHeadless --include='**/foo.spec.ts'   # single spec file
 npx tsc --noEmit -p tsconfig.app.json        # quick type-check (also run by a Claude hook after .ts edits)
 ```
@@ -31,10 +31,9 @@ Specs use the shared providers in `src/app/testing/test-providers.ts` (`testProv
 - **Environments**: `environment.ts` (dev, points at `https://localhost:7279/api`), `environment.prod.ts`, `environment.staging.ts` (swapped in via `fileReplacements` in `angular.json`). `enableDebugLogs` gates `logger.service.ts`.
 - **Components**: `src/app/components/` grouped by area (`einkaufszettel`, `part`, `category`, `categorys`, `archiv`, `auth`, `admin`, `settings`, `mobile`, `common`). `mobile/` holds the mobile-specific views (e.g. `mobile/addPart/:shoppingId`).
 
-## Build & deploy
-#The Dockerfile builds with `--configuration production` and serves the output with nginx (`nginx.conf`). The GitHub Actions workflow builds and pushes a multi-arch image to Docker Hub on push/PR to `main`.
+## Build & CI
 
-
+There is no Docker setup. The app is deployed by building into the sibling .NET project (`../../dotnet_api/wwwroot`, see `outputPath` in `angular.json`), which serves it. `.github/workflows/ci.yml` runs `npm ci`, a production build (with `--output-path dist`, since that sibling folder does not exist on the runner) and the tests on push and pull requests to `main`; it publishes nothing. CI runs the tests with the `ChromeHeadlessCI` launcher (no-sandbox) defined in `karma.conf.js`.
 
 ## Claude Code setup
 

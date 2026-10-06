@@ -24,8 +24,8 @@ export class CategoryComponent implements OnInit {
     id: [{value: '', disabled: true}, Validators.required],
 	  name: [{value: ''}, Validators.compose([Validators.required, Validators.minLength(1)])]
   });
-  edit: boolean = false;
-  header: string = '';
+  edit = false;
+  header = '';
 
   constructor(private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, private store: Store, 
     private confirmationService: ConfirmationService, private translate: TranslateService, private router: Router) {
@@ -102,7 +102,7 @@ export class CategoryComponent implements OnInit {
     });
   }
 
-  cancel(event: Event) {
+  cancel() {
     this.router.navigate(['/home']);
   } 
 }

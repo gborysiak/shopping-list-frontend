@@ -1,4 +1,4 @@
-import {Component, OnInit, DestroyRef, inject} from '@angular/core';
+import {Component, DestroyRef, inject} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {FormBuilder, FormGroup, Validators, FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
@@ -11,7 +11,6 @@ import {Category} from '@app/entities/Category';
 import {CategorysActions} from '@app/store/category/category.actions';
 import {selectAllCategory} from '@app/store/category/category.selectors';
 import {Select} from 'primeng/select';
-import {of, pipe} from 'rxjs';
 import {TranslateService, TranslatePipe} from '@ngx-translate/core';
 import {LoggerService} from "@app/service/logger.service";
 import {Bind} from 'primeng/bind';
@@ -22,7 +21,7 @@ import {Bind} from 'primeng/bind';
     styleUrl: './part.component.scss',
     imports: [FormsModule, ReactiveFormsModule, Bind, Select, TranslatePipe]
 })
-export class PartComponent implements OnInit {
+export class PartComponent {
   private readonly destroyRef = inject(DestroyRef);
 
   partForm: FormGroup = this.formBuilder.group({
@@ -31,10 +30,10 @@ export class PartComponent implements OnInit {
     category: [{value: ''}, Validators.compose([Validators.required, Validators.minLength(1)])]
   });
   
-  selectedCategory: string = ''; 
+  selectedCategory = ''; 
   categorylist!: Category[];
-  edit: boolean = false;
-  header: string = '';
+  edit = false;
+  header = '';
 
   constructor(private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, private store: Store, 
     private confirmationService: ConfirmationService, private translate: TranslateService, private router: Router,
@@ -58,9 +57,6 @@ export class PartComponent implements OnInit {
     }
 
 
-  }
-
-  ngOnInit(): void {
   }
 
   getTranslation(key: string): string {
@@ -109,7 +105,6 @@ export class PartComponent implements OnInit {
   
     delete(event: Event) {
       const formValue = this.partForm.getRawValue();
-      const part: Part = {...formValue};
 
       const text1 = this.getTranslation('part.text1');
       const yes = this.getTranslation('global.yes');
@@ -135,7 +130,7 @@ export class PartComponent implements OnInit {
       });
     }
     
-    cancel(event: Event) {
+    cancel() {
       this.router.navigate(['/home']);
     }
 }

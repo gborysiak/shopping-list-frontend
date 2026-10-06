@@ -11,9 +11,9 @@ import {TranslateService} from "@ngx-translate/core";
 @Injectable()
 export class AuthEffects {
   
-  private txtRegistration :string = 'auth.registration';
-  private txtAutherror :string = 'auth.autherror';
-  private message: string= '';
+  private txtRegistration  = 'auth.registration';
+  private txtAutherror  = 'auth.autherror';
+  private message= '';
 
   register$ = createEffect(() => {
     return this.actions$.pipe(
@@ -29,7 +29,7 @@ export class AuthEffects {
   registerSuccess$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.registerSuccess),
-      tap((action) => {
+      tap(() => {
         this.messageService.clear();
         this.message = this.translate.instant(this.txtRegistration);
         this.messageService.add({
@@ -83,7 +83,7 @@ export class AuthEffects {
   loginFailure = createEffect(() =>
     this.actions$.pipe(
       ofType(AuthActions.loginFailure),
-      tap((action) => {
+      tap(() => {
         this.messageService.clear();
         this.message = this.translate.instant(this.txtAutherror);
         this.messageService.add({
@@ -97,7 +97,7 @@ export class AuthEffects {
     return this.actions$.pipe(
       ofType(AuthActions.logout),
       map(() => AuthActions.logoutSuccess()),
-      tap(data => {
+      tap(() => {
         this.loginService.saveLoginStateToLocalStorage(null);
         this.router.navigateByUrl("/login");
       }),

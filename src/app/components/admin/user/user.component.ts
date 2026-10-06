@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {User} from "../../../entities/user";
 import {ActivatedRoute} from "@angular/router";
@@ -20,7 +20,7 @@ import { MultiSelect } from 'primeng/multiselect';
     styleUrls: ['./user.component.scss'],
     imports: [Bind, TableModule, PrimeTemplate, NgClass, NgStyle, FormsModule, MultiSelect, DatePipe]
 })
-export class UserComponent {
+export class UserComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
 
   allUsers: User[] = [];

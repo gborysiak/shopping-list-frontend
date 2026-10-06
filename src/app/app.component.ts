@@ -26,9 +26,9 @@ export class AppComponent implements OnInit {
   userLoggedIn: User | undefined;
   mobileMenuVisible = false;
   profileMenuVisible = false;
-  message: string= '';
-  yes: string = '';
-  no: string= '';
+  message= '';
+  yes = '';
+  no= '';
  
   constructor(private store: Store, private confirmationService: ConfirmationService, private translate: TranslateService,
     private title: Title, @Inject(LoggerService) private logger: LoggerService, private authService: AuthService ) {

@@ -13,9 +13,9 @@ import {navigateWithMessage} from '../navigate-with-message';
 export class PartEffects {
 
 
-  private txtCreated :string = 'part.created';
-  private txtUpdated :string = 'part.updated';
-  private txtDeleted :string = 'part.deleted';
+  private txtCreated  = 'part.created';
+  private txtUpdated  = 'part.updated';
+  private txtDeleted  = 'part.deleted';
   
   loadParts$ = createEffect(() => {
     return this.actions$.pipe(

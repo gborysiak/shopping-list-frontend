@@ -26,8 +26,8 @@ export class EditEinkaufszettelComponent implements OnInit {
     shoppingListItem: new FormControl<ShoppingListItem[] | null>([])
   });
 
-  edit: boolean = false;
-  header: string = '';
+  edit = false;
+  header = '';
 
   constructor(private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, private store: Store,
     private confirmationService: ConfirmationService, private translate: TranslateService, private logger: LoggerService ) {

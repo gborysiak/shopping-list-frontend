@@ -13,16 +13,16 @@ import {navigateWithMessage} from '../navigate-with-message';
 @Injectable()
 export class ShoppingListEffects {
 
-  private txtCreated :string = 'shoppinglist.created';
-  private txtUpdated :string = 'shoppinglist.updated';
-  private txtDeleted :string = 'shoppinglist.deleted';
-  private txtReset :string = 'shoppinglist.reseted';
+  private txtCreated  = 'shoppinglist.created';
+  private txtUpdated  = 'shoppinglist.updated';
+  private txtDeleted  = 'shoppinglist.deleted';
+  private txtReset  = 'shoppinglist.reseted';
 
 
-  private partCreated :string = 'part.created';
-  private partUpdated :string = 'part.updated';
-  private partDeleted :string = 'part.deleted';
-  private partArchived :string = 'part.archived';
+  private partCreated  = 'part.created';
+  private partUpdated  = 'part.updated';
+  private partDeleted  = 'part.deleted';
+  private partArchived  = 'part.archived';
 
 
   loadShoppingLists$ = createEffect(() => {

@@ -10,8 +10,8 @@ import {catchError, map, of, switchMap} from "rxjs";
     imports: [RouterLink]
 })
 export class RegistrationConfirmationComponent implements OnInit {
-  message: string = '';
-  error: boolean = false;
+  message = '';
+  error = false;
 
   constructor(
     private route: ActivatedRoute,

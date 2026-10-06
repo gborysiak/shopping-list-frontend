@@ -13,9 +13,9 @@ import {navigateWithMessage} from '../navigate-with-message';
 @Injectable()
 export class CategoryEffects {
 
-  private txtCreated :string = 'category.created';
-  private txtUpdated :string = 'category.updated';
-  private txtDeleted :string = 'category.deleted';
+  private txtCreated  = 'category.created';
+  private txtUpdated  = 'category.updated';
+  private txtDeleted  = 'category.deleted';
 
   loadCategorys$ = createEffect(() => {
     return this.actions$.pipe(

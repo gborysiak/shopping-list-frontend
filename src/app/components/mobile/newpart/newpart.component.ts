@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {Store} from "@ngrx/store";
 import {ShoppingListActions} from "../../../store/shoppinglist/shoppinglist.actions";
@@ -25,14 +25,14 @@ import { TranslatePipe } from '@ngx-translate/core';
     styleUrl: './newpart.component.scss',
     imports: [Bind, Accordion, AccordionPanel, Ripple, AccordionHeader, AccordionContent, Checkbox, RouterLink, TranslatePipe]
 })
-export class NewpartComponent {
+export class NewpartComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
 
-  shoppingListId: number = 0;
+  shoppingListId = 0;
   shoppingList: ShoppingList | null = null;
   categoryList!: CategoryVm[];
   selectedParts: Part[] = [];
-  iconVisible: boolean = false;
+  iconVisible = false;
 
   constructor(private store: Store, private activatedRoute: ActivatedRoute, private logger: LoggerService ) {
   }

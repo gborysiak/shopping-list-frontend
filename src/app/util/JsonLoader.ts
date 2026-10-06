@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { TranslateLoader } from '@ngx-translate/core';
+import { TranslateLoader, TranslationObject } from '@ngx-translate/core';
 import { Observable, of } from 'rxjs';
 import {LoggerService} from "../service/logger.service";
 
@@ -11,13 +11,13 @@ import deTranslations from '../../assets/i18n/de.json';
 
 @Injectable()
 export class JsonFileLoader implements TranslateLoader {
-  private translations: { [key: string]: any } = {
+  private translations: Record<string, TranslationObject> = {
     'en': enTranslations,
     'de': deTranslations,
     'fr': frTranslations  
   };
 
-  getTranslation(lang: string): Observable<any> { 
+  getTranslation(lang: string): Observable<TranslationObject> { 
     LoggerService.debug('$$ JsonFileLoader.getTranslation');
     // Return the imported translations for the requested language
     const translation = this.translations[lang];

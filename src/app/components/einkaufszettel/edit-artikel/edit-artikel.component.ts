@@ -31,9 +31,9 @@ export class EditArtikelComponent implements OnInit {
     purchased: ['', Validators.required]
   });
 
-  shoppingListId: number = 0;
-  edit: boolean = false;
-  header: string = '';
+  shoppingListId = 0;
+  edit = false;
+  header = '';
 
   constructor(private activatedRoute: ActivatedRoute, private formBuilder: FormBuilder, private store: Store,
     private confirmationService: ConfirmationService, private router: Router, private translate: TranslateService ) {

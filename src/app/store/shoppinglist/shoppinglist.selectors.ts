@@ -22,7 +22,7 @@ export const selectShoppingListById = (shoppingId: number) => createSelector(
 export const selectItemById = (shoppingId: number, itemId: number) => createSelector(
   selectShoppingListState,
   state => {
-    // @ts-ignore
+    // @ts-expect-error the list or its items may be undefined; callers rely on the item being there
     return state.shoppingList[state.shoppingList.findIndex(shoppingList => shoppingList.id === shoppingId)].shoppingListItem.filter(item => item.id === itemId)[0];
   }
 )

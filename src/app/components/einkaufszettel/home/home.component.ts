@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
   categoryList: CategoryVm[] = [];
   currentlyDragging: Part | null = null;
   selected: Part[] = [];
-  iconVisible: boolean = false;
+  iconVisible = false;
 
   constructor(private store: Store, private logger: LoggerService) {
   }

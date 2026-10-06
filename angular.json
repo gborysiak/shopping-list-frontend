@@ -65,7 +65,7 @@
               "sourceMap": true,
               "namedChunks": true
             },
-          "staging": {
+            "staging": {
               "optimization": true,
               "extractLicenses": false,
               "sourceMap": true,
@@ -115,12 +115,22 @@
             ],
             "scripts": []
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
   "cli": {
     "schematicCollections": [
+      "angular-eslint",
       "@ngrx/schematics"
     ],
     "analytics": "fcb992c5-3548-4f53-b5f8-e91681207cda"

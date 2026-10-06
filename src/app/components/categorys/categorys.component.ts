@@ -1,4 +1,4 @@
-import {Component, DestroyRef, inject} from '@angular/core';
+import {Component, DestroyRef, inject, OnInit} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {Store} from "@ngrx/store";
 import {MessageService} from "primeng/api";
@@ -19,7 +19,7 @@ import {RouterLink} from '@angular/router';
     styleUrl: './categorys.component.scss',
     imports: [Bind, Accordion, AccordionPanel, Ripple, AccordionHeader, RouterLink, AccordionContent]
 })
-export class CategorysComponent {
+export class CategorysComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
  
 

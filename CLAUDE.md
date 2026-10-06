@@ -16,9 +16,10 @@ npm test                                     # Karma + Jasmine (Chrome, watch mo
 npx ng test --watch=false --browsers=ChromeHeadless   # one-shot run (scripts)
 npx ng test --watch=false --browsers=ChromeHeadless --include='**/foo.spec.ts'   # single spec file
 npx tsc --noEmit -p tsconfig.app.json        # quick type-check (also run by a Claude hook after .ts edits)
+npm run lint                                 # ESLint (angular-eslint), also run in CI
 ```
 
-There is no ESLint/Prettier setup; `.editorconfig` is the only style config.
+ESLint is configured in `eslint.config.js`; there is no Prettier, `.editorconfig` is the only formatter config. `prefer-inject` is off on purpose (the codebase uses constructor injection) and the template accessibility rules (`elements-content`, `click-events-have-key-events`, `interactive-supports-focus`) are warnings, not errors, because fixing them needs UX decisions (icon-only buttons need labels).
 
 Specs use the shared providers in `src/app/testing/test-providers.ts` (`testProviders`: mock store with every feature's initial state, router, HTTP testing, translate, PrimeNG services) and `fakeToken()` from `src/app/testing/fake-token.ts` to build JWTs. Effects specs use `setupEffects()` from `src/app/testing/effects-testing.ts` (mocked actions, router, toast and translate; translate returns the key). `ng build` writes to `../../dotnet_api/wwwroot` (see `outputPath` in `angular.json`); pass `--output-path <dir>` to build elsewhere.
 

@@ -31,7 +31,7 @@ export const authReducer = createReducer(
   }),
 
   // logout
-  on(AuthActions.logout, (state, action) => {
+  on(AuthActions.logout, (state) => {
     return {...state, loginUser: null}
   }),
 );

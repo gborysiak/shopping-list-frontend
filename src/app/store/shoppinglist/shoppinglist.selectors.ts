@@ -27,4 +27,14 @@ export const selectItemById = (shoppingId: number, itemId: number) => createSele
   }
 )
 
-  
+export const selectShoppingListsWithParts = createSelector(
+  selectAllShoppingList,
+  selectAllPart,
+  (shoppingLists, parts) => shoppingLists.map(shoppingList => ({
+    ...shoppingList,
+    shoppingListItem: shoppingList.shoppingListItem?.map(item => {
+      const part = parts.find(p => p.id === item.partRefId);
+      return part ? {...item, part} : {...item};
+    })
+  }))
+);

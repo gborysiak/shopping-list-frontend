@@ -93,15 +93,8 @@ export class NewpartComponent {
   }
 
   private removeAlreadySelectedParts(categories: CategoryVm[], shoppingList: ShoppingList): CategoryVm[] {
-    const categoryList: CategoryVm[] = JSON.parse(JSON.stringify(categories));
-
-    categoryList.forEach(category => {
-      if (!category.parts) {
-        return;
-      }
-
-      const parts = Array.isArray(category.parts) ? category.parts : [category.parts];
-      category.parts = parts.filter(part => {
+    return categories.map(category => {
+      const parts = (category.parts ?? []).filter(part => {
         const alreadyInShoppingList = shoppingList.shoppingListItem?.some(item => part.id === item.partRefId) ?? false;
         if (alreadyInShoppingList) {
           this.logger.debug(part.name + ' deja dans la shoppinglist');
@@ -109,9 +102,8 @@ export class NewpartComponent {
         return !alreadyInShoppingList;
       });
 
-      this.logger.debug(category.name + ' > nb p ' + category.parts.length);
+      this.logger.debug(category.name + ' > nb p ' + parts.length);
+      return {...category, parts};
     });
-
-    return categoryList;
   }
 }

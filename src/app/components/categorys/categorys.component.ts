@@ -28,21 +28,8 @@ export class CategorysComponent {
     this.store.dispatch(PartsActions.loadParts());
     this.store.dispatch(CategorysActions.loadCategorys());
 
-    this.store.select(selectCategoryAndParts).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(category => {
-      this.categoryList = this.normalizeCategoryParts(category);
-    });
+    this.store.select(selectCategoryAndParts).pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(categories => this.categoryList = categories);
   }
 
-   private normalizeCategoryParts(categories: CategoryVm[]): CategoryVm[] {
-    const categoryList: CategoryVm[] = JSON.parse(JSON.stringify(categories));
-
-    categoryList.forEach(category => {
-      if (category.parts && !Array.isArray(category.parts)) {
-        category.parts = [category.parts];
-      }
-    });
-
-    return categoryList;
-  }
- 
 }

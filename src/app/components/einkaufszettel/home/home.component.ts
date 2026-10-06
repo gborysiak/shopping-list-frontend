@@ -2,16 +2,14 @@ import {Component, OnInit, DestroyRef, inject} from '@angular/core';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import { Store } from "@ngrx/store";
 import { ShoppingListActions } from "../../../store/shoppinglist/shoppinglist.actions";
-import { selectAllShoppingList } from "../../../store/shoppinglist/shoppinglist.selectors";
+import { selectShoppingListsWithParts } from "../../../store/shoppinglist/shoppinglist.selectors";
 import { Part } from "../../../entities/Part";
 import { ShoppingList } from "../../../entities/ShoppingList";
 import { ShoppingListItem } from '@app/entities/ShoppingListItem';
 import { CategorysActions } from '@app/store/category/category.actions';
 import { selectCategoryAndParts } from '@app/store/category/category.selectors';
 import { PartsActions } from '@app/store/part/part.actions';
-import { selectAllPart } from '@app/store/part/part.selector';
 import { CategoryVm } from '@app/entities/CategoryMv';
-import { combineLatest } from "rxjs";
 import { LoggerService } from "../../../service/logger.service";
 
 @Component({
@@ -41,44 +39,11 @@ export class HomeComponent implements OnInit {
     this.store.dispatch(PartsActions.loadParts());
     this.store.dispatch(CategorysActions.loadCategorys());
 
-    combineLatest([
-      this.store.select(selectAllShoppingList),
-      this.store.select(selectAllPart)
-    ]).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(([shoppingLists, parts]) => {
-      this.shoppingLists = this.enrichShoppingListsWithParts(shoppingLists, parts);
-    });
+    this.store.select(selectShoppingListsWithParts).pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(shoppingLists => this.shoppingLists = shoppingLists);
 
-    this.store.select(selectCategoryAndParts).pipe(takeUntilDestroyed(this.destroyRef)).subscribe(category => {
-      this.categoryList = this.normalizeCategoryParts(category);
-    });
-
-  }
-
-  private enrichShoppingListsWithParts(shoppingLists: ShoppingList[], parts: Part[]): ShoppingList[] {
-    const enrichedShoppingLists: ShoppingList[] = JSON.parse(JSON.stringify(shoppingLists));
-
-    enrichedShoppingLists.forEach(shoppingList => {
-      shoppingList.shoppingListItem?.forEach(item => {
-        const part = parts.find(part => part.id === item.partRefId);
-        if (part) {
-          item.part = part;
-        }
-      });
-    });
-
-    return enrichedShoppingLists;
-  }
-
-  private normalizeCategoryParts(categories: CategoryVm[]): CategoryVm[] {
-    const categoryList: CategoryVm[] = JSON.parse(JSON.stringify(categories));
-
-    categoryList.forEach(category => {
-      if (category.parts && !Array.isArray(category.parts)) {
-        category.parts = [category.parts];
-      }
-    });
-
-    return categoryList;
+    this.store.select(selectCategoryAndParts).pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(categories => this.categoryList = categories);
   }
 
   modifyItem(shoppingList: ShoppingList, item: ShoppingListItem) {
